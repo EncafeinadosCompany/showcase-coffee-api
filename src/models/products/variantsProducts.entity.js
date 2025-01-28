@@ -38,7 +38,12 @@ class VariantProductModel extends Model {
 
         this.hasMany(models.ProductModel, {foreignkey: 'productId'}
             
-        )
+        );
+
+        this.hasMany(models.SalesVariantModel, {
+            as: 'salesVariants',
+            foreignKey: 'id_variant_products'
+          });
     }
 
     static config(sequelize) {

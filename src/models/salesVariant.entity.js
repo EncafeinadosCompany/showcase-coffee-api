@@ -35,6 +35,11 @@ class SalesVariantModel extends Model{
           as: 'sale', 
           foreignKey: 'id_sales' 
         });
+
+        this.belongsTo(models.VariantProductModel, {
+            as: 'variantProduct',
+            foreignKey: 'id_variant_products'
+          });
       }
 
     static config(sequelize) {
