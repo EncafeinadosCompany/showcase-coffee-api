@@ -4,8 +4,7 @@ const STORE_TABLE = 'stores';
 
 const storeSchema = {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
         primaryKey: true,
     },
     name: {
@@ -32,6 +31,11 @@ class StoreModel extends Model {
         this.hasMany(models.ShoppingModel, {
             foreignKey: 'storeId',
             as: 'shoppings',
+        });
+
+        this.hasMany(models.StoreEmployeeModel, {
+            foreignKey: 'storeId',
+            as: 'employees',
         });
     }
 
