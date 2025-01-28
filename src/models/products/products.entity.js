@@ -4,6 +4,7 @@ const PRODUCTS_TABLE = 'products';
 
 const productSchema = {
     id: {
+        autoIncrement: true,
         type: DataTypes.INTEGER,
         primaryKey: true,
     },
@@ -12,19 +13,26 @@ const productSchema = {
         allowNull: false,
         unique: true
     },
-    id_brand: {
+    brandId: {
         type: DataTypes.UUID 
     }
 };
 
 class ProductModel extends Model {
-    
 
+    static associate (models){
+        
+        this.hasMany(models.BrandModel, {
+            foreignKey: 'brandId',
+            as: 'brands'
+        });
+    }
+    
     static config(sequelize) {
         return {
             sequelize,
             tableName: PRODUCTS_TABLE,
-            modelName: 'productModel',
+            modelName: 'ProductModel',
             timestamps: true
         };
     }
