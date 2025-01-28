@@ -1,8 +1,6 @@
-# showcase-coffee-api
 
 # showcase-coffee-api
 
-# Nombre del Proyecto
 
 Este software fue creado para desarrollar una API que se conecta a una base de datos llamada «nombre», la cual está construida utilizando el motor de base de datos **PostgreSQL.
 
@@ -24,20 +22,20 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 
 Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 
-1. Clona el repositorio:
+1. *Clona el repositorio*:
 
    ```bash
    git clone https://github.com/EncafeinadosCompany/showcase-coffee-api.git
 
-2. Instala las dependencias:
+2. *Instala las dependencias*:
     npm install
 
-3. Configura la base de datos:
+3. *Configura la base de datos*:
    - Asegúrate de tener PostgreSQL instalado y en ejecución.
    - Crea una base de datos con el nombre «nombre».
    - Configura las credenciales de la base de datos en el archivo de configuración del proyecto (por ejemplo, config.js o .env).
 
-4. Inicia el servidor:
+4. *Inicia el servidor*:
    bash
    npm start
    Esto iniciará la API en el puerto predeterminado (generalmente 3000).
