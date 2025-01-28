@@ -28,15 +28,10 @@ const storeSchema = {
 
 class StoreModel extends Model {
     static associate(models) {
-        this.hasMany(models.ShoppingModel, {
-            foreignKey: 'storeId',
-            as: 'shoppings',
-        });
-
-        this.hasMany(models.StoreEmployeeModel, {
-            foreignKey: 'storeId',
-            as: 'employees',
-        });
+    this.hasMany(models.ShoppingsModel, {
+        as: 'shoppings',
+        foreignKey: 'id_stores'
+      });
     }
 
     static config(sequelize) {

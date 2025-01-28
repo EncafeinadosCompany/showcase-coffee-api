@@ -31,7 +31,14 @@ class ShoppingsModel extends Model{
         as: 'variants',
         foreignKey: 'id_shopping'
       });
-  }    
+  }  
+  
+  static associate(models) {
+    this.belongsTo(models.StoreModel, {
+      as: 'store',
+      foreignKey: 'id_stores'
+    });
+  }
 
     static config(sequelize) {
         return {

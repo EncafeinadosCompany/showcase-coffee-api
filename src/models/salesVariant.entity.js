@@ -11,7 +11,7 @@ const saleVariantSchema= {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    id_products: {
+    id_variant_products: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
