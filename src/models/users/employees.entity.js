@@ -61,6 +61,11 @@ class EmployeeModel extends Model {
       constraints: false, 
       as: 'provider',
     });
+
+    this.hasMany(models.ShoppingsModel, {
+      as: 'shoppings',
+      foreignKey: 'id_employees'
+    });
   }
 
   static config(sequelize) {

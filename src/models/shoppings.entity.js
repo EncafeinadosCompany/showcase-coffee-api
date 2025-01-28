@@ -11,7 +11,7 @@ const shoppingSchema= {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    id_provider_employies: {
+    id_employees: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -36,8 +36,12 @@ class ShoppingsModel extends Model{
         as: 'store',
         foreignKey: 'id_stores'
       });
-  }  
-  
+
+      this.belongsTo(models.EmployeeModel, {
+        as: 'employee',
+        foreignKey: 'id_employees'
+      });
+  }   
   
 
     static config(sequelize) {
