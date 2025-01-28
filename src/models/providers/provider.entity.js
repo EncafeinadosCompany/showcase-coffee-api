@@ -6,6 +6,7 @@ const providerSchema = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     name: {
         type: DataTypes.STRING,
@@ -15,31 +16,52 @@ const providerSchema = {
     nit: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
     },
     email: {
         type: DataTypes.STRING,
-        unique: true,
+        allowNull: false,
     },
     phone: {
         type: DataTypes.STRING,
         allowNull: true,
+        allowNull: false,
     },
     address: {
         type: DataTypes.STRING,
         unique: true,
-    }
+        allowNull: false,
+    },
+    bank_account: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+    },
+    type_account: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    bank: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        unique: true,
+    },
+
 };
 
 class ProviderModel extends Model {
     static associate(models) {
 
         this.hasMany(models.Product_providerModel, {
-            foreignKey: 'providerId',
+            foreignKey: 'id',
             as: 'products', 
         });
 
-        this.hasMany(models.ProviderEmployeeModel, {
-            foreignKey: 'providerId',
+        this.hasMany(models.EmployeeModel, {
+            foreignKey: 'id',
             as: 'employees',
         });
     }

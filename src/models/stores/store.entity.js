@@ -6,6 +6,7 @@ const storeSchema = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     name: {
         type: DataTypes.STRING,
@@ -15,26 +16,38 @@ const storeSchema = {
     email: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
     },
     phone: {
         type: DataTypes.STRING,
         allowNull: true,
+        allowNull: false,
     },
     address: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
+    },
+    logo: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: true,
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
     }
 };
 
 class StoreModel extends Model {
     static associate(models) {
-        this.hasMany(models.ShoppingModel, {
-            foreignKey: 'storeId',
+        this.hasMany(models.ShoppingsModel, {
+            foreignKey: 'id',
             as: 'shoppings',
         });
 
-        this.hasMany(models.StoreEmployeeModel, {
-            foreignKey: 'storeId',
+        this.hasMany(models.EmployeeModel, {
+            foreignKey: 'id',
             as: 'employees',
         });
     }

@@ -7,7 +7,7 @@ const shoppingSchema= {
         primaryKey: true,
         autoIncrement: true,
     },
-    id_stores: {
+    id_store: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -34,12 +34,12 @@ class ShoppingsModel extends Model{
 
       this.belongsTo(models.StoreModel, {
         as: 'store',
-        foreignKey: 'id_stores'
+        foreignKey: 'id_store'
       });
 
       this.belongsTo(models.EmployeeModel, {
         as: 'employee',
-        foreignKey: 'id_employees'
+        foreignKey: 'id_employee'
       });
   }   
   

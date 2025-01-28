@@ -8,7 +8,7 @@ const productProviderSchema = {
         autoIncrement: true,
         primaryKey: true,
     },
-    providerId: {
+    id_provider: {
         type: DataTypes.INTEGER, 
         allowNull: false,
         references: {
@@ -16,7 +16,7 @@ const productProviderSchema = {
             key: 'id',
         },
     },
-    productId: {
+    id_product: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -27,6 +27,20 @@ const productProviderSchema = {
 };
 
 class Product_providerModel extends Model {
+    static associate(models) {
+
+        this.belongsTo(models.ProviderModel, {
+            as: 'providers',
+            foreignKey: 'id_provider'
+          });
+
+          this.belongsTo(models.ProductModel, {
+            as: 'products',
+            foreignKey: 'id_product'
+          });
+    }
+    
+
     static config(sequelize) {
         return {
             sequelize,
