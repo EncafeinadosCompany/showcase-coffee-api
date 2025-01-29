@@ -11,7 +11,7 @@ const saleVariantSchema= {
     id_sales: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        References:{
+        references:{
             model:'sales',
             key: 'id'
         }
@@ -19,7 +19,7 @@ const saleVariantSchema= {
     id_variant_products: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        References:{
+        references:{
             model:'variants_products',
             key: 'id'
         }
