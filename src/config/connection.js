@@ -9,7 +9,6 @@ if (!config) {
     throw new Error(`No se pudo cargar la configuración para el entorno: ${env}`);
 }
 
-console.log(config)
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 const connectToDatabase = async () => {

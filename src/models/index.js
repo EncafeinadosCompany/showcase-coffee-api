@@ -17,6 +17,9 @@ const { SalesVariantModel, saleVariantSchema } = require('./sales/salesVariant.e
 const { ShoppingsModel, shoppingSchema } = require('./shoppings/shoppings.entity');
 const { ShoppingVariantModel, shoppingVariantSchema } = require('./shoppings/shoppingVariant.entity');
 
+const { LiquidationModel, liquidationSchema } = require('./payments/liquidations.entity');
+const { DepositModel, depositSchema } = require('./payments/deposits.entity'); 
+
 
 const setupModels = (sequelize) => {
 
@@ -38,6 +41,9 @@ const setupModels = (sequelize) => {
     ShoppingsModel.init(shoppingSchema, ShoppingsModel.config(sequelize));
     ShoppingVariantModel.init(shoppingVariantSchema, ShoppingVariantModel.config(sequelize));
 
+    LiquidationModel.init(liquidationSchema, LiquidationModel.config(sequelize));
+    DepositModel.init(depositSchema, DepositModel.config(sequelize));
+
     SalesModel.init(saleSchema, SalesModel.config(sequelize));
     SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
 
@@ -46,6 +52,9 @@ const setupModels = (sequelize) => {
     // ProductModel.associate(sequelize.models)
     VariantProductModel.associate(sequelize.models)
     AttributeModel.associate(sequelize.models)
+
+    SalesModel.associate(sequelize.models)
+    SalesVariantModel.associate(sequelize.models)
 }
 
 module.exports = setupModels
