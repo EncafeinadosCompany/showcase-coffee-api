@@ -18,7 +18,8 @@ const brandSchema = {
 class BrandModel extends Model {
   static associate(models) {
     this.hasMany(models.ProductModel, {
-      foreignKey: "id_brand",
+      foreignKey: 'id_brand',
+      as:'products'
     });
   }
 
@@ -26,7 +27,7 @@ class BrandModel extends Model {
     return {
       sequelize,
       tableName: BRAND_TABLE,
-      modelName: "BrandModel",
+      modelName: 'BrandModel',
       timestamps: true,
     };
   }

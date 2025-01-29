@@ -30,8 +30,8 @@ module.exports = {
     await queryInterface.createTable(STORE_TABLE, storeSchema);
     await queryInterface.createTable(EMPLOYEE_TABLE, employeeSchema);
 
-    await queryInterface.createTable(PRODUCT_TABLE, productSchema);
     await queryInterface.createTable(BRAND_TABLE, brandSchema);
+    await queryInterface.createTable(PRODUCT_TABLE, productSchema);
     await queryInterface.createTable(ATTRIBUTE_TABLE, attributeSchema);
     await queryInterface.createTable(VARIANT_PRODUCT_TABLE, variantProductSchema);
     await queryInterface.createTable(PRODUCT_PROVIDER_TABLE, productProviderSchema);

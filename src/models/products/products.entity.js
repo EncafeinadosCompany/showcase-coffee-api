@@ -15,21 +15,25 @@ const productSchema = {
   },
   id_brand: {
     type: DataTypes.INTEGER,
+    references:{
+      model: 'brands', 
+      key: 'id',
+    },
   },
 };
 
 class ProductModel extends Model {
   static associate(models) {
-    this.belongsTo(models.BrandModel, { foreignKey: "id_brand" });
+    this.belongsTo(models.BrandModel, {foreignKey:'id_brand', as:'brand'});
 
-    this.hasMany(models.VariantProductModel, { foreignKey: "id_product" });
+    this.hasMany(models.VariantProductModel, { foreignKey: 'id_product' });
   }
 
   static config(sequelize) {
     return {
       sequelize,
       tableName: PRODUCT_TABLE,
-      modelName: "ProductModel",
+      modelName: 'ProductModel',
       timestamps: true,
     };
   }
