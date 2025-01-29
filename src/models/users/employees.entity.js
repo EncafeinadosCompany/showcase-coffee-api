@@ -1,5 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 const { USER_TABLE } = require('./users.entity');
+const { STORE_TABLE } = require('../stores/store.entity');
+const { PROVIDER_TABLE } = require('../providers/provider.entity');
 
 const EMPLOYEE_TABLE = 'employees';
 
@@ -97,6 +99,7 @@ class EmployeeModel extends Model {
       tableName: EMPLOYEE_TABLE,
       modelName: 'EmployeeModel',
       timestamps: true,
+
       hooks: {
         beforeValidate: (employee) => {
           if (employee.type === 'store') {
@@ -112,6 +115,7 @@ class EmployeeModel extends Model {
           }
         }
       }
+
     };
   }
 }
