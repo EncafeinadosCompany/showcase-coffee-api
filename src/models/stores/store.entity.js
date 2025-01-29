@@ -57,7 +57,7 @@ class StoreModel extends Model {
             sequelize,
             tableName: STORE_TABLE,
             modelName: 'StoreModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 }
