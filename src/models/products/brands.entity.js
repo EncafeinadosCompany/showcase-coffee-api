@@ -18,10 +18,10 @@ const brandScrema = {
 class BrandModel extends Model {
 
     static associate(models) {
-        this.belongsTo(models.ProductModel, {
-            foreignKey: 'brandId',
-            as: 'products',
-        });
+        
+        this.hasMany(models.ProductModel, {
+            foreignKey: 'id_brand'
+        });      
     }
 
     static config(sequelize) {

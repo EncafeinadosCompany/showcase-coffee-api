@@ -38,7 +38,7 @@ const employeeSchema = {
     allowNull: false,
   },
   type: {
-    type: DataTypes.ENUM('store', 'provider'), // Differentiates the type of entity 
+    type: DataTypes.ENUM('store', 'provider'), 
     allowNull: false,
   },
   idEntity: {
@@ -60,6 +60,11 @@ class EmployeeModel extends Model {
       foreignKey: 'idEntity',
       constraints: false, 
       as: 'provider',
+    });
+
+    this.hasMany(models.ShoppingsModel, {
+      as: 'shoppings',
+      foreignKey: 'id_employees'
     });
   }
 

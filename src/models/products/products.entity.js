@@ -13,8 +13,8 @@ const productSchema = {
         allowNull: false,
         unique: true
     },
-    brandId: {
-        type: DataTypes.UUID 
+    id_brand: {
+        type: DataTypes.INTEGER
     }
 };
 
@@ -22,10 +22,9 @@ class ProductModel extends Model {
 
     static associate (models){
         
-        this.hasMany(models.BrandModel, {
-            foreignKey: 'brandId',
-            as: 'brands'
-        });
+        this.belongsTo(models.BrandModel, {foreignKey:'id_brand'})
+      
+        this.hasMany(models.VariantProductModel, {foreignKey:'id_product'});
     }
     
     static config(sequelize) {

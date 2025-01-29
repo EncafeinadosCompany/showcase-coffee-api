@@ -6,7 +6,7 @@ const variantProductScrema = {
     id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        primaryKey: true
         
     },
     grammage: {
@@ -14,15 +14,15 @@ const variantProductScrema = {
         allowNull: true,
         unique: true
     },
-    productId:{
+    id_product:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     imageId:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    brandId:{
+    id_brand:{
         type: DataTypes.INTEGER,
         allowNull: true
     }
@@ -35,10 +35,16 @@ class VariantProductModel extends Model {
             through: 'attributes_products',
             foreignKey: 'variantId',
             as: 'attributes',
-        });
+        })
 
-        this.hasMany(models.ProductModel, {foreignkey: 'productId'}        
-        )
+        this.belongsTo(models.ProductModel, {foreignKey:'id_product'});
+
+
+        //    this.hasMany(models.VariantProductModel, {foreignkey:'id_product'});
+        // this.hasMany(models.SalesVariantModel, {
+        //     as: 'salesVariants',
+        //     foreignKey: 'id_variant_products'
+        //   });
     }
 
     static config(sequelize) {
