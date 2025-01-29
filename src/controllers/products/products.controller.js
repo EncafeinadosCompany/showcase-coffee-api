@@ -2,7 +2,6 @@ class ProductController {
 
     constructor(productService) {
         this.productService = productService;
-        console.log(this.authService)
     }
 
     create = async( req , res) =>{
