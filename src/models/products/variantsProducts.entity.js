@@ -10,7 +10,7 @@ const variantProductSchema = {
     autoIncrement: true,
   },
   grammage: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(10),
     allowNull: true,
     unique: true,
   },

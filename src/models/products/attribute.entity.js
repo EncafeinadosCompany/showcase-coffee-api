@@ -9,7 +9,7 @@ const attributeSchema = {
         primaryKey: true,
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: true,
         unique: true,
     }
