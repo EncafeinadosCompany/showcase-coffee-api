@@ -33,6 +33,11 @@ class VariantProductModel extends Model {
 
     this.belongsTo(models.ProductModel, { foreignKey: "id_product" });
 
+    this.hasMany(models.ImageVariantModel, {
+      as: 'productImages',
+      foreignKey: 'id_product'
+      });
+
     //    this.hasMany(models.VariantProductModel, {foreignkey:'id_product'});
     // this.hasMany(models.SalesVariantModel, {
     //     as: 'salesVariants',
