@@ -18,7 +18,7 @@ const attributeSchema = {
 class AttributeModel extends Model {
 
     static associate(models) {
-        this.belongsToMany(models.ProductModel, { through:models.attributes_products, foreignKey:'id_attribute', otherKey:'id_product'});   
+        this.belongsToMany(models.ProductModel, { through:'attributes_products', foreignKey:'id_attribute', otherKey:'id_product'});   
     }
 
     static config(sequelize) {

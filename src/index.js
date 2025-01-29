@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const { connectToDatabase } = require('./config/connection')
-
+const { connectToDatabase } = require('./config/connection');
+const routerApi = require('./routes');
 require('dotenv').config();
 
 class Server {
@@ -10,6 +10,7 @@ class Server {
         this.port = process.env.PORT;
         this.host = process.env.DB_HOST;
 
+        
         this.middlewares();
         this.routers();
         this.syncDataBase();
@@ -21,7 +22,7 @@ class Server {
         this.app.use(express.json());
     };
 
-
+    
     async syncDataBase() {
         try {
             await connectToDatabase();
