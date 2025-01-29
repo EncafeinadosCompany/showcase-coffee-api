@@ -2,12 +2,12 @@ const { DataTypes, Model } = require("sequelize");
 
 const VARIANT_PRODUCT_TABLE = "variants_products";
 
-const variantProductScrema = {
+const variantProductSchema = {
   id: {
-    autoIncrement: true,
     type: DataTypes.INTEGER,
     primaryKey: true,
-  },
+    autoIncrement: true,
+},
   grammage: {
     type: DataTypes.STRING,
     allowNull: true,
@@ -34,10 +34,10 @@ class VariantProductModel extends Model {
     this.belongsTo(models.ProductModel, { foreignKey: "id_product" });
 
     //    this.hasMany(models.VariantProductModel, {foreignkey:'id_product'});
-    // this.hasMany(models.SalesVariantModel, {
-    //     as: 'salesVariants',
-    //     foreignKey: 'id_variant_products'
-    //   });
+    this.hasMany(models.SalesVariantModel, {
+        as: 'salesVariants',
+        foreignKey: 'id_variant_products'
+      });
   }
 
   static config(sequelize) {
@@ -52,6 +52,6 @@ class VariantProductModel extends Model {
 
 module.exports = {
   VARIANT_PRODUCT_TABLE,
-  variantProductScrema,
+  variantProductSchema,
   VariantProductModel,
 };
