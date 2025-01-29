@@ -1,4 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
+const {VARIANT_PRODUCT_TABLE} = require('../products/variantsProducts.entity')
 
 const IMAGE_VARIANTS_TABLE = 'image_variants';
 
@@ -11,6 +12,10 @@ const imageVariantSchema = {
     id_product: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: VARIANT_PRODUCT_TABLE, 
+            key: 'id_product',
+        },
     },
     image_url: {
         type: DataTypes.STRING,
