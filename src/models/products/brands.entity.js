@@ -18,7 +18,7 @@ const brandScrema = {
 class BrandModel extends Model {
 
     static associate(models) {
-        this.belongsTo(models.productModel, {
+        this.belongsTo(models.ProductModel, {
             foreignKey: 'brandId',
             as: 'products',
         });

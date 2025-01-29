@@ -31,13 +31,13 @@ const variantProductScrema = {
 class VariantProductModel extends Model {
     static associate(models) {
 
-        this.belongsToMany(models.AttributesModel, {
+        this.belongsToMany(models.AttributeModel, {
             through: 'attributes_products',
+            foreignKey: 'variantId',
             as: 'attributes',
         });
 
-        this.hasMany(models.ProductModel, {foreignkey: 'productId'}
-            
+        this.hasMany(models.ProductModel, {foreignkey: 'productId'}        
         )
     }
 
