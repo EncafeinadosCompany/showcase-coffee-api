@@ -8,7 +8,7 @@ const { EmployeeModel, employeeSchema } = require('./users/employees.entity');
 const { ProductModel, productSchema } = require('./products/products.entity');
 const { BrandModel, brandSchema } = require('./products/brands.entity');
 const { AttributeModel, attributeSchema } = require('./products/attribute.entity');
-const { AttributeProductModel, attributeSchema} = require('./products/attributesProducts.entity')
+const { AttributeProductModel, attributeProductSchema} = require('./products/attributesProducts.entity')
 
 const { VariantProductModel, variantProductSchema } = require('./products/variantsProducts.entity');
 const { Product_providerModel, productProviderSchema } = require('./providers/products_providers.entity');
@@ -35,6 +35,7 @@ const setupModels = (sequelize) => {
     ProductModel.init(productSchema, ProductModel.config(sequelize));
     BrandModel.init(brandSchema, BrandModel.config(sequelize));
     AttributeModel.init(attributeSchema, AttributeModel.config(sequelize));
+    AttributeProductModel.init(attributeProductSchema, AttributeProductModel.config(sequelize));
 
     VariantProductModel.init(variantProductSchema, VariantProductModel.config(sequelize));
     ImageVariantModel.init(imageVariantSchema, ImageVariantModel.config(sequelize));
@@ -56,9 +57,9 @@ const setupModels = (sequelize) => {
     // Relationships
     // BrandModel.associate(sequelize.models)
     // ProductModel.associate(sequelize.models)
-    VariantProductModel.associate(sequelize.models)
-    AttributeModel.associate(sequelize.models)
-    AttributeProductModel.associate(sequelize.models)
+    // VariantProductModel.associate(sequelize.models)
+    // AttributeModel.associate(sequelize.models)
+    // AttributeProductModel.associate(sequelize.models)
 
     SalesModel.associate(sequelize.models)
     SalesVariantModel.associate(sequelize.models)

@@ -1,8 +1,8 @@
 
 
 const {ProductModel} = require('../../models/products/products.entity')
-const {BrandModel} = require('../../models/brands/brands.entity')
-console.log(Product)
+const {BrandModel} = require('../../models/products/brands.entity')
+
 
 class ProductsRepository {
 

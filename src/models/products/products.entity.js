@@ -29,7 +29,7 @@ class ProductModel extends Model {
     this.belongsTo(models.BrandModel, { foreignKey: "id_brand", as: "brand" });
 
     this.belongsToMany(models.AttributeModel, {
-      through: models.attributes_products,
+      through: 'attributes_products',
       foreignKey: "id_product",
       otherKey: "id_attribute",
     });

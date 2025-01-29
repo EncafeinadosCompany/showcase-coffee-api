@@ -1,11 +1,9 @@
 class ProductService {
     constructor (
         productRepository,
-        brandRepository = null,
 
     ){
-        this.productRepository = productRepository,
-        this.brandRepository = brandRepository
+        this.productRepository = productRepository
     }
 
     getAll = async() =>{
