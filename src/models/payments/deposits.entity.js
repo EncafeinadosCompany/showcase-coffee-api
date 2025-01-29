@@ -29,7 +29,11 @@ const depositSchema = {
 
     id_liquidation: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: "liquidations",
+            key: "id",
+          },
     }
 }
 

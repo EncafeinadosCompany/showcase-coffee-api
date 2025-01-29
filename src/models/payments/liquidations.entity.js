@@ -18,14 +18,18 @@ const liquidationSchema = {
     },
     id_shopping: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: "shoppings",
+            key: "id",
+        },
     }
 }
 
 class LiquidationModel extends Model {
 
     static associate(models) {
-        this.hasMany(models.DepositsModel, {
+        this.hasMany(models.DepositModel, {
             foreignKey: 'id_liquidation',
             as: 'deposits',
         });
