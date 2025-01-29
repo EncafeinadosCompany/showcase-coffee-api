@@ -22,7 +22,7 @@ class Server {
     };
 
     routerApi() {
-        routerApi(this.app);  // Llama correctamente a routerApi pasándole app
+        routerApi(this.app);
     }
 
     
