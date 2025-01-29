@@ -1,41 +1,38 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require("sequelize");
 
-const PRODUCTS_TABLE = 'products';
+const PRODUCT_TABLE = "products";
 
 const productSchema = {
-    id: {
-        autoIncrement: true,
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    },
-    brandId: {
-        type: DataTypes.UUID 
-    }
+  id: {
+    autoIncrement: true,
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  id_brand: {
+    type: DataTypes.INTEGER,
+  },
 };
 
 class ProductModel extends Model {
+  static associate(models) {
+    this.belongsTo(models.BrandModel, { foreignKey: "id_brand" });
 
-    static associate (models){
-        
-        this.hasMany(models.BrandModel, {
-            foreignKey: 'brandId',
-            as: 'brands'
-        });
-    }
-    
-    static config(sequelize) {
-        return {
-            sequelize,
-            tableName: PRODUCTS_TABLE,
-            modelName: 'ProductModel',
-            timestamps: true
-        };
-    }
+    this.hasMany(models.VariantProductModel, { foreignKey: "id_product" });
+  }
+
+  static config(sequelize) {
+    return {
+      sequelize,
+      tableName: PRODUCT_TABLE,
+      modelName: "ProductModel",
+      timestamps: true,
+    };
+  }
 }
 
-module.exports = { PRODUCTS_TABLE, productSchema, ProductModel };
+module.exports = { PRODUCT_TABLE, productSchema, ProductModel };
