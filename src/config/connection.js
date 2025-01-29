@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 const dbConfig = require('./database');
+const setupModels = require('../models');
 
 const env = process.env.NODE_ENV ;
 
@@ -10,6 +11,8 @@ if (!config) {
 }
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+
+setupModels(sequelize);
 
 const connectToDatabase = async () => {
     try {
