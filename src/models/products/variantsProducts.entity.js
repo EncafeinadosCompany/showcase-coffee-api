@@ -2,7 +2,7 @@ const { DataTypes, Model } = require("sequelize");
 
 const VARIANT_PRODUCT_TABLE = "variants_products";
 
-const variantProductScrema = {
+const variantProductSchema = {
   id: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
@@ -16,6 +16,10 @@ const variantProductScrema = {
   id_product: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    references:{
+      model:'products',
+      key:'id'
+    }
   },
   imageId: {
     type: DataTypes.INTEGER,
@@ -24,12 +28,16 @@ const variantProductScrema = {
   id_brand: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    references:{
+      model:'brands',
+      key:'id'
+    }
   },
 };
 
 class VariantProductModel extends Model {
   static associate(models) {
-    this.belongsToMany(models.AttributeModel, {through:"attributes_products"});
+    this.belongsToMany(models.AttributeModel, {through:models.attributes_products, foreignKey:'id_variant', otherKey:'id_attribute'});
 
     this.belongsTo(models.ProductModel, { foreignKey: "id_product" });
 
@@ -52,6 +60,6 @@ class VariantProductModel extends Model {
 
 module.exports = {
   VARIANT_PRODUCT_TABLE,
-  variantProductScrema,
+  variantProductSchema,
   VariantProductModel,
 };
