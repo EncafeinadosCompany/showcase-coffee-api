@@ -42,12 +42,12 @@ const storeSchema = {
 class StoreModel extends Model {
     static associate(models) {
         this.hasMany(models.ShoppingsModel, {
-            foreignKey: 'id',
+            foreignKey: 'id_store',
             as: 'shoppings',
         });
 
         this.hasMany(models.EmployeeModel, {
-            foreignKey: 'id',
+            foreignKey: 'id_entity',
             as: 'employees',
         });
     }
