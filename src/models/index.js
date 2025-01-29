@@ -39,14 +39,15 @@ const setupModels = (sequelize) => {
 
     Product_providerModel.init(productProviderSchema, Product_providerModel.config(sequelize));
 
+    SalesModel.init(saleSchema, SalesModel.config(sequelize));
+    SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
+
     ShoppingsModel.init(shoppingSchema, ShoppingsModel.config(sequelize));
     ShoppingVariantModel.init(shoppingVariantSchema, ShoppingVariantModel.config(sequelize));
 
     LiquidationModel.init(liquidationSchema, LiquidationModel.config(sequelize));
     DepositModel.init(depositSchema, DepositModel.config(sequelize));
-
-    SalesModel.init(saleSchema, SalesModel.config(sequelize));
-    SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
+    
 
     
     

@@ -36,6 +36,11 @@ class UserModel extends Model {
             foreignKey: 'id_role',
             as: 'role',
         });
+
+        this.hasMany(models.EmployeeModel, {
+            as: 'id_user',
+            foreignKey: 'employees'
+          });
     }
 
     static config(sequelize) {

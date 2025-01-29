@@ -8,11 +8,15 @@ const employeeSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  idUser: {
+  id_user: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: "users",
+      key: "id",
+    },
   },
-  cedula: {
+  identification: {
     type: DataTypes.STRING,
     unique: true,
     allowNull: false,
@@ -38,27 +42,36 @@ const employeeSchema = {
     allowNull: false,
   },
   type: {
-    type: DataTypes.ENUM('store', 'provider'), 
+    type: DataTypes.ENUM('store', 'provider'),
     allowNull: false,
   },
-  idEntity: {
+  id_entity: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  status: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
   },
 };
 
 class EmployeeModel extends Model {
   static associate(models) {
 
+    this.belongsTo(models.UserModel, {
+      foreignKey: 'id_user',
+      as: 'user',
+  });
+
     this.belongsTo(models.StoreModel, {
-      foreignKey: 'idEntity',
+      foreignKey: 'id_entity',
       constraints: false,
       as: 'store',
     });
 
     this.belongsTo(models.ProviderModel, {
-      foreignKey: 'idEntity',
-      constraints: false, 
+      foreignKey: 'id_entity',
+      constraints: false,
       as: 'provider',
     });
 
