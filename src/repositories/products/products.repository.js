@@ -7,7 +7,15 @@ const {BrandModel} = require('../../models/products/brands.entity')
 class ProductsRepository {
   constructor() {}
   async getAll() {
-    const products = await ProductModel.findAll();
+    const products = await ProductModel.findAll({
+      include: [
+        {
+          model: BrandModel,
+          as: "brand", // Alias definido en la relación
+          attributes: ["description"], // Campos que quieres traer de brands
+        },
+      ],
+    });
     return products;
   }
 
