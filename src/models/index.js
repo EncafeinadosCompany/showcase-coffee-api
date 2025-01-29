@@ -52,6 +52,9 @@ const setupModels = (sequelize) => {
     ProductModel.associate(sequelize.models)
     VariantProductModel.associate(sequelize.models)
     AttributeModel.associate(sequelize.models)
+
+    SalesModel.associate(sequelize.models)
+    SalesVariantModel.associate(sequelize.models)
 }
 
 module.exports = setupModels
