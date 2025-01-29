@@ -1,4 +1,4 @@
-const Server = require('./src/index1');
+const Server = require('./src/index');
 
 const startServer = async () => {
     try {
