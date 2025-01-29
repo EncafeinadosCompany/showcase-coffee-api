@@ -36,8 +36,7 @@ class LiquidationModel extends Model {
     
         this.belongsTo(models.ShoppingsModel, {
             foreignKey: 'id_shopping',
-            as: 'shopping',
-                             
+            as: 'shoppings',                      
     });
     }
 

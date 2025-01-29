@@ -45,7 +45,7 @@ const employeeSchema = {
     type: DataTypes.ENUM('store', 'provider'),
     allowNull: false,
   },
-  idEntity: {
+  id_entity: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
