@@ -10,9 +10,8 @@ class Server {
         this.port = process.env.PORT;
         this.host = process.env.DB_HOST;
 
-        
+        this.routerApi();
         this.middlewares();
-        this.routers();
         this.syncDataBase();
     };
 
@@ -21,6 +20,10 @@ class Server {
 
         this.app.use(express.json());
     };
+
+    routerApi() {
+        routerApi(this.app);  // Llama correctamente a routerApi pasándole app
+    }
 
     
     async syncDataBase() {
