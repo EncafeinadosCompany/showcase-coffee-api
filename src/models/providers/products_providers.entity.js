@@ -1,4 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
+const {PROVIDER_TABLE} = require('../providers/provider.entity')
+
 
 const PRODUCT_PROVIDER_TABLE = 'products_providers';
 
@@ -12,7 +14,7 @@ const productProviderSchema = {
         type: DataTypes.INTEGER, 
         allowNull: false,
         references: {
-            model: 'providers', 
+            model: PROVIDER_TABLE, 
             key: 'id',
         },
     },
@@ -30,7 +32,7 @@ class Product_providerModel extends Model {
     static associate(models) {
 
         this.belongsTo(models.ProviderModel, {
-            as: 'providers',
+            as: PROVIDER_TABLE,
             foreignKey: 'id_provider'
           });
 

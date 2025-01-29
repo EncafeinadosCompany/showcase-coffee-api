@@ -13,7 +13,6 @@ class Server {
         this.middlewares();
         this.routers();
         this.syncDataBase();
-
     };
 
     middlewares() {
@@ -22,7 +21,6 @@ class Server {
         this.app.use(express.json());
     };
 
-    routers(){ }
 
     async syncDataBase() {
         try {

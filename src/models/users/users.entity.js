@@ -1,4 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
+const { ROLE_TABLE } = require('./roles.entity');
 
 const USER_TABLE = 'users';
 
@@ -21,7 +22,7 @@ const userSchema = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "roles",
+            model: ROLE_TABLE,
             key: "id",
         },
         onUpdate: 'CASCADE',

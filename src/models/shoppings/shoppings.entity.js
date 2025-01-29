@@ -1,4 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
+const { STORE_TABLE } = require('../stores/store.entity');
+const { EMPLOYEE_TABLE } = require('../users/employees.entity');
 
 const SHOPPING_TABLE= 'shoppings';
 
@@ -11,10 +13,18 @@ const shoppingSchema= {
     id_store: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references:{
+            model:STORE_TABLE,
+            key: 'id'
+        }
     },
     id_employees: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references:{
+            model: EMPLOYEE_TABLE,
+            key: 'id'
+        }
     },
     date_entry: {
         type: DataTypes.DATE,
@@ -50,7 +60,6 @@ class ShoppingsModel extends Model{
       });
   }   
   
-
     static config(sequelize) {
         return {
             sequelize,

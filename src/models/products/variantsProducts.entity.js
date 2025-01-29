@@ -26,6 +26,10 @@ const variantProductSchema = {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  id_brand: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
 };
 
 class VariantProductModel extends Model {
