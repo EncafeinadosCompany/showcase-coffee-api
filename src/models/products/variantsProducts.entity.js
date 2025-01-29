@@ -30,11 +30,7 @@ const variantProductSchema = {
 
 class VariantProductModel extends Model {
   static associate(models) {
-    this.belongsToMany(models.AttributeModel, {
-      through: models.attributes_products,
-      foreignKey: "id_variant",
-      otherKey: "id_attribute",
-    });
+   
 
     this.belongsTo(models.ProductModel, { foreignKey: "id_product" });
 

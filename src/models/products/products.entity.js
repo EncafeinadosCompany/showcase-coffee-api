@@ -28,6 +28,12 @@ class ProductModel extends Model {
   static associate(models) {
     this.belongsTo(models.BrandModel, { foreignKey: "id_brand", as: "brand" });
 
+    this.belongsToMany(models.AttributeModel, {
+      through: models.attributes_products,
+      foreignKey: "id_product",
+      otherKey: "id_attribute",
+    });
+
     this.hasMany(models.VariantProductModel, { foreignKey: "id_product" });
   }
 
