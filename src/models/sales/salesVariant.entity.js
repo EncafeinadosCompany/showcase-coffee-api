@@ -43,6 +43,7 @@ const saleVariantSchema= {
 
 class SalesVariantModel extends Model{
     static associate(models) {
+
         this.belongsTo(models.SalesModel, { 
           as: 'sale', 
           foreignKey: 'id_sales' 

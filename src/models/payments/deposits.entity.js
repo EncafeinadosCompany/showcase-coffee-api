@@ -42,7 +42,7 @@ class DepositModel extends Model {
     static associate(models) {
         this.belongsTo(models.LiquidationModel, {
             foreignKey: 'id_liquidation',
-            as: 'liquidation',
+            as: 'liquidations',
         });
     }
 

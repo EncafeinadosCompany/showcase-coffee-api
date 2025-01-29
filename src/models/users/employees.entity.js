@@ -45,28 +45,32 @@ const employeeSchema = {
     type: DataTypes.ENUM('store', 'provider'),
     allowNull: false,
   },
-  idEntity: {
+  id_entity: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+  status: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
   },
 };
 
 class EmployeeModel extends Model {
   static associate(models) {
 
-    this.belongsTo(models.RoleModel, {
+    this.belongsTo(models.UserModel, {
       foreignKey: 'id_user',
       as: 'user',
   });
 
     this.belongsTo(models.StoreModel, {
-      foreignKey: 'idEntity',
+      foreignKey: 'id_entity',
       constraints: false,
       as: 'store',
     });
 
     this.belongsTo(models.ProviderModel, {
-      foreignKey: 'idEntity',
+      foreignKey: 'id_entity',
       constraints: false,
       as: 'provider',
     });
