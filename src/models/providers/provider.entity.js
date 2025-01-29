@@ -61,7 +61,7 @@ class ProviderModel extends Model {
         });
 
         this.hasMany(models.EmployeeModel, {
-            foreignKey: 'id_entity',
+            foreignKey: 'id_provider',
             as: 'employees',
         });
     }

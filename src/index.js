@@ -13,7 +13,6 @@ class Server {
         this.middlewares();
         this.routers();
         this.syncDataBase();
-
     };
 
     middlewares() {
