@@ -53,5 +53,7 @@ class DepositModel extends Model {
     }
 }
 
+module.exports = {DEPOSIT_TABLE, depositSchema, DepositModel};
+
 
 
