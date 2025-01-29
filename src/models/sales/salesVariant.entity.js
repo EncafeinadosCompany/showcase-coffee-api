@@ -1,4 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
+const { VARIANT_PRODUCT_TABLE } = require('../products/variantsProducts.entity')
+const { SALE_TABLE } = require('./sales.entity')
+
 
 const SALE_VARIANT_TABLE= 'sales_variant'; 
 
@@ -12,7 +15,7 @@ const saleVariantSchema= {
         type: DataTypes.INTEGER,
         allowNull: false,
         references:{
-            model:'sales',
+            model:SALE_TABLE,
             key: 'id'
         }
     },
@@ -20,7 +23,7 @@ const saleVariantSchema= {
         type: DataTypes.INTEGER,
         allowNull: false,
         references:{
-            model:'variants_products',
+            model:VARIANT_PRODUCT_TABLE,
             key: 'id'
         }
     },
