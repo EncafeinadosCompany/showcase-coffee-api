@@ -1,4 +1,4 @@
-const { DateTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 
 const ROLE_TABLE = 'roles';
 
@@ -12,6 +12,10 @@ const roleSchema = {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
     },
 };
 

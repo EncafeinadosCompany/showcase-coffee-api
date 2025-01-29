@@ -1,8 +1,8 @@
-const {DataTypes, Model} = require('sequelize')
+const { DataTypes, Model } = require('sequelize');
 
-const VARIANTS_PRODUCTS_TABLE = 'variants_products'
+const VARIANT_PRODUCT_TABLE = 'variants_products'
 
-const variantProductScrema = {
+const variantProductSchema = {
     id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
@@ -49,11 +49,11 @@ class VariantProductModel extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: VARIANTS_PRODUCTS_TABLE,
+            tableName: VARIANT_PRODUCT_TABLE,
             modelName: 'VariantProductModel',
             timestamps: true
         };
     }
 }
 
-module.exports = {VARIANTS_PRODUCTS_TABLE, variantProductScrema, VariantProductModel};
+module.exports = {VARIANT_PRODUCT_TABLE, variantProductSchema, VariantProductModel};

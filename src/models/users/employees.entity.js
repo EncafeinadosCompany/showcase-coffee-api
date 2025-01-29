@@ -17,7 +17,7 @@ const employeeSchema = {
     unique: true,
     allowNull: false,
   },
-  cargo: {
+  position: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -29,7 +29,7 @@ const employeeSchema = {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  telefono: {
+  phone: {
     type: DataTypes.STRING,
     allowNull: false,
   },

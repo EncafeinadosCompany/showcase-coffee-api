@@ -1,4 +1,5 @@
-const {DataTypes, Model} = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
+
 const SHOPPING_TABLE= 'shoppings';
 
 const shoppingSchema= {

@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 
-const STORE_TABLE = 'providers';
+const PROVIDER_TABLE = 'providers';
 
 const providerSchema = {
     id: {

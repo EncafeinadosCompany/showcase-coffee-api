@@ -1,6 +1,6 @@
-const {DataType, Model} = require('sequelize')
+const { DataTypes, Model } = require('sequelize');
 
-const ATRIBUTE_TABLE = 'attribute_variants'
+const ATTRIBUTE_TABLE = 'attribute_variants'
 
 const attributeSchema = {
     id: {
@@ -27,11 +27,11 @@ class AttributeModel extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: ATRIBUTE_TABLE,
+            tableName: ATTRIBUTE_TABLE,
             modelName: 'AttributeModel',
             timestamps: true
         };
     }
 }
 
-module.exports = {ATRIBUTE_TABLE, attributeSchema, AttributeModel};
+module.exports = {ATTRIBUTE_TABLE, attributeSchema, AttributeModel};
