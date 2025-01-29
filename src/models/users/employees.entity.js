@@ -50,7 +50,7 @@ const employeeSchema = {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'stores',
+      model: STORE_TABLE,
       key: 'id'
     }
   },
@@ -58,7 +58,7 @@ const employeeSchema = {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'providers',
+      model: PROVIDER_TABLE,
       key: 'id'
     }
   },
