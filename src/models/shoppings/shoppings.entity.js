@@ -28,10 +28,16 @@ const shoppingSchema= {
 
 class ShoppingsModel extends Model{
     static associate(models) {
+
     this.hasMany(models.ShoppingVariantModel, {
         as: 'variants',
         foreignKey: 'id_shopping'
       });
+
+    this.hasMany(models.LiquidationModel, {
+        as: 'liquidations',
+        foreignKey: 'id_shopping'
+        });
 
       this.belongsTo(models.StoreModel, {
         as: 'store',

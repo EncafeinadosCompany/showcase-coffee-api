@@ -18,6 +18,8 @@ const { SALE_TABLE, saleSchema } = require("../models/sales/sales.entity");
 const { SALE_VARIANT_TABLE, saleVariantSchema } = require("../models/sales/salesVariant.entity");
 const { SHOPPING_TABLE, shoppingSchema } = require("../models/shoppings/shoppings.entity");
 const { SHOPPING_VARIANT_TABLE, shoppingVariantSchema } = require("../models/shoppings/shoppingVariant.entity");
+const { liquidationSchema, LIQUIDATION_TABLE } = require("../models/payments/liquidations.entity");
+const { DEPOSIT_TABLE } = require("../models/payments/deposits.entity");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -28,8 +30,8 @@ module.exports = {
     await queryInterface.createTable(STORE_TABLE, storeSchema);
     await queryInterface.createTable(EMPLOYEE_TABLE, employeeSchema);
 
-    await queryInterface.createTable(PRODUCT_TABLE, productSchema);
     await queryInterface.createTable(BRAND_TABLE, brandSchema);
+    await queryInterface.createTable(PRODUCT_TABLE, productSchema);
     await queryInterface.createTable(ATTRIBUTE_TABLE, attributeSchema);
     await queryInterface.createTable(VARIANT_PRODUCT_TABLE, variantProductSchema);
     await queryInterface.createTable(PRODUCT_PROVIDER_TABLE, productProviderSchema);
@@ -38,7 +40,10 @@ module.exports = {
     await queryInterface.createTable(SALE_VARIANT_TABLE, saleVariantSchema);
     await queryInterface.createTable(SHOPPING_TABLE, shoppingSchema);
     await queryInterface.createTable(SHOPPING_VARIANT_TABLE, shoppingVariantSchema);
-  },
+
+    await queryInterface.createTable(LIQUIDATION_TABLE, liquidationSchema);
+    await queryInterface.createTable(DEPOSIT_TABLE, liquidationSchema);
+  }, 
 
   async down(queryInterface) {
     await queryInterface.dropTable(ROLE_TABLE);
@@ -57,5 +62,8 @@ module.exports = {
     await queryInterface.dropTable(SALE_VARIANT_TABLE);
     await queryInterface.dropTable(SHOPPING_TABLE);
     await queryInterface.dropTable(SHOPPING_VARIANT_TABLE);
+
+    await queryInterface.dropTable(LIQUIDATION_TABLE);
+    await queryInterface.dropTable(DEPOSIT_TABLE);
   },
 };

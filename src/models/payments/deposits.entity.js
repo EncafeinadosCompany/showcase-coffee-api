@@ -29,7 +29,11 @@ const depositSchema = {
 
     id_liquidation: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: "liquidations",
+            key: "id",
+          },
     }
 }
 
@@ -38,7 +42,7 @@ class DepositModel extends Model {
     static associate(models) {
         this.belongsTo(models.LiquidationModel, {
             foreignKey: 'id_liquidation',
-            as: 'liquidation',
+            as: 'liquidations',
         });
     }
 

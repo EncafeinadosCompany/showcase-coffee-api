@@ -11,10 +11,18 @@ const saleVariantSchema= {
     id_sales: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references:{
+            model:'sales',
+            key: 'id'
+        }
     },
     id_variant_products: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references:{
+            model:'variants_products',
+            key: 'id'
+        }
     },
     quantity: {
         type: DataTypes.INTEGER,
