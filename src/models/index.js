@@ -10,8 +10,8 @@ const setupModels = (sequelize) => {
     console.log('Setting up models')
 
     //Products
-    ProductModel.init(productSchema, ProductModel.config(sequelize))
     BrandModel.init(brandSchema, BrandModel.config(sequelize))
+    ProductModel.init(productSchema, ProductModel.config(sequelize))
     VariantProductModel.init(variantProductScrema, VariantProductModel.config(sequelize))
     StoreModel.init(storeSchema, StoreModel.config(sequelize))
     ProviderModel.init(providerSchema, ProviderModel.config(sequelize))
@@ -21,7 +21,6 @@ const setupModels = (sequelize) => {
 
     BrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)
-
     VariantProductModel.associate(sequelize.models)
     AttributeModel.associate(sequelize.models)
 }

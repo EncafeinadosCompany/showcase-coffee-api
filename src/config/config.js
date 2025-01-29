@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const config = {
     development: {
-        url: process.env.DB_URL,
+        url: process.env.DB_URL
     },
     test: {
         url: process.env.DB_URL,

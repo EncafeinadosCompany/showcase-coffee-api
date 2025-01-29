@@ -6,12 +6,12 @@ const attributeSchema = {
     id: {
         autoIncrement: true,
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
     },
     description: {
-        type: DataTypes.STRING(150),
+        type: DataTypes.STRING,
         allowNull: true,
-        unique: true
+        unique: true,
     }
 }
 

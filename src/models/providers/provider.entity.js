@@ -69,7 +69,7 @@ class ProviderModel extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: STORE_TABLE,
+            tableName: PROVIDER_TABLE,
             modelName: 'StoreModel',
             timestamps: true,
         };
