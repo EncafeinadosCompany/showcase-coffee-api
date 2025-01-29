@@ -9,7 +9,12 @@ class ProductsRepository {
     constructor() {}
     async getAll() {
 
-    const products = await ProductModel.findAll()
+    const products = await ProductModel.findAll({
+        include: [{
+            model: BrandModel,
+            as: 'brands'
+        }]
+    })
     return products
     }
 
@@ -27,4 +32,20 @@ class ProductsRepository {
         const newProduct = await ProductModel.create(product)
         return newProduct
     }
+
+    async update(id, product){
+        const updatedProduct = await ProductModel.update(product, {
+            where: {
+                id: id
+            }
+        })
+        return updatedProduct
+    }
+
+    async delete (id){
+        const deleteProduct = await ProductModel.destroy({where: {id: id}})
+        return deleteProduct
+    }
 }
+
+module.exports = ProductsRepository
