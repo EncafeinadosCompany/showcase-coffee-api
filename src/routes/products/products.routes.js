@@ -4,7 +4,7 @@ const ProductsRepository = require('../../repositories/products/products.reposit
 
 const ProductController = require('../../controllers/products/products.controller')
 
-const ProductService = require('../../controllers/products/products.controller')
+const ProductService = require('../../services/products/products.service')
 
 const router = express.Router();
 
