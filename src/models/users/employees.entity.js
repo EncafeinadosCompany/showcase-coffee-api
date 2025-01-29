@@ -72,6 +72,7 @@ const employeeSchema = {
 
 class EmployeeModel extends Model {
   static associate(models) {
+    
     this.belongsTo(models.UserModel, {
       foreignKey: 'id_user',
       as: 'user',
