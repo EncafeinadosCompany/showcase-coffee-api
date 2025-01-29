@@ -1,4 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
+const {ATTRIBUTE_TABLE} = require("./attribute.entity");
+const {VARIANT_PRODUCT_TABLE} = require("./variantsProducts.entity");
 
 const ATTRIBUTE_PRODUCT_TABLE = "attributes_products";
 
@@ -11,7 +13,7 @@ const attributeProductSchema = {
     id_attribute: {
     type: DataTypes.INTEGER,
     references:{
-        model:'attribute',
+        model:ATTRIBUTE_TABLE,
         key:'id'
     }
     },
@@ -19,7 +21,7 @@ const attributeProductSchema = {
     type: DataTypes.INTEGER,
     allowNull: true,
     references:{
-        model:'variants_products',
+        model:VARIANT_PRODUCT_TABLE,
         key:'id'
     }
   },
