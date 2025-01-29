@@ -12,6 +12,7 @@ const { AttributeProductModel, attributeSchema} = require('./products/attributes
 
 const { VariantProductModel, variantProductSchema } = require('./products/variantsProducts.entity');
 const { Product_providerModel, productProviderSchema } = require('./providers/products_providers.entity');
+const { ImageVariantModel, imageVariantSchema } = require('./products/image_variants.entity');
 
 const { SalesModel, saleSchema } = require('./sales/sales.entity');
 const { SalesVariantModel, saleVariantSchema } = require('./sales/salesVariant.entity');
@@ -36,6 +37,7 @@ const setupModels = (sequelize) => {
     AttributeModel.init(attributeSchema, AttributeModel.config(sequelize));
 
     VariantProductModel.init(variantProductSchema, VariantProductModel.config(sequelize));
+    ImageVariantModel.init(imageVariantSchema, ImageVariantModel.config(sequelize));
 
     Product_providerModel.init(productProviderSchema, Product_providerModel.config(sequelize));
 
