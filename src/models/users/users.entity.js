@@ -37,7 +37,7 @@ class UserModel extends Model {
             as: 'role',
         });
 
-        this.hasMany(models.ShoppingsModel, {
+        this.hasMany(models.EmployeeModel, {
             as: 'id_user',
             foreignKey: 'employees'
           });
