@@ -1,15 +1,19 @@
 const { Sequelize } = require('sequelize');
 const dbConfig = require('./database');
-
+const setupModels = require('../models')
 const env = process.env.NODE_ENV ;
 
 const config = dbConfig[env];
+
+
 
 if (!config) {
     throw new Error(`No se pudo cargar la configuración para el entorno: ${env}`);
 }
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
+
+setupModels(sequelize)
 
 const connectToDatabase = async () => {
     try {

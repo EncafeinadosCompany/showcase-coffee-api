@@ -1,4 +1,5 @@
 const { DataTypes, Model } = require("sequelize");
+const { PRODUCT_TABLE } = require("./products.entity");
 
 const VARIANT_PRODUCT_TABLE = "variants_products";
 
@@ -16,22 +17,20 @@ const variantProductSchema = {
   id_product: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    references: {
+      model: PRODUCT_TABLE,
+      key: "id",
+    },
   },
   imageId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  id_brand: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
 };
 
 class VariantProductModel extends Model {
   static associate(models) {
-    this.belongsToMany(models.AttributeModel, {
-      through: "attributes_products",
-    });
+    this.belongsToMany(models.AttributeModel, {through:"attributes_products"});
 
     this.belongsTo(models.ProductModel, { foreignKey: "id_product" });
 
