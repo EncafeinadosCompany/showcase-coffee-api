@@ -40,6 +40,12 @@ const setupModels = (sequelize) => {
 
     SalesModel.init(saleSchema, SalesModel.config(sequelize));
     SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
+
+    // Relationships
+    BrandModel.associate(sequelize.models)
+    ProductModel.associate(sequelize.models)
+    VariantProductModel.associate(sequelize.models)
+    AttributeModel.associate(sequelize.models)
 }
 
 module.exports = setupModels

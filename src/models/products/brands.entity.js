@@ -16,22 +16,20 @@ const brandSchema = {
 }
 
 class BrandModel extends Model {
+  static associate(models) {
+    this.hasMany(models.ProductModel, {
+      foreignKey: "id_brand",
+    });
+  }
 
-    static associate(models) {
-        this.belongsTo(models.productModel, {
-            foreignKey: 'brandId',
-            as: 'products',
-        });
-    }
-
-    static config(sequelize) {
-        return {
-            sequelize,
-            tableName: BRAND_TABLE,
-            modelName: 'BrandModel',
-            timestamps: true
-        };
-    }
+  static config(sequelize) {
+    return {
+      sequelize,
+      tableName: BRAND_TABLE,
+      modelName: "BrandModel",
+      timestamps: true,
+    };
+  }
 }
 
-module.exports = {BRAND_TABLE, brandSchema, BrandModel};
+module.exports = { BRAND_TABLE, brandSchema, BrandModel };
