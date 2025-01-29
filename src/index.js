@@ -21,7 +21,6 @@ class Server {
         this.app.use(express.json());
     };
 
-    routers(){ }
 
     async syncDataBase() {
         try {
