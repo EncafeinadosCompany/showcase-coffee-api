@@ -1,12 +1,12 @@
 class ProductService {
     constructor (
-        productRepository,
+        productRepository
 
     ){
         this.productRepository = productRepository
     }
 
-    getAll = async() =>{
+    getAll = async () =>{
         return await this.productRepository.getAll()
     }
 }

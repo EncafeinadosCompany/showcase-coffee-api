@@ -21,7 +21,7 @@ const productSchema = {
       model: BRAND_TABLE,
       key: "id",
     },
-  },
+  }
 };
 
 class ProductModel extends Model {
@@ -42,7 +42,7 @@ class ProductModel extends Model {
       sequelize,
       tableName: PRODUCT_TABLE,
       modelName: "ProductModel",
-      timestamps: true,
+      timestamps: false
     };
   }
 }
