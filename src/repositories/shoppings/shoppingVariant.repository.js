@@ -1,4 +1,4 @@
-const { ShoppingVariantModel } = require('../../models/shoppings//shoppingVariant.entity');
+const { ShoppingVariantModel } = require('../../models/shoppings/shoppingVariant.entity');
 
 class ShoppingVariantRepositories {
     constructor() { }
