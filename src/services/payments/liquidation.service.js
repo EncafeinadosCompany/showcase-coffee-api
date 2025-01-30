@@ -1,4 +1,4 @@
-const LiquidationRepository = require('../repositories/payments/liquidation.repository');
+const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
 const DepositService = require('./deposit.service');
 
 class LiquidationService {
