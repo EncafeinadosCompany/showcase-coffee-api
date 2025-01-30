@@ -112,7 +112,6 @@ class EmployeeModel extends Model {
       tableName: EMPLOYEE_TABLE,
       modelName: 'EmployeeModel',
       timestamps: false,
-      underscored: true,
       hooks: {
         beforeValidate: (employee) => {
           if (employee.type === 'store') {
@@ -133,4 +132,4 @@ class EmployeeModel extends Model {
   }
 }
 
-module.exports = { EmployeeModel, employeeSchema, EMPLOYEE_TABLE };
+module.exports = { EmployeeModel, employeeSchema, EMPLOYEE_TABLE }; 
