@@ -12,6 +12,7 @@ const { BRAND_TABLE, brandSchema } = require("../models/products/brands.entity")
 const { PRODUCT_TABLE, productSchema } = require("../models/products/products.entity");
 const { ATTRIBUTE_TABLE, attributeSchema } = require("../models/products/attribute.entity");
 const { VARIANT_PRODUCT_TABLE, variantProductSchema } = require("../models/products/variantsProducts.entity");
+const { IMAGE_VARIANTS_TABLE, imageVariantSchema } = require("../models/products/image_variants.entity");
 const { PRODUCT_PROVIDER_TABLE, productProviderSchema } = require("../models/providers/products_providers.entity");
 const { ATTRIBUTE_PRODUCT_TABLE, attributeProductSchema } = require("../models/products/attributesProducts.entity");
 
@@ -35,6 +36,7 @@ module.exports = {
     await queryInterface.createTable(PRODUCT_TABLE, productSchema);
     await queryInterface.createTable(ATTRIBUTE_TABLE, attributeSchema);
     await queryInterface.createTable(VARIANT_PRODUCT_TABLE, variantProductSchema);
+    await queryInterface.createTable(IMAGE_VARIANTS_TABLE, imageVariantSchema);
     await queryInterface.createTable(PRODUCT_PROVIDER_TABLE, productProviderSchema);
     await queryInterface.createTable(ATTRIBUTE_PRODUCT_TABLE, attributeProductSchema);
     
@@ -58,6 +60,7 @@ module.exports = {
     await queryInterface.dropTable(BRAND_TABLE);
     await queryInterface.dropTable(ATTRIBUTE_TABLE);
     await queryInterface.dropTable(VARIANT_PRODUCT_TABLE);
+    await queryInterface.dropTable(IMAGE_VARIANTS_TABLE);
     await queryInterface.dropTable(PRODUCT_PROVIDER_TABLE);
 
     await queryInterface.dropTable(SALE_TABLE);
