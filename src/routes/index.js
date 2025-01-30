@@ -16,6 +16,9 @@ const routerApi = (app) => {
         .use('/store', require('./stores/stores.routes'))
         .use('/shopping', require('./shopping/shopping.routes'))
         .use('/provider', require('./providers/providers.routes'))
+        .use('/liquidation', require('./payments/liquidation.routes'))
+        .use('/deposit', require('./payments/deposit.routes'))
+
 
 }
 
