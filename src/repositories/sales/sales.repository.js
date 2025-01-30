@@ -5,14 +5,17 @@ class SaleRepository {
     constructor(){}
 
     async getAll(){
-        return sales = await SalesModel.findAll();
+        const sales = await SalesModel.findAll();
+        return sales
     }
     async getById(id){
-        return sales = await SalesModel.findByPk(id);
+        const sales = await SalesModel.findByPk(id);
+        return sales
     }
 
     async create(SalesData){
-        return newSale= await SalesModel.create(SalesData);
+        const newSale= await SalesModel.create(SalesData);
+        return newSale
     }
 }
 

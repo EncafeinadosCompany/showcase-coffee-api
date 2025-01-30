@@ -1,7 +1,8 @@
 const ShoppingRepository = require('../../repositories/shoppings/shoppings.repository');
 const ShoppingVariantRepositories = require('../../repositories/shoppings/shoppingVariant.repository');
-const ProductVariantsRepository = require('../../repositories/products/products.repository');
-const sequelize = require('../../models');
+const ProductVariantsRepository = require('../../repositories/products/variant.repository');
+const {sequelize} = require('../../config/connection');
+
 
 class ShoppingService {
   constructor() {

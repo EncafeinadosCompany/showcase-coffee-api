@@ -9,17 +9,17 @@ const imageVariantSchema = {
         primaryKey: true,
         autoIncrement: true,
     },
-    id_product: {
+    id_variant: { 
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: VARIANT_PRODUCT_TABLE,
-            key: 'id_product',
+            key: 'id',
         },
     },
     image_url: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
     },
     created_at: {
         type: DataTypes.DATE,
@@ -36,10 +36,10 @@ const imageVariantSchema = {
 
 class ImageVariantModel extends Model {
     static associate(models) {
-        this.belongsTo(models.ProductModel, {
-            foreignKey: 'id',
-            as: 'product',
-        });
+        this.belongsTo(models.VariantProductModel, {
+            foreignKey: "id",
+            as: "variant",
+          });
     }
 
     static config(sequelize) {

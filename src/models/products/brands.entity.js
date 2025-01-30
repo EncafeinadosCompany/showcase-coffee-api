@@ -8,10 +8,14 @@ const brandSchema = {
     type: DataTypes.INTEGER,
     primaryKey: true
   },
+  name: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    unique: true
+  },
   description: {
     type: DataTypes.STRING(150),
-    allowNull: true,
-    unique: true
+    allowNull: true
   },
   created_at: {
     type: DataTypes.DATE,

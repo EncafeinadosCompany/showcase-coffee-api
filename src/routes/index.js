@@ -13,8 +13,10 @@ const routerApi = (app) => {
 
         .use('/products', require('./products/products.routes'))
         .use('/variants', require('./products/variants.routes'))
+        .use('/brands', require('./products/brands.routes'))
         .use('/store', require('./stores/stores.routes'))
         .use('/shopping', require('./shopping/shopping.routes'))
+        .use('/sales', require('./sales/sales.routes'))
         .use('/provider', require('./providers/providers.routes'))
         .use('/liquidation', require('./payments/liquidation.routes'))
         .use('/deposit', require('./payments/deposit.routes'))

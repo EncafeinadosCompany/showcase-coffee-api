@@ -47,6 +47,7 @@ const providerSchema = {
     },
     status: {
         type: DataTypes.BOOLEAN,
+        defaultValue: true
     },
     created_at: {
         type: DataTypes.DATE,

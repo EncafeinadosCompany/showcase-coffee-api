@@ -26,7 +26,7 @@ const productSchema = {
   },
   status: {
     type: DataTypes.BOOLEAN,
-    allowNull: false,
+    allowNull: true,
     defaultValue: true,
   },
   id_brand: {
