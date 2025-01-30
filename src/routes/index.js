@@ -9,12 +9,11 @@ const routerApi = (app) => {
     router
         .use('/users', require('./users/user.routes'))
         .use('/roles', require('./users/role.routes'))
-        .use('/employees', require('./users/employee.routes'))
+        //.use('/employees', require('./users/employee.routes'))
 
         .use('/products', require('./products/products.routes'))
         .use('/store', require('./stores/stores.routes'))
         .use('/shopping', require('./shopping/shopping.routes'))
-
 
 }
 

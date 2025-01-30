@@ -56,13 +56,13 @@ class ProviderModel extends Model {
     static associate(models) {
 
         this.hasMany(models.Product_providerModel, {
-            foreignKey: 'id_provider',
-            as: 'products', 
+            as: 'id_provider',
+            foreignKey: 'products',
         });
 
         this.hasMany(models.EmployeeModel, {
-            foreignKey: 'id_provider',
-            as: 'employees',
+            as: 'id_provider_employee',
+            foreignKey: 'employees'
         });
     }
 

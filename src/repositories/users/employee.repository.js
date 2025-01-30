@@ -1,4 +1,4 @@
-const { EmployeeModel } = require('../../models');
+const { EmployeeModel } = require('../../models/users/employees.entity');
 
 class EmployeesRepository {
     
