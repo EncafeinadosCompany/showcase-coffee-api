@@ -10,8 +10,8 @@ class Server {
         this.port = process.env.PORT;
         this.host = process.env.DB_HOST;
 
-        this.routerApi();
         this.middlewares();
+        this.routerApi();
         this.syncDataBase();
     };
 

@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require("sequelize");
+const { DataTypes, Model, Sequelize } = require("sequelize");
 
 const { BRAND_TABLE } = require("./brands.entity");
 
@@ -14,6 +14,15 @@ const productSchema = {
     type: DataTypes.STRING(50),
     allowNull: false,
     unique: true,
+    validate: {
+      notEmpty: {
+        msg: "El nombre del producto no puede estar vacío",
+      },
+      len: {
+        args: [1, 50],
+        msg: "El nombre del producto debe tener entre 1 y 50 caracteres",
+      },
+    },
   },
   id_brand: {
     type: DataTypes.INTEGER,
@@ -21,7 +30,18 @@ const productSchema = {
       model: BRAND_TABLE,
       key: "id",
     },
-  }
+  },
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
 };
 
 class ProductModel extends Model {
@@ -29,7 +49,7 @@ class ProductModel extends Model {
     this.belongsTo(models.BrandModel, { foreignKey: "id_brand", as: "brand" });
 
     this.belongsToMany(models.AttributeModel, {
-      through: 'attributes_products',
+      through: "attributes_products",
       foreignKey: "id_product",
       otherKey: "id_attribute",
     });
@@ -42,7 +62,7 @@ class ProductModel extends Model {
       sequelize,
       tableName: PRODUCT_TABLE,
       modelName: "ProductModel",
-      timestamps: false
+      timestamps: true,
     };
   }
 }
