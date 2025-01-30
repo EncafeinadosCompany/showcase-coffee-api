@@ -6,6 +6,7 @@ class VariantRepository {
 
   async getAll() {
     const variants = await VariantProductModel.findAll({
+      attributes:["id", "grammage", "stock", "id_product"],
       include: [
         {
           model: ProductModel,
@@ -18,6 +19,7 @@ class VariantRepository {
 
   async getById(id) {
     const varaints = await VariantProductModel.findByPk(id, {
+      attributes:["id", "grammage","stock", "id_product"],
       include: [
         {
           model: ProductModel,

@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const {sequelize} = require('./models')
 const { connectToDatabase } = require('./config/connection');
 const routerApi = require('./routes');
 require('dotenv').config();
@@ -28,7 +29,9 @@ class Server {
     
     async syncDataBase() {
         try {
+            
             await connectToDatabase();
+           
         } catch (error) {
             console.error('Error al conectar a la base de datos:', error.message);
             throw error;

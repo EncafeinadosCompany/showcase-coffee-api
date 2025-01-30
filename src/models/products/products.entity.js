@@ -24,6 +24,11 @@ const productSchema = {
       },
     },
   },
+  status: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+  },
   id_brand: {
     type: DataTypes.INTEGER,
     references: {

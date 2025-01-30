@@ -3,7 +3,7 @@ const VariantRepository = require('../../repositories/products/variant.repositor
 class VariantService {
 
     constructor (){
-       this.variantRepository = VariantRepository;
+       this.variantRepository = new VariantRepository();
     }
     async getAll (){
         return await this.variantRepository.getAll();

@@ -11,8 +11,8 @@ class ProductRepository {
       include: [
         {
           model:BrandModel,
-          as: "brand", // Alias definido en la relación
-          attributes: ["description"], // Campos que quieres traer de brands
+          as: "brand",
+          attributes: ["description"], 
         },
       ],
     });
