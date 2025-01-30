@@ -4,7 +4,7 @@ class RoleController {
         this.roleService = roleService;
     }
     
-    async getRoles(req, res) {
+     getRoles = async(req, res) =>{
         try {
             const roles = await this.roleService.getRoles();
             if (!roles) {
