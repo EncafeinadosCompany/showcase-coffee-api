@@ -4,7 +4,7 @@ class UserController {
         this.userService = userService;
     }
     
-    async getUsers (req, res) {
+    getUsers = async (req, res) =>{
         try {
             const users = await this.userService.getUsers();
             if (!users) {
@@ -17,7 +17,7 @@ class UserController {
         }
     };
 
-    async getUserById (req, res) {
+    getUserById = async (req, res) => {
         try {
             const { id } = req.params
             const user = await this.userService.getUserById(id);
@@ -33,7 +33,7 @@ class UserController {
         }
     };
 
-    async createUser (req, res) {
+    createUser = async (req, res) => {
         try {
             const userData = req.body
             const user = await this.userService.createUser(userData);

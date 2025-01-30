@@ -4,7 +4,7 @@ class ProductController {
         this.productService = productService;
     }
 
-    create = async( req , res) =>{
+    create = async ( req , res) =>{
         try {
             const product = await this.productService.getAll();
             res.status(200).json(product);
