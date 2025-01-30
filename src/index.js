@@ -1,7 +1,9 @@
+const { connectToDatabase } = require('./config/connection');
+
+const routerApi = require('./routes');
 const express = require('express');
 const cors = require('cors');
-const { connectToDatabase } = require('./config/connection');
-const routerApi = require('./routes');
+
 require('dotenv').config();
 
 class Server {
@@ -11,7 +13,7 @@ class Server {
         this.host = process.env.DB_HOST;
         
         this.middlewares();
-        this.routerApi();
+        this.routers();
         this.syncDataBase();
     };
 
@@ -21,9 +23,9 @@ class Server {
         this.app.use(express.json());
     };
 
-    routerApi() {
+    routers() {
         routerApi(this.app);
-    }
+    };
 
     
     async syncDataBase() {

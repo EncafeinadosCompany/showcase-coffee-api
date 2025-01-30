@@ -71,8 +71,8 @@ class ProviderModel extends Model {
         });
 
         this.hasMany(models.EmployeeModel, {
-            as: 'id_provider_employee',
-            foreignKey: 'employees'
+            foreignKey: 'id_provider',
+            as: 'employees'
         });
     }
 
@@ -80,7 +80,7 @@ class ProviderModel extends Model {
         return {
             sequelize,
             tableName: PROVIDER_TABLE,
-            modelName: 'StoreModel',
+            modelName: 'ProviderModel',
             timestamps: false,
         };
     }

@@ -103,6 +103,7 @@ class EmployeeModel extends Model {
       foreignKey: 'id_employees',
       as: 'shoppings',
     });
+
   }
 
   static config(sequelize) {
