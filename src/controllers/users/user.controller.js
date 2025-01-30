@@ -1,10 +1,11 @@
+const UserService = require('../../services/users/user.service');
 class UserController {
     
-    constructor(userService) {
-        this.userService = userService;
+    constructor() {
+        this.userService = new UserService();
     }
     
-    getUsers = async (req, res) =>{
+    async getUsers (req, res) {
         try {
             const users = await this.userService.getUsers();
             if (!users) {
@@ -17,7 +18,7 @@ class UserController {
         }
     };
 
-    getUserById = async (req, res) => {
+    async getUserById (req, res) {
         try {
             const { id } = req.params
             const user = await this.userService.getUserById(id);
@@ -33,7 +34,7 @@ class UserController {
         }
     };
 
-    createUser = async (req, res) => {
+    async createUser (req, res) {
         try {
             const userData = req.body
             const user = await this.userService.createUser(userData);
@@ -48,4 +49,4 @@ class UserController {
     
 }
 
-module.exports = UserController
+module.exports = UserController 

@@ -89,8 +89,8 @@ class EmployeeModel extends Model {
     });
 
     this.hasMany(models.ShoppingsModel, {
+      foreignKey: 'id_employees',
       as: 'shoppings',
-      foreignKey: 'id_employees'
     });
   }
 
@@ -100,7 +100,7 @@ class EmployeeModel extends Model {
       tableName: EMPLOYEE_TABLE,
       modelName: 'EmployeeModel',
       timestamps: true,
-
+      underscored: true,
       hooks: {
         beforeValidate: (employee) => {
           if (employee.type === 'store') {

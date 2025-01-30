@@ -50,11 +50,17 @@ const setupModels = (sequelize) => {
 
     LiquidationModel.init(liquidationSchema, LiquidationModel.config(sequelize));
     DepositModel.init(depositSchema, DepositModel.config(sequelize));
-    
+
 
     
-    
     // Relationships
+    UserModel.associate(sequelize.models)
+    RoleModel.associate(sequelize.models)
+
+    ProviderModel.associate(sequelize.models)
+    StoreModel.associate(sequelize.models)
+  //  EmployeeModel.associate(sequelize.models)
+
     BrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)
     VariantProductModel.associate(sequelize.models)

@@ -1,27 +1,27 @@
 const express = require('express');
 const ShoppingService = require('../../services/shoppings/shopping.service');
 
-class ShoppingController {
+class ShoppingVariantController {
   constructor() {
     this.shoppingService = new ShoppingService();
   }
 
-  async getAllShopping(req, res) {
+  async getAllShoppingVariant(req, res) {
     try {
-      const shopping = await this.shoppingService.getAllShopping();
-      res.status(200).json(shopping);
+      const shoppingVariant = await this.shoppingService.getAllShoppingVariant();
+      res.status(200).json(shoppingVariant);
     } catch (error) {
       console.error('CONTROLLER: Error fetching all shopping:', error);
       res.status(500).json({ message: error.message });
     }
   }
 
-  async getShoppingById(req, res) {
+  async getShoppingVariantById(req, res) {
     try {
       const { id } = req.params;
-      const shopping = await this.shoppingService.getShoppingById(id);
+      const shopping = await this.shoppingService.getShoppingVariantById(id);
       if (!shopping) {
-        return res.status(404).json({ message: `Shopping with id ${id} not found` });
+        return res.status(404).json({ message: `CONTROLLER:Shopping with id ${id} not found` });
       }
       res.status(200).json(shopping);
     } catch (error) {
@@ -30,21 +30,11 @@ class ShoppingController {
     }
   }
 
-  async createShopping(req, res) {
-    try {
-      const shoppingData = req.body;
-      const newShopping = await this.shoppingService.createShoppingWithDetails(shoppingData.shopping, shoppingData.details);
-      res.status(201).json(newShopping);
-    } catch (error) {
-      console.error('Error creating new shopping:', error);
-      res.status(500).json({ message: error.message });
-    }
-  }
 
-  async createShoppingVariant(req, res) {
+  async createDetail(req, res) {
     try {
       const shoppingDetailData = req.body;
-      const newShoppingDetail = await this.shoppingService.createShoppingDetail(shoppingDetailData);
+      const newShoppingDetail = await this.shoppingService.createShoppingVariant(shoppingDetailData);
       res.status(201).json(newShoppingDetail);
     } catch (error) {
       console.error('Error creating new shopping detail:', error);
@@ -58,4 +48,4 @@ class ShoppingController {
   }
 }
 
-module.exports = ShoppingController;
+module.exports = ShoppingVariantController;

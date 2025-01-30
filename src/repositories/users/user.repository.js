@@ -1,4 +1,4 @@
-const { UserModel } = require('../../models');
+const { UserModel } = require('../../models/users/users.entity');
 
 class UsersRepository {
 

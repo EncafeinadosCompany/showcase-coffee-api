@@ -1,7 +1,9 @@
+const EmployeeService = require('../../services/users/employee.service');
+
 class EmployeeController {
 
-    constructor(employeeService) {
-        this.employeeService = employeeService;
+    constructor() {
+        this.employeeService = new EmployeeService();
     }
 
   async getEmployees(req, res) {
