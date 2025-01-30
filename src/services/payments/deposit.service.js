@@ -1,4 +1,4 @@
-const DepositRepository = require('../repositories/payments/deposit.repository');
+const DepositRepository = require('../../repositories/payments/deposit.repository');
 
 class DepositService {
   constructor() {
