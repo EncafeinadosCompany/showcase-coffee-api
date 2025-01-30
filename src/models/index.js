@@ -59,7 +59,7 @@ const setupModels = (sequelize) => {
 
     ProviderModel.associate(sequelize.models)
     StoreModel.associate(sequelize.models)
-  //  EmployeeModel.associate(sequelize.models)
+    EmployeeModel.associate(sequelize.models)
 
     BrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)

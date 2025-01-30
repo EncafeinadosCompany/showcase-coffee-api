@@ -1,7 +1,7 @@
 
 const {ShoppingsModel} = require('../../models/shoppings/shoppings.entity');
 
-class ShoppingRepositories {
+class ShoppingRepository {
     constructor(){}
 
     async getAll(){
@@ -19,4 +19,4 @@ class ShoppingRepositories {
     }
 }
 
-module.exports= ShoppingRepositories
+module.exports= ShoppingRepository
