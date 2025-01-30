@@ -46,7 +46,7 @@ class SalesModel extends Model {
             sequelize,
             tableName: SALE_TABLE,
             modelName: 'SalesModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 

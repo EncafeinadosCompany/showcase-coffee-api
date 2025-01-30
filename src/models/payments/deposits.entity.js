@@ -62,7 +62,7 @@ class DepositModel extends Model {
             sequelize,
             tableName: DEPOSIT_TABLE,
             modelName: 'DepositModel',
-            timestamps: true,
+            timestamps: false,
             underscored: true
         }
     }

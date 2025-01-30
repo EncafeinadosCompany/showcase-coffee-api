@@ -72,7 +72,7 @@ class ShoppingVariantModel extends Model {
             sequelize,
             tableName: SHOPPING_VARIANT_TABLE,
             modelName: 'ShoppingVariantModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 

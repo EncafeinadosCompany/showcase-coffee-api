@@ -60,7 +60,7 @@ class UserModel extends Model {
             sequelize,
             tableName: USER_TABLE,
             modelName: 'UserModel',
-            timestamps: true,
+            timestamps: false,
             underscored: true,
             hooks: {
                 beforeCreate: async (user) => {

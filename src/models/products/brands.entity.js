@@ -39,7 +39,7 @@ class BrandModel extends Model {
       sequelize,
       tableName: BRAND_TABLE,
       modelName: 'BrandModel',
-      timestamps: true,
+      timestamps: false,
     };
   }
 }

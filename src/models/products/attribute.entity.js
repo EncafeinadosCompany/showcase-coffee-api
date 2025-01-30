@@ -37,7 +37,7 @@ class AttributeModel extends Model {
             sequelize,
             tableName: ATTRIBUTE_TABLE,
             modelName: 'AttributeModel',
-            timestamps: true
+            timestamps: false
         };
     }
 }

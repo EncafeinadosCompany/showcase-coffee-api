@@ -44,7 +44,7 @@ class RoleModel extends Model {
             sequelize,
             tableName: ROLE_TABLE,
             modelName: 'RoleModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 }

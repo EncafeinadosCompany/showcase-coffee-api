@@ -59,7 +59,7 @@ class Product_providerModel extends Model {
             sequelize,
             tableName: PRODUCT_PROVIDER_TABLE,
             modelName: 'Product_providerModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 }

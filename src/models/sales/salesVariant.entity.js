@@ -71,7 +71,7 @@ class SalesVariantModel extends Model {
             sequelize,
             tableName: SALE_VARIANT_TABLE,
             modelName: 'SalesVariantModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 

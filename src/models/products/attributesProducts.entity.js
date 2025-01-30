@@ -49,7 +49,7 @@ class AttributeProductModel extends Model {
       sequelize,
       tableName: ATTRIBUTE_PRODUCT_TABLE,
       modelName: "AttributeProductModel",
-      timestamps: true,
+      timestamps: false,
     };
   }
 }

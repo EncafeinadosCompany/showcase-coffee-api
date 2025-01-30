@@ -56,7 +56,7 @@ class LiquidationModel extends Model {
             sequelize,
             tableName: LIQUIDATION_TABLE,
             modelName: 'LiquidationModel',
-            timestamps: true,
+            timestamps: false,
             underscored: true
         }
     }

@@ -47,7 +47,7 @@ class ImageVariantModel extends Model {
             sequelize,
             tableName: IMAGE_VARIANTS_TABLE,
             modelName: 'ImageVariantModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 }

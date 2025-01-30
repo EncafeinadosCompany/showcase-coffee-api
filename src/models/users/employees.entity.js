@@ -110,7 +110,7 @@ class EmployeeModel extends Model {
       sequelize,
       tableName: EMPLOYEE_TABLE,
       modelName: 'EmployeeModel',
-      timestamps: true,
+      timestamps: false,
       underscored: true,
       hooks: {
         beforeValidate: (employee) => {

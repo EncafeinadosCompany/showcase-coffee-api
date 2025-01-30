@@ -79,7 +79,7 @@ class VariantProductModel extends Model {
       sequelize,
       tableName: VARIANT_PRODUCT_TABLE,
       modelName: "VariantProductModel",
-      timestamps: true,
+      timestamps: false,
     };
   }
 }
