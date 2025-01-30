@@ -37,6 +37,8 @@ class ProductRepository {
     return newProduct;
   }
 
+  
+
 }
 
 module.exports = ProductRepository;
