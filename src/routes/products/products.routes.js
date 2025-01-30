@@ -1,20 +1,11 @@
-const express = require ('express')
-
-const ProductsRepository = require('../../repositories/products/products.repository')
-
-const ProductController = require('../../controllers/products/products.controller')
-
-const ProductService = require('../../services/products/products.service')
+const express = require('express');
+const ProductController  = require('../../controllers/products/products.controller');
 
 const router = express.Router();
+const productController = new ProductController();
 
-const productsRepository = new ProductsRepository();
-
-const productService = new ProductService(productsRepository)
-
-const productController = new ProductController(productService)
-
-router.get('/', productController.create);
-
+router.get('/', (req, res) => productController.getAll(req, res));
+router.get('/:id', (req, res) => productController.getById(req, res));
+router.post('/', (req, res) => productController.create(req, res));
 
 module.exports = router;
