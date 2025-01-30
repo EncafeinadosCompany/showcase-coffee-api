@@ -4,7 +4,7 @@ const {ProductModel} = require('../../models/products/products.entity')
 const {BrandModel} = require('../../models/products/brands.entity')
 
 
-class ProductsRepository {
+class ProductRepository {
   constructor() {}
   async getAll() {
     const products = await ProductModel.findAll({
@@ -24,7 +24,8 @@ class ProductsRepository {
       include: [
         {
           model: BrandModel,
-          as: "brands",
+          as: "brand",
+          attributes: ["description"]
         },
       ],
     });
@@ -38,4 +39,4 @@ class ProductsRepository {
 
 }
 
-module.exports = ProductsRepository;
+module.exports = ProductRepository;

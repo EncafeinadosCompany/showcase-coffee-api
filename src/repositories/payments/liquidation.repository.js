@@ -1,5 +1,6 @@
 const { LiquidationModel } = require('../../models/payments/liquidation.entity');
 const { DepositModel } = require('../../models/payments/deposit.entity');
+const { ShoppingsModel } = require('../../models/shoppings/shopping.entity');
 
 class LiquidationRepository {
   constructor() {}
@@ -31,7 +32,7 @@ class LiquidationRepository {
     }
   }
 
-  async getLiquidationWithDeposits(id) {
+  async getLiquidationWithDetails(id) {
     try {
       return await LiquidationModel.findByPk(id, {
         include: [
@@ -39,16 +40,17 @@ class LiquidationRepository {
             model: DepositModel,
             as: 'deposits',
           },
+          {
+            model: ShoppingsModel,
+            as: 'shoppings',
+          },
         ],
       });
     } catch (error) {
-      console.error(`Error al obtener la liquidación con depósitos (ID ${id}):`, error);
-      throw new Error('No se pudo obtener la liquidación con depósitos.');
+      console.error(`Error al obtener la liquidación con detalles (ID ${id}):`, error);
+      throw new Error('No se pudo obtener la liquidación con detalles.');
     }
   }
 }
 
 module.exports = LiquidationRepository;
-
-
-
