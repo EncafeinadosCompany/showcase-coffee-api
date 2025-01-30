@@ -15,7 +15,6 @@ const routerApi = (app) => {
         .use('/variants', require('./products/variants.routes'))
         .use('/store', require('./stores/stores.routes'))
         .use('/shopping', require('./shopping/shopping.routes'))
-        .use('/shoppingVariant', require('./shopping/shoppingVariant.routes'))
         .use('/provider', require('./providers/providers.routes'))
 
 }

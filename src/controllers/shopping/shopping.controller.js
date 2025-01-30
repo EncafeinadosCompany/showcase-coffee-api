@@ -25,7 +25,7 @@ class ShoppingController {
       }
       res.status(200).json(shopping);
     } catch (error) {
-      console.error(`Error fetching shopping with id ${id}:`, error);
+      console.error(`Error fetching shopping with id:`, error);
       res.status(500).json({ message: error.message });
     }
   }
@@ -41,10 +41,10 @@ class ShoppingController {
     }
   }
 
-  async createShoppingVariant(req, res) {
+  async createDetail(req, res) {
     try {
       const shoppingDetailData = req.body;
-      const newShoppingDetail = await this.shoppingService.createShoppingDetail(shoppingDetailData);
+      const newShoppingDetail = await this.shoppingService.createShoppingVariant(shoppingDetailData);
       res.status(201).json(newShoppingDetail);
     } catch (error) {
       console.error('Error creating new shopping detail:', error);
@@ -56,6 +56,34 @@ class ShoppingController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  async getAllShoppingVariant(req, res) {
+    try {
+      const shoppingVariant = await this.shoppingService.getAllShoppingVariant();
+      res.status(200).json(shoppingVariant);
+    } catch (error) {
+      console.error('CONTROLLER: Error fetching all shopping:', error);
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+  async getShoppingVariantById(req, res) {
+    try {
+      const { id } = req.params;
+      const shopping = await this.shoppingService.getShoppingVariantById(id);
+      if (!shopping) {
+        return res.status(404).json({ message: `CONTROLLER:Shopping with id ${id} not found` });
+      }
+      res.status(200).json(shopping);
+    } catch (error) {
+      console.error(`Error fetching shopping with id ${id}:`, error);
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+
+  
+
 }
 
 module.exports = ShoppingController;

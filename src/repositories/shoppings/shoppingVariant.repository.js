@@ -1,6 +1,6 @@
 const { ShoppingVariantModel } = require('../../models/shoppings/shoppingVariant.entity');
 
-class ShoppingVariantRepositories {
+class ShoppingVariantRepository {
     constructor() { }
 
     async getAll() {
@@ -35,4 +35,4 @@ class ShoppingVariantRepositories {
 
 }
 
-module.exports = ShoppingVariantRepositories
+module.exports = ShoppingVariantRepository
