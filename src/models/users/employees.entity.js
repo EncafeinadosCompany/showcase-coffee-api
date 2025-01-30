@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require("sequelize");;
 const { USER_TABLE } = require('./users.entity');
 const { STORE_TABLE } = require('../stores/store.entity');
 const { PROVIDER_TABLE } = require('../providers/provider.entity');
@@ -67,12 +67,23 @@ const employeeSchema = {
   status: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
-  }
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
 };
 
 class EmployeeModel extends Model {
   static associate(models) {
-    
+
     this.belongsTo(models.UserModel, {
       foreignKey: 'id_user',
       as: 'user',
@@ -89,8 +100,8 @@ class EmployeeModel extends Model {
     });
 
     this.hasMany(models.ShoppingsModel, {
+      foreignKey: 'id_employees',
       as: 'shoppings',
-      foreignKey: 'id_employees'
     });
   }
 
@@ -99,8 +110,8 @@ class EmployeeModel extends Model {
       sequelize,
       tableName: EMPLOYEE_TABLE,
       modelName: 'EmployeeModel',
-      timestamps: true,
-
+      timestamps: false,
+      underscored: true,
       hooks: {
         beforeValidate: (employee) => {
           if (employee.type === 'store') {

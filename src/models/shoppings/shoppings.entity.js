@@ -1,10 +1,10 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require("sequelize");;
 const { STORE_TABLE } = require('../stores/store.entity');
 const { EMPLOYEE_TABLE } = require('../users/employees.entity');
 
-const SHOPPING_TABLE= 'shoppings';
+const SHOPPING_TABLE = 'shoppings';
 
-const shoppingSchema= {
+const shoppingSchema = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -13,15 +13,15 @@ const shoppingSchema= {
     id_store: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:{
-            model:STORE_TABLE,
+        references: {
+            model: STORE_TABLE,
             key: 'id'
         }
     },
     id_employees: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:{
+        references: {
             model: EMPLOYEE_TABLE,
             key: 'id'
         }
@@ -33,33 +33,44 @@ const shoppingSchema= {
     status: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-    }
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
 };
 
-class ShoppingsModel extends Model{
+class ShoppingsModel extends Model {
     static associate(models) {
 
-    this.hasMany(models.ShoppingVariantModel, {
-        as: 'variants',
-        foreignKey: 'id_shopping'
-      });
-
-    this.hasMany(models.LiquidationModel, {
-        as: 'liquidations',
-        foreignKey: 'id_shopping'
+        this.hasMany(models.ShoppingVariantModel, {
+            as: 'variants',
+            foreignKey: 'id_shopping'
         });
 
-      this.belongsTo(models.StoreModel, {
-        as: 'store',
-        foreignKey: 'id_store'
-      });
+        this.hasMany(models.LiquidationModel, {
+            as: 'liquidations',
+            foreignKey: 'id_shopping'
+        });
 
-      this.belongsTo(models.EmployeeModel, {
-        as: 'employee',
-        foreignKey: 'id_employee'
-      });
-  }   
-  
+        this.belongsTo(models.StoreModel, {
+            as: 'store',
+            foreignKey: 'id_store'
+        });
+
+        this.belongsTo(models.EmployeeModel, {
+            as: 'employee',
+            foreignKey: 'id_employee'
+        });
+    }
+
     static config(sequelize) {
         return {
             sequelize,

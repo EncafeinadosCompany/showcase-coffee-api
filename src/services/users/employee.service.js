@@ -1,7 +1,8 @@
+const EmployeeRepository = require('../../repositories/users/employee.repository');
 class EmployeeService {
 
     constructor(employeeRepository) {
-        this.employeeRepository = employeeRepository;
+        this.employeeRepository = new EmployeeRepository();
     }
 
     async getEmployees() {

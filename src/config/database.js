@@ -15,8 +15,10 @@ const baseConfig = {
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT,
     logging: false,
-    
-    
+    define: {
+        timestamps: true,
+        underscored: true,
+    },
 };
 
 module.exports = {

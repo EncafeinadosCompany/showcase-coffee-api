@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require("sequelize");;
 
 const PROVIDER_TABLE = 'providers';
 
@@ -49,20 +49,30 @@ const providerSchema = {
         type: DataTypes.BOOLEAN,
         unique: true,
     },
-
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+    }
 };
 
 class ProviderModel extends Model {
     static associate(models) {
 
         this.hasMany(models.Product_providerModel, {
-            foreignKey: 'id_provider',
-            as: 'products', 
+            as: 'id_provider',
+            foreignKey: 'products',
         });
 
         this.hasMany(models.EmployeeModel, {
-            foreignKey: 'id_provider',
-            as: 'employees',
+            as: 'id_provider_employee',
+            foreignKey: 'employees'
         });
     }
 
@@ -71,7 +81,7 @@ class ProviderModel extends Model {
             sequelize,
             tableName: PROVIDER_TABLE,
             modelName: 'StoreModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 }

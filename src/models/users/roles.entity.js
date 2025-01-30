@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require("sequelize");;
 
 const ROLE_TABLE = 'roles';
 
@@ -17,6 +17,17 @@ const roleSchema = {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
     },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+    }
 };
 
 class RoleModel extends Model {
@@ -33,7 +44,7 @@ class RoleModel extends Model {
             sequelize,
             tableName: ROLE_TABLE,
             modelName: 'RoleModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 }

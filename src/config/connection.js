@@ -5,8 +5,6 @@ const env = process.env.NODE_ENV ;
 
 const config = dbConfig[env];
 
-
-
 if (!config) {
     throw new Error(`No se pudo cargar la configuración para el entorno: ${env}`);
 }
