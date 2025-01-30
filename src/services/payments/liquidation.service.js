@@ -26,11 +26,11 @@ class LiquidationService {
     return await this.liquidationRepository.createLiquidation(liquidation);
   }
 
-  async getLiquidationWithDeposits(id) {
+  async getLiquidationWithDetails(id) {
     if (!id || isNaN(id)) {
       throw new Error('El ID de la liquidación es inválido.');
     }
-    const liquidation = await this.liquidationRepository.getLiquidationWithDeposits(id);
+    const liquidation = await this.liquidationRepository.getLiquidationWithDetails(id);
     if (!liquidation) {
       throw new Error('Liquidación no encontrada.');
     }
