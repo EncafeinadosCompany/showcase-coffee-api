@@ -13,6 +13,8 @@ const routerApi = (app) => {
 
         .use('/products', require('./products/products.routes'))
         .use('/store', require('./stores/stores.routes'))
+        .use('/shopping', require('./shopping/shopping.routes'))
+
 
 }
 
