@@ -1,18 +1,12 @@
-const express = require('express');
-
-const EmployeeRepository = require('../../repositories/users/employee.repository');
-const EmployeeService = require('../../services/users/employee.service');
 const EmployeeController = require('../../controllers/users/employee.controller');
 
-const router = express.Router();
+const router = require('express').Router();
 
-const employeeRepository = new EmployeeRepository();
-const employeeService = new EmployeeService(employeeRepository);
-const employeeController = new EmployeeController(employeeService);
+const employeeController = new EmployeeController();
 
 router
-    .get('/', employeeController.getEmployees)
-    .get('/:id', employeeController.getEmployeeById)
-    .post('/', employeeController.createEmployee)
+    .get('/', (req, res) => employeeController.getEmployees(req, res))
+    .get('/:id', (req, res) => employeeController.getEmployeeById(req, res))
+    .post('/', (req, res) => employeeController.createEmployee(req, res))
 
 module.exports = router;

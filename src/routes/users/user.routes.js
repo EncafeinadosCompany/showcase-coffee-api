@@ -1,18 +1,12 @@
 const express = require('express');
-
-const UserRepository = require('../../repositories/users/user.repository');
-const UserService = require('../../services/users/user.service');
 const UserController = require('../../controllers/users/user.controller');
 
 const router = express.Router();
-
-const userRepository = new UserRepository();
-const userService = new UserService(userRepository);
-const userController = new UserController(userService);
+const userController = new UserController(); 
 
 router
-    .get('/', userController.getUsers)
-    .get('/:id', userController.getUserById)
-    .post('/', userController.createUser)
+    .get('/', (req, res) => userController.getUsers(req, res))
+    .get('/:id',(req, res) => userController.getUserById(req, res))
+    .post('/', (req, res) => userController.createUser(req, res));
 
 module.exports = router;

@@ -1,7 +1,9 @@
+const RoleService = require('../../services/users/role.service');
+
 class RoleController {
 
-    constructor(roleService) {
-        this.roleService = roleService;
+    constructor() {
+        this.roleService = new RoleService();
     }
     
      getRoles = async(req, res) =>{

@@ -1,5 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const {VARIANT_PRODUCT_TABLE} = require('../products/variantsProducts.entity')
+const { DataTypes, Model, Sequelize } = require("sequelize");;
+const { VARIANT_PRODUCT_TABLE } = require('../products/variantsProducts.entity')
 
 const IMAGE_VARIANTS_TABLE = 'image_variants';
 
@@ -13,13 +13,24 @@ const imageVariantSchema = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: VARIANT_PRODUCT_TABLE, 
+            model: VARIANT_PRODUCT_TABLE,
             key: 'id_product',
         },
     },
     image_url: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
     }
 };
 

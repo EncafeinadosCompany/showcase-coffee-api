@@ -1,13 +1,22 @@
-class ProductService {
-    constructor (
-        productRepository
 
-    ){
-        this.productRepository = productRepository
+const ProductRepository = require('../../repositories/products/products.repository')
+class ProductService {
+    
+    constructor (){
+
+    this.productRepository = new ProductRepository()
     }
 
-    getAll = async () =>{
+    async getAll () {
         return await this.productRepository.getAll()
+    }
+
+    async getById (id){
+        return await this.productRepository.getById(id);
+    }
+
+    async create (product){
+        return await this.productRepository.create(product);
     }
 }
 

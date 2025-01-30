@@ -1,4 +1,4 @@
-const { RoleModel } = require('../../models');
+const { RoleModel } = require('../../models/users/roles.entity');
 
 class RolesRepository {
     
@@ -12,6 +12,10 @@ class RolesRepository {
         return await RoleModel.findByPk(id);
     }
 
+    async getRoleByName(name) {
+        return await RoleModel.findOne({ where: { name } });
+    };
+    
     async createRole(role) {
         const newRole = await RoleModel.create(role);
         return newRole;
