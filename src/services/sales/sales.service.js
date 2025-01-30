@@ -1,7 +1,7 @@
 const SalesRepository = require('../../repositories/sales/sales.repository');
 const SalesVariantRepository = require('../../repositories/sales/salesVariant.repository');
 const ProductVariantsRepository = require('../../repositories/products/products.repository');
-const sequelize = require('../../models');
+const {sequelize} = require('../../config/connection');
 
 class SaleService {
   constructor() {
