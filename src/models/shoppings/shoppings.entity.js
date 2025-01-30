@@ -65,7 +65,7 @@ class ShoppingsModel extends Model{
             sequelize,
             tableName: SHOPPING_TABLE,
             modelName: 'ShoppingsModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 

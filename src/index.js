@@ -9,7 +9,7 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.host = process.env.DB_HOST;
-
+        
         this.middlewares();
         this.routerApi();
         this.syncDataBase();
