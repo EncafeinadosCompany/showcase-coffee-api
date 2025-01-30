@@ -71,7 +71,7 @@ class ProviderModel extends Model {
             sequelize,
             tableName: PROVIDER_TABLE,
             modelName: 'StoreModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 }
