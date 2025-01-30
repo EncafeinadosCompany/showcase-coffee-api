@@ -49,7 +49,17 @@ const providerSchema = {
         type: DataTypes.BOOLEAN,
         unique: true,
     },
-
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+    }
 };
 
 class ProviderModel extends Model {

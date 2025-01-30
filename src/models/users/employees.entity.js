@@ -67,12 +67,23 @@ const employeeSchema = {
   status: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
-  }
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
 };
 
 class EmployeeModel extends Model {
   static associate(models) {
-    
+
     this.belongsTo(models.UserModel, {
       foreignKey: 'id_user',
       as: 'user',

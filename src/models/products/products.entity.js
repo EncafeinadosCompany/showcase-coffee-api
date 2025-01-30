@@ -31,13 +31,13 @@ const productSchema = {
       key: "id",
     },
   },
-  createdAt: {
-    type: Sequelize.DATE,
+  created_at: {
+    type: DataTypes.DATE,
     allowNull: false,
     defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
   },
-  updatedAt: {
-    type: Sequelize.DATE,
+  updated_at: {
+    type: DataTypes.DATE,
     allowNull: false,
     defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
     onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),

@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
-const {PROVIDER_TABLE} = require('../providers/provider.entity')
+const { PROVIDER_TABLE } = require('../providers/provider.entity')
 
 
 const PRODUCT_PROVIDER_TABLE = 'products_providers';
@@ -11,10 +11,10 @@ const productProviderSchema = {
         primaryKey: true,
     },
     id_provider: {
-        type: DataTypes.INTEGER, 
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: PROVIDER_TABLE, 
+            model: PROVIDER_TABLE,
             key: 'id',
         },
     },
@@ -26,6 +26,17 @@ const productProviderSchema = {
             key: 'id',
         },
     },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
 };
 
 class Product_providerModel extends Model {
@@ -34,14 +45,14 @@ class Product_providerModel extends Model {
         this.belongsTo(models.ProviderModel, {
             as: PROVIDER_TABLE,
             foreignKey: 'id_provider'
-          });
+        });
 
-          this.belongsTo(models.ProductModel, {
+        this.belongsTo(models.ProductModel, {
             as: 'products',
             foreignKey: 'id_product'
-          });
+        });
     }
-    
+
 
     static config(sequelize) {
         return {

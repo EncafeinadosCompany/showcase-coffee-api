@@ -1,4 +1,4 @@
-const {DataTypes, Model} = require('sequelize')
+const { DataTypes, Model } = require('sequelize')
 
 const ATTRIBUTE_TABLE = 'attribute'
 
@@ -12,13 +12,24 @@ const attributeSchema = {
         type: DataTypes.STRING(100),
         allowNull: true,
         unique: true,
-    }
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
 }
 
 class AttributeModel extends Model {
 
     static associate(models) {
-        this.belongsToMany(models.ProductModel, { through:'attributes_products', foreignKey:'id_attribute', otherKey:'id_product'});   
+        this.belongsToMany(models.ProductModel, { through: 'attributes_products', foreignKey: 'id_attribute', otherKey: 'id_product' });
     }
 
     static config(sequelize) {
@@ -31,4 +42,4 @@ class AttributeModel extends Model {
     }
 }
 
-module.exports = {ATTRIBUTE_TABLE, attributeSchema, AttributeModel};
+module.exports = { ATTRIBUTE_TABLE, attributeSchema, AttributeModel };

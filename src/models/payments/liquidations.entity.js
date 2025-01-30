@@ -1,6 +1,6 @@
-const {DataTypes, Model} = require('sequelize')
+const { DataTypes, Model } = require('sequelize')
 
-const LIQUIDATION_TABLE='liquidations'
+const LIQUIDATION_TABLE = 'liquidations'
 
 const liquidationSchema = {
     id: {
@@ -9,7 +9,7 @@ const liquidationSchema = {
         primaryKey: true
     },
     current_debt: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
     status: {
@@ -23,6 +23,17 @@ const liquidationSchema = {
             model: "shoppings",
             key: "id",
         },
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
     }
 }
 
@@ -33,11 +44,11 @@ class LiquidationModel extends Model {
             foreignKey: 'id_liquidation',
             as: 'deposits',
         });
-    
+
         this.belongsTo(models.ShoppingsModel, {
             foreignKey: 'id_shopping',
-            as: 'shoppings',                      
-    });
+            as: 'shoppings',
+        });
     }
 
     static config(sequelize) {
@@ -51,7 +62,7 @@ class LiquidationModel extends Model {
     }
 }
 
-module.exports = {LIQUIDATION_TABLE, liquidationSchema, LiquidationModel};
+module.exports = { LIQUIDATION_TABLE, liquidationSchema, LiquidationModel };
 
 
 

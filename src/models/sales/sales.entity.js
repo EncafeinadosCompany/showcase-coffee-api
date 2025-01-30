@@ -1,8 +1,8 @@
 const { DataTypes, Model } = require('sequelize');
 
-const SALE_TABLE= 'sales';
+const SALE_TABLE = 'sales';
 
-const saleSchema= {
+const saleSchema = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -19,16 +19,27 @@ const saleSchema= {
     status: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
-    }
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
 };
 
-class SalesModel extends Model{
+class SalesModel extends Model {
     static associate(models) {
-        this.hasMany(models.SalesVariantModel, { 
-          as: 'variants', 
-          foreignKey: 'id_sales' 
+        this.hasMany(models.SalesVariantModel, {
+            as: 'variants',
+            foreignKey: 'id_sales'
         });
-  }    
+    }
 
     static config(sequelize) {
         return {
