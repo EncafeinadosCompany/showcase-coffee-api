@@ -12,7 +12,7 @@ class AuthController {
             if (!email || !password) {
                 return res.status(400).json({ message: "Email and password required" });
             }
-            const result = await authService.login(email, password);
+            const result = await this.authService.login(email, password);
             return res.status(200).json(result);
         } catch (error) {
             if (error.statusCode) {
