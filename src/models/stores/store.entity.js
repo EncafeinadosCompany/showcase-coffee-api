@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require("sequelize");;
 
 const STORE_TABLE = 'stores';
 
@@ -36,6 +36,17 @@ const storeSchema = {
     status: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
     }
 };
 
@@ -47,7 +58,7 @@ class StoreModel extends Model {
         });
 
         this.hasMany(models.EmployeeModel, {
-            foreignKey: 'id_entity',
+            foreignKey: 'id_store',
             as: 'employees',
         });
     }
@@ -57,7 +68,7 @@ class StoreModel extends Model {
             sequelize,
             tableName: STORE_TABLE,
             modelName: 'StoreModel',
-            timestamps: true,
+            timestamps: false,
         };
     }
 }

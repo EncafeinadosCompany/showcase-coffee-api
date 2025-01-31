@@ -1,25 +1,36 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require("sequelize");;
 
-const BRAND_TABLE='brands'
+const BRAND_TABLE = 'brands'
 
 const brandSchema = {
-    id: {
-        autoIncrement: true,
-        type: DataTypes.INTEGER,
-        primaryKey: true
-    },
-    description: {
-        type: DataTypes.STRING(150),
-        allowNull: true,
-        unique: true
-    }
+  id: {
+    autoIncrement: true,
+    type: DataTypes.INTEGER,
+    primaryKey: true
+  },
+  description: {
+    type: DataTypes.STRING(150),
+    allowNull: true,
+    unique: true
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
 }
 
 class BrandModel extends Model {
   static associate(models) {
     this.hasMany(models.ProductModel, {
       foreignKey: 'id_brand',
-      as:'products'
+      as: 'products'
     });
   }
 
@@ -28,7 +39,7 @@ class BrandModel extends Model {
       sequelize,
       tableName: BRAND_TABLE,
       modelName: 'BrandModel',
-      timestamps: true,
+      timestamps: false,
     };
   }
 }

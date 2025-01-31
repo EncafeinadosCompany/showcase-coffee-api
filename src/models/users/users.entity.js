@@ -1,4 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes, Model, Sequelize } = require("sequelize");;
+const { ROLE_TABLE } = require('./roles.entity');
 
 const USER_TABLE = 'users';
 
@@ -21,12 +22,23 @@ const userSchema = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "roles",
+            model: ROLE_TABLE,
             key: "id",
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
     },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+    }
 };
 
 class UserModel extends Model {
@@ -37,10 +49,10 @@ class UserModel extends Model {
             as: 'role',
         });
 
-        this.hasMany(models.ShoppingsModel, {
+        this.hasMany(models.EmployeeModel, {
             as: 'id_user',
             foreignKey: 'employees'
-          });
+        });
     }
 
     static config(sequelize) {
@@ -48,8 +60,8 @@ class UserModel extends Model {
             sequelize,
             tableName: USER_TABLE,
             modelName: 'UserModel',
-            timestamps: true,
-            underscored: true, 
+            timestamps: false,
+            underscored: true,
             hooks: {
                 beforeCreate: async (user) => {
                     if (user.password) {

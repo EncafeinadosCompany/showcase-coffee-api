@@ -8,9 +8,11 @@ const { EmployeeModel, employeeSchema } = require('./users/employees.entity');
 const { ProductModel, productSchema } = require('./products/products.entity');
 const { BrandModel, brandSchema } = require('./products/brands.entity');
 const { AttributeModel, attributeSchema } = require('./products/attribute.entity');
+const { AttributeProductModel, attributeProductSchema} = require('./products/attributesProducts.entity')
 
 const { VariantProductModel, variantProductSchema } = require('./products/variantsProducts.entity');
 const { Product_providerModel, productProviderSchema } = require('./providers/products_providers.entity');
+const { ImageVariantModel, imageVariantSchema } = require('./products/image_variants.entity');
 
 const { SalesModel, saleSchema } = require('./sales/sales.entity');
 const { SalesVariantModel, saleVariantSchema } = require('./sales/salesVariant.entity');
@@ -33,10 +35,15 @@ const setupModels = (sequelize) => {
     ProductModel.init(productSchema, ProductModel.config(sequelize));
     BrandModel.init(brandSchema, BrandModel.config(sequelize));
     AttributeModel.init(attributeSchema, AttributeModel.config(sequelize));
+    AttributeProductModel.init(attributeProductSchema, AttributeProductModel.config(sequelize));
 
     VariantProductModel.init(variantProductSchema, VariantProductModel.config(sequelize));
+    ImageVariantModel.init(imageVariantSchema, ImageVariantModel.config(sequelize));
 
     Product_providerModel.init(productProviderSchema, Product_providerModel.config(sequelize));
+
+    SalesModel.init(saleSchema, SalesModel.config(sequelize));
+    SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
 
     ShoppingsModel.init(shoppingSchema, ShoppingsModel.config(sequelize));
     ShoppingVariantModel.init(shoppingVariantSchema, ShoppingVariantModel.config(sequelize));
@@ -44,12 +51,18 @@ const setupModels = (sequelize) => {
     LiquidationModel.init(liquidationSchema, LiquidationModel.config(sequelize));
     DepositModel.init(depositSchema, DepositModel.config(sequelize));
 
-    SalesModel.init(saleSchema, SalesModel.config(sequelize));
-    SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
 
+    
     // Relationships
-    // BrandModel.associate(sequelize.models)
-    // ProductModel.associate(sequelize.models)
+    UserModel.associate(sequelize.models)
+    RoleModel.associate(sequelize.models)
+
+    ProviderModel.associate(sequelize.models)
+    StoreModel.associate(sequelize.models)
+    EmployeeModel.associate(sequelize.models)
+
+    BrandModel.associate(sequelize.models)
+    ProductModel.associate(sequelize.models)
     VariantProductModel.associate(sequelize.models)
     AttributeModel.associate(sequelize.models)
 

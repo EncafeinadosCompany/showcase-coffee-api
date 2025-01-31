@@ -1,6 +1,6 @@
-const {DataTypes, Model} = require('sequelize')
+const { DataTypes, Model, Sequelize } = require("sequelize");
 
-const DEPOSIT_TABLE='deposits'
+const DEPOSIT_TABLE = 'deposits'
 
 const depositSchema = {
     id: {
@@ -15,7 +15,7 @@ const depositSchema = {
     },
 
     amount: {
-        type: DataTypes.DECIMAL(10,2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
 
@@ -33,7 +33,18 @@ const depositSchema = {
         references: {
             model: "liquidations",
             key: "id",
-          },
+        },
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
     }
 }
 
@@ -51,13 +62,13 @@ class DepositModel extends Model {
             sequelize,
             tableName: DEPOSIT_TABLE,
             modelName: 'DepositModel',
-            timestamps: true,
+            timestamps: false,
             underscored: true
         }
     }
 }
 
-module.exports = {DEPOSIT_TABLE, depositSchema, DepositModel};
+module.exports = { DEPOSIT_TABLE, depositSchema, DepositModel };
 
 
 

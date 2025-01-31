@@ -1,6 +1,8 @@
+const { connectToDatabase } = require('./config/connection');
+
+const routerApi = require('./routes');
 const express = require('express');
 const cors = require('cors');
-const { connectToDatabase } = require('./config/connection')
 
 require('dotenv').config();
 
@@ -9,11 +11,10 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.host = process.env.DB_HOST;
-
+        
         this.middlewares();
         this.routers();
         this.syncDataBase();
-
     };
 
     middlewares() {
@@ -22,11 +23,16 @@ class Server {
         this.app.use(express.json());
     };
 
-    routers(){ }
+    routers() {
+        routerApi(this.app);
+    };
 
+    
     async syncDataBase() {
         try {
+            
             await connectToDatabase();
+           
         } catch (error) {
             console.error('Error al conectar a la base de datos:', error.message);
             throw error;

@@ -1,6 +1,8 @@
-const { DataTypes, Model } = require("sequelize");
+const { DataTypes, Model, Sequelize } = require("sequelize");
 
-const PRODUCT_TABLE = 'products';
+const { BRAND_TABLE } = require("./brands.entity");
+
+const PRODUCT_TABLE = "products";
 
 const productSchema = {
   id: {
@@ -9,32 +11,63 @@ const productSchema = {
     primaryKey: true,
   },
   name: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
     unique: true,
+    validate: {
+      notEmpty: {
+        msg: "El nombre del producto no puede estar vacío",
+      },
+      len: {
+        args: [1, 50],
+        msg: "El nombre del producto debe tener entre 1 y 50 caracteres",
+      },
+    },
+  },
+  status: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
   },
   id_brand: {
     type: DataTypes.INTEGER,
-    references:{
-      model: 'brands', 
-      key: 'id',
+    references: {
+      model: BRAND_TABLE,
+      key: "id",
     },
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
   },
 };
 
 class ProductModel extends Model {
   static associate(models) {
-    this.belongsTo(models.BrandModel, {foreignKey:'id_brand', as:'brand'});
+    this.belongsTo(models.BrandModel, { foreignKey: "id_brand", as: "brand" });
 
-    this.hasMany(models.VariantProductModel, { foreignKey: 'id_product' });
+    this.belongsToMany(models.AttributeModel, {
+      through: "attributes_products",
+      foreignKey: "id_product",
+      otherKey: "id_attribute",
+    });
+
+    this.hasMany(models.VariantProductModel, { foreignKey: "id_product" });
   }
 
   static config(sequelize) {
     return {
       sequelize,
       tableName: PRODUCT_TABLE,
-      modelName: 'ProductModel',
-      timestamps: true,
+      modelName: "ProductModel",
+      timestamps: false,
     };
   }
 }
