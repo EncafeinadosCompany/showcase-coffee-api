@@ -5,14 +5,17 @@ class SaleVariantRepository {
     constructor(){}
 
     async getAll(){
-        return salesVariant = await SalesVariantModel.findAll();
+        const salesVariant = await SalesVariantModel.findAll();
+        return salesVariant
     }
     async getById(id){
-        return salesVariant = await SalesVariantModel.findByPk(id);
+        const salesVariant = await SalesVariantModel.findByPk(id);
+        return salesVariant
     }
 
     async create(SalesVariantData){
-        return newSaleVariant= await SalesVariantModel.create(SalesVariantData);
+        const newSaleVariant= await SalesVariantModel.create(SalesVariantData);
+        return newSaleVariant
     }
 
     async findByShoppingAndProduct(id_sales, id_variant_products, options = {}) {

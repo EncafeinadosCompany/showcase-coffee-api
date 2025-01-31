@@ -26,7 +26,7 @@ const productSchema = {
   },
   status: {
     type: DataTypes.BOOLEAN,
-    allowNull: false,
+    allowNull: true,
     defaultValue: true,
   },
   id_brand: {
@@ -57,9 +57,10 @@ class ProductModel extends Model {
       through: "attributes_products",
       foreignKey: "id_product",
       otherKey: "id_attribute",
+      as: "attributes"
     });
 
-    this.hasMany(models.VariantProductModel, { foreignKey: "id_product" });
+    this.hasMany(models.VariantProductModel, { foreignKey: "id_product" , as: "variants"});
   }
 
   static config(sequelize) {

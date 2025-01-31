@@ -13,9 +13,11 @@ class VariantService {
         return await this.variantRepository.getById(id);
     }
 
-    async create (variant){
-        return await this.variantRepository.create(variant);
-    }
-
+    async create(variantData) {
+        if (!variantData.images || variantData.images.length === 0) {
+          throw new Error("At least one image is required");
+        }
+        return await this.variantRepository.create(variantData);
+      }
 }
 module.exports = VariantService

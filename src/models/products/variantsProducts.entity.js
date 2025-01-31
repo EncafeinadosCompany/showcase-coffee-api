@@ -12,7 +12,6 @@ const variantProductSchema = {
   grammage: {
     type: DataTypes.STRING(10),
     allowNull: false,
-    unique: true,
     validate: {
       notEmpty: true,
       len: [1, 10],
@@ -37,14 +36,6 @@ const variantProductSchema = {
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
   },
-  id_image: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      isInt: true,
-      min: 1,
-    },
-  },
   created_at: {
     type: DataTypes.DATE,
     allowNull: false,
@@ -64,9 +55,10 @@ class VariantProductModel extends Model {
     this.belongsTo(models.ProductModel, { foreignKey: "id_product" });
 
     this.hasMany(models.ImageVariantModel, {
-      as: "productImages",
-      foreignKey: "id_product",
+      as: "images", 
+      foreignKey: "id_variant",
     });
+
 
     this.hasMany(models.SalesVariantModel, {
       as: "salesVariants",

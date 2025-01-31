@@ -1,5 +1,6 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");;
 const { ROLE_TABLE } = require('./roles.entity');
+const bcrypt = require('bcrypt');
 
 const USER_TABLE = 'users';
 

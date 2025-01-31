@@ -2,17 +2,28 @@
 
 const {ProductModel} = require('../../models/products/products.entity')
 const {BrandModel} = require('../../models/products/brands.entity')
+const {AttributeModel} = require('../../models/products/attribute.entity')
+const {VariantProductModel} = require('../../models/products/variantsProducts.entity')
 
 
 class ProductRepository {
   constructor() {}
   async getAll() {
     const products = await ProductModel.findAll({
+      attributes: ['id', 'name','status'],
       include: [
         {
           model:BrandModel,
           as: "brand",
-          attributes: ["description"], 
+          attributes: ['name','description', 'id'], 
+        },
+        {
+          model:AttributeModel, 
+          attributes: ['description', 'id'],
+          as: "attributes",
+          through: {
+            attributes: ['valor']
+          }
         },
       ],
     });
@@ -21,12 +32,26 @@ class ProductRepository {
 
   async getById(id) {
     const product = await ProductModel.findByPk(id, {
+      attributes: ['id', 'name','status'],
       include: [
         {
-          model: BrandModel,
+          model:BrandModel,
           as: "brand",
-          attributes: ["description"]
+          attributes: ['name', 'description', 'id'], 
         },
+        {
+          model:AttributeModel, 
+          attributes: ['description', 'id'],
+          as: "attributes",
+          through: {
+            attributes: ['valor']
+          }
+        },
+        {
+          model:VariantProductModel,
+          as: "variants",
+          attributes: ['id', 'grammage', 'stock']
+        }
       ],
     });
     return !product ? null : product;
@@ -36,6 +61,8 @@ class ProductRepository {
     const newProduct = await ProductModel.create(product);
     return newProduct;
   }
+
+  
 
 }
 
