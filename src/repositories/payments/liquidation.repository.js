@@ -51,6 +51,15 @@ class LiquidationRepository {
       throw new Error('Failed to retrieve the liquidation with details.');
     }
   }
+
+  async updateLiquidation(id, data) {
+    try {
+      return await LiquidationModel.update(data, { where: { id } });
+    } catch (error) {
+      console.error(`Error while updating liquidation with ID ${id}:`, error);
+      throw new Error('Failed to update the liquidation.');
+    }
+  }
 }
 
 module.exports = LiquidationRepository;

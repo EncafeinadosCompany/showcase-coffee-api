@@ -13,8 +13,10 @@ const liquidationSchema = {
         allowNull: false
     },
     status: {
-        type: DataTypes.STRING(50),
-        allowNull: false
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+
     },
     id_shopping: {
         type: DataTypes.INTEGER,
