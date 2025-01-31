@@ -11,7 +11,7 @@ class DepositService {
 
   async getDepositById(id) {
     if (!id || isNaN(id)) {
-      throw new Error('El ID del depósito es inválido.');
+      throw new Error('The deposit ID is invalid.');
     }
     return await this.depositRepository.getDepositById(id);
   }
@@ -19,14 +19,14 @@ class DepositService {
   async createDeposit(deposit) {
     const { date, amount, voucher, id_liquidation } = deposit;
     if (!date || !amount || !voucher || !id_liquidation) {
-      throw new Error('Faltan datos obligatorios para crear el depósito.');
+      throw new Error('Missing required data to create the deposit.');
     }
     return await this.depositRepository.createDeposit(deposit);
   }
 
   async getDepositsByLiquidation(liquidationId) {
     if (!liquidationId || isNaN(liquidationId)) {
-      throw new Error('El ID de la liquidación es inválido.');
+      throw new Error('The liquidation ID is invalid.');
     }
     return await this.depositRepository.getDepositsByLiquidation(liquidationId);
   }

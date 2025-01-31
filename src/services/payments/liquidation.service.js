@@ -13,7 +13,7 @@ class LiquidationService {
 
   async getLiquidationById(id) {
     if (!id || isNaN(id)) {
-      throw new Error('El ID de la liquidación es inválido.');
+      throw new Error('The liquidation ID is invalid.');
     }
     return await this.liquidationRepository.getLiquidationById(id);
   }
@@ -21,14 +21,14 @@ class LiquidationService {
   async createLiquidation(liquidation) {
     const { current_debt, status, id_shopping } = liquidation;
     if (!current_debt || !status || !id_shopping) {
-      throw new Error('Faltan datos obligatorios para crear la liquidación.');
+      throw new Error('Missing required data to create the liquidation.');
     }
     return await this.liquidationRepository.createLiquidation(liquidation);
   }
 
   async getLiquidationWithDetails(id) {
     if (!id || isNaN(id)) {
-      throw new Error('El ID de la liquidación es inválido.');
+      throw new Error('The liquidation ID is invalid.');
     }
     const liquidation = await this.liquidationRepository.getLiquidationWithDetails(id);
     if (!liquidation) {

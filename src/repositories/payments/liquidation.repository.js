@@ -9,8 +9,8 @@ class LiquidationRepository {
     try {
       return await LiquidationModel.findAll();
     } catch (error) {
-      console.error('Error al obtener las liquidaciones:', error);
-      throw new Error('No se pudo obtener la lista de liquidaciones.');
+      console.error('Error while fetching liquidations:', error);
+      throw new Error('Failed to retrieve the list of liquidations.');
     }
   }
 
@@ -18,8 +18,8 @@ class LiquidationRepository {
     try {
       return await LiquidationModel.findByPk(id);
     } catch (error) {
-      console.error(`Error al obtener la liquidación con ID ${id}:`, error);
-      throw new Error('No se pudo obtener la liquidación.');
+      console.error(`Error while fetching liquidation with ID ${id}:`, error);
+      throw new Error('Failed to retrieve the liquidation.');
     }
   }
 
@@ -27,8 +27,8 @@ class LiquidationRepository {
     try {
       return await LiquidationModel.create(liquidation);
     } catch (error) {
-      console.error('Error al crear la liquidación:', error);
-      throw new Error('No se pudo crear la liquidación.');
+      console.error('Error while creating the liquidation:', error);
+      throw new Error('Failed to create the liquidation.');
     }
   }
 
@@ -47,8 +47,8 @@ class LiquidationRepository {
         ],
       });
     } catch (error) {
-      console.error(`Error al obtener la liquidación con detalles (ID ${id}):`, error);
-      throw new Error('No se pudo obtener la liquidación con detalles.');
+      console.error(`Error while fetching liquidation with details (ID ${id}):`, error);
+      throw new Error('Failed to retrieve the liquidation with details.');
     }
   }
 }

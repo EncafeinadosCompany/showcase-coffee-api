@@ -7,8 +7,8 @@ class DepositRepository {
     try {
       return await DepositModel.findAll();
     } catch (error) {
-      console.error('Error al obtener los depósitos:', error);
-      throw new Error('No se pudo obtener la lista de depósitos.');
+      console.error('Error while fetching deposits:', error);
+      throw new Error('Failed to retrieve the list of deposits.');
     }
   }
 
@@ -16,8 +16,8 @@ class DepositRepository {
     try {
       return await DepositModel.findByPk(id);
     } catch (error) {
-      console.error(`Error al obtener el depósito con ID ${id}:`, error);
-      throw new Error('No se pudo obtener el depósito.');
+      console.error(`Error while fetching deposit with ID ${id}:`, error);
+      throw new Error('Failed to retrieve the deposit.');
     }
   }
 
@@ -25,8 +25,8 @@ class DepositRepository {
     try {
       return await DepositModel.create(deposit);
     } catch (error) {
-      console.error('Error al crear el depósito:', error);
-      throw new Error('No se pudo crear el depósito.');
+      console.error('Error while creating the deposit:', error);
+      throw new Error('Failed to create the deposit.');
     }
   }
 
@@ -34,8 +34,8 @@ class DepositRepository {
     try {
       return await DepositModel.findAll({ where: { id_liquidation: liquidationId } });
     } catch (error) {
-      console.error(`Error al obtener los depósitos de la liquidación ${liquidationId}:`, error);
-      throw new Error('No se pudo obtener los depósitos.');
+      console.error(`Error while fetching deposits for liquidation ${liquidationId}:`, error);
+      throw new Error('Failed to retrieve deposits.');
     }
   }
 }
