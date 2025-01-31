@@ -1,10 +1,13 @@
 const express = require('express')
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('../config/swaggerConfig');
 
 const routerApi = (app) => {
 
     const router = express.Router();
 
     app.use('/api/v1', router);
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
     router
         .use('/auth', require('./users/auth.routes'))
