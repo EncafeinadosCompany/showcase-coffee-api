@@ -27,6 +27,13 @@ const depositSchema = {
         }
     },
 
+    status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+
+    },
+
     id_liquidation: {
         type: DataTypes.INTEGER,
         allowNull: false,

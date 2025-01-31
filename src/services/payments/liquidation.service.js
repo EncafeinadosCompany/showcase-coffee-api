@@ -19,8 +19,8 @@ class LiquidationService {
   }
 
   async createLiquidation(liquidation) {
-    const { current_debt, status, id_shopping } = liquidation;
-    if (!current_debt || !status || !id_shopping) {
+  
+    if (!liquidation.current_debt || !liquidation.id_shopping) {
       throw new Error('Missing required data to create the liquidation.');
     }
     return await this.liquidationRepository.createLiquidation(liquidation);
