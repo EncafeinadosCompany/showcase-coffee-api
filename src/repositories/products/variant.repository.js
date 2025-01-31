@@ -12,12 +12,7 @@ class VariantRepository {
         {
           model: ProductModel,
           attributes: ["name"],
-        },
-        {
-          model: ImageVariantModel,
-          as: "images",
-          attributes: ["image_url"],
-        },
+        }
       ],
     });
     return variants;

@@ -12,6 +12,7 @@ const routerApi = (app) => {
         .use('/employees', require('./users/employee.routes'))
 
         .use('/products', require('./products/products.routes'))
+        .use('/attributes', require('./products/attributes.routes'))
         .use('/variants', require('./products/variants.routes'))
         .use('/brands', require('./products/brands.routes'))
         .use('/store', require('./stores/stores.routes'))
