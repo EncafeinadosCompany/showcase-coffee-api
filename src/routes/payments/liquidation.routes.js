@@ -4,9 +4,9 @@ const LiquidationController = require('../../controllers/payments/liquidation.co
 const router = express.Router();
 const liquidationController = new LiquidationController();
 
-router.get('/', (req, res) => LiquidationController.getAllLiquidations(req, res));
-router.get('/:id', (req, res) => LiquidationController.getLiquidationById(req, res));
-router.post('/', (req, res) => LiquidationController.createLiquidation(req, res));
-router.get('/:id/with-deposits', (req, res) => LiquidationController.getLiquidationWithDeposits(req, res));
+router.get('/', (req, res) => liquidationController.getAllLiquidations(req, res));
+router.get('/:id', (req, res) => liquidationController.getLiquidationById(req, res));
+router.post('/', (req, res) => liquidationController.createLiquidation(req, res));
+router.get('/:id/with-deposits', (req, res) => liquidationController.getLiquidationWithDeposits(req, res));
 
 module.exports = router;

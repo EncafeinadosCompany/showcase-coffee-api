@@ -1,4 +1,4 @@
-const { DepositModel } = require('../../models/payments/deposit.entity');
+const { DepositModel } = require('../../models/payments/deposits.entity');
 
 class DepositRepository {
   constructor() {}

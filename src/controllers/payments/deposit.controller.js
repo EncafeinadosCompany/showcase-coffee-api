@@ -52,4 +52,4 @@ class DepositController {
   }
 }
 
-module.exports = new DepositController();
+module.exports = DepositController;

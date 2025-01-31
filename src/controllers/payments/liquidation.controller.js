@@ -55,4 +55,4 @@ class LiquidationController {
   }
 }
 
-module.exports = new LiquidationController();
+module.exports = LiquidationController;
