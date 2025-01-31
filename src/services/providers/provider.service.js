@@ -1,8 +1,6 @@
-const { ProviderRepository } = require('../../repositories/providers/provider.repository');
-
 class ProviderService {
-    constructor() {
-        this.providerRepository = new ProviderRepository();
+    constructor(providerRepository) {
+        this.providerRepository = providerRepository;
     }
 
     async createProvider(providerData) {

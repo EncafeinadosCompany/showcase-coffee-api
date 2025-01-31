@@ -1,8 +1,6 @@
-const { ProviderService } = require('../../services/providers/provider.service');
-
 class ProviderController {
-    constructor() {
-        this.providerService = new ProviderService();
+    constructor(providerService) {
+        this.providerService = providerService;
     }
 
     async createProvider(req, res) {
