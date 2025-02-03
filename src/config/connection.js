@@ -1,12 +1,12 @@
 const { Sequelize } = require('sequelize');
-const dbConfig = require('./database'); // Importamos la configuración
-const setupModels = require('../models'); // Asegúrate de que setupModels esté bien definido
+const dbConfig = require('./database');
+const setupModels = require('../models');
 const env = process.env.NODE_ENV || 'development';
 
 const config = dbConfig[env];
 
 if (!config) {
-    throw new Error(`❌ No se pudo cargar la configuración para el entorno: ${env}`);
+    throw new Error(`❌ The configuration for the environment could not be loaded: ${env}`);
 }
 
 const sequelize = new Sequelize(config.database, config.username, config.password, {
@@ -18,19 +18,17 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
     dialectOptions: config.dialectOptions
 });
 
-// 🛠️ Configurar modelos
 setupModels(sequelize);
 
 const connectToDatabase = async () => {
     try {
         await sequelize.authenticate();
-        console.log(`✅ [${env.toUpperCase()}] Conexión establecida a la base de datos "${config.database}" en el puerto ${config.port}.`);
+        console.log(`✅ [${env.toUpperCase()}] Connection established to the "${config.database}" database on port ${config.port}.`);
     } catch (error) {
-        console.error(`❌ [${env.toUpperCase()}] Error al conectar a la base de datos:`, error.message);
+        console.error(`❌ [${env.toUpperCase()}] Error connecting to the database:`, error.message);
         throw error;
     }
     return sequelize;
 };
 
-// Exportamos sequelize y la función de conexión
 module.exports = { sequelize, connectToDatabase };
