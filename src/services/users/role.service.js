@@ -1,8 +1,7 @@
-const RoleRepository = require('../../repositories/users/role.repository');
 class RoleService {
 
-    constructor() {
-        this.roleRepository = new RoleRepository();
+    constructor(RoleRepository) {
+        this.roleRepository = RoleRepository;
     }
 
     async getRoles() {

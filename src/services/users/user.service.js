@@ -1,9 +1,7 @@
-const UserRepository = require('../../repositories/users/user.repository');
-
 class UserService {
     
-    constructor() {
-        this.userRepository = new UserRepository();
+    constructor(UserRepository) {
+        this.userRepository = UserRepository;
     };
 
     async getUsers() {
