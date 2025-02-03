@@ -9,7 +9,6 @@ const providerRepository = new ProviderRepository();
 const providerService = new ProviderService(providerRepository);
 const providerController = new ProviderController(providerService);
 
-
 /**
  * @swagger
  * /providers:

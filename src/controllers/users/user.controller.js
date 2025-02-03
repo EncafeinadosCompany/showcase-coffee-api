@@ -1,8 +1,7 @@
-const UserService = require('../../services/users/user.service');
 class UserController {
     
-    constructor() {
-        this.userService = new UserService();
+    constructor(UserService) {
+        this.userService = UserService;
     }
     
     async getUsers (req, res) {
