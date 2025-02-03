@@ -1,8 +1,6 @@
-const { StoreRepository } = require('../../repositories/stores/store.repository');
-
 class StoreService {
-    constructor() {
-        this.storeRepository = new StoreRepository();
+    constructor(StoreRepository) {
+        this.storeRepository = StoreRepository;
     }
 
     async createStore(storeData) {
