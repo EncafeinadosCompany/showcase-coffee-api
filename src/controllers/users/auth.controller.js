@@ -1,9 +1,8 @@
-const AuthService = require("../../services/users/auth.service");
 
 class AuthController {
     
-    constructor() {
-        this.authService = new AuthService();
+    constructor(AuthService) {
+        this.authService = AuthService;
     }
 
     async login(req, res) {
