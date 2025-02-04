@@ -1,8 +1,15 @@
 const express = require('express');
+
 const DepositController = require('../../controllers/payments/deposit.controller');
+const DepositRepository = require('../../repositories/payments/deposit.repository');
+const DepositService = require('../../services/payments/deposit.service');
+
+const depositRepository = new DepositRepository();
+const depositController = new DepositController(depositRepository);
+const depositService = new DepositService(depositRepository);
+
 
 const router = express.Router();
-const depositController = new DepositController();
 
 router.get('/', (req, res) => depositController.getAllDeposits(req, res));
 router.get('/:id', (req, res) => depositController.getDepositById(req, res));
