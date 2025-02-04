@@ -1,6 +1,6 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");;
-const { PROVIDER_TABLE } = require('../providers/provider.entity')
-
+const { PROVIDER_TABLE } = require('../providers/provider.entity');
+const { PRODUCT_TABLE } = require("../products/products.entity");
 
 const PRODUCT_PROVIDER_TABLE = 'products_providers';
 
@@ -22,7 +22,7 @@ const productProviderSchema = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'products',
+            model: PRODUCT_TABLE,
             key: 'id',
         },
     },
@@ -43,12 +43,12 @@ class Product_providerModel extends Model {
     static associate(models) {
 
         this.belongsTo(models.ProviderModel, {
-            as: PROVIDER_TABLE,
+            as: 'providers',
             foreignKey: 'id_provider'
         });
 
         this.belongsTo(models.ProductModel, {
-            as: 'products',
+            as: 'products_provider',
             foreignKey: 'id_product'
         });
     }
