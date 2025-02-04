@@ -1,10 +1,14 @@
-const express = require('express');
+const UserService = require('../../services/users/user.service');
 const UserController = require('../../controllers/users/user.controller');
+const UserRepository = require('../../repositories/users/user.repository');
 
-// const { authenticateJWT } = require('../../middlewares/auht.middleware');
+// const { authenticateJWT } = require('../../middlewares/auth.middleware');
 
-const router = express.Router();
-const userController = new UserController(); 
+const router = require('express').Router();
+
+const userRepository = new UserRepository();
+const userService = new UserService(userRepository);
+const userController = new UserController(userService); 
 
 router
     .get('/', (req, res) => userController.getUsers(req, res))

@@ -1,14 +1,8 @@
-const ShoppingRepository = require('../../repositories/shoppings/shoppings.repository');
-const ShoppingVariantRepositories = require('../../repositories/shoppings/shoppingVariant.repository');
-const ProductVariantsRepository = require('../../repositories/products/variant.repository');
-const {sequelize} = require('../../config/connection');
-
-
 class ShoppingService {
-  constructor() {
-    this.shoppingRepositories = new ShoppingRepository(),
-      this.shoppingVariantRepositories = new ShoppingVariantRepositories(),
-      this.productsVariantRepository = new ProductVariantsRepository()
+  constructor(ShoppingRepository, ShoppingVariantRepositories, ProductVariantsRepository) {
+    this.shoppingRepositories = ShoppingRepository,
+      this.shoppingVariantRepositories = ShoppingVariantRepositories,
+      this.productsVariantRepository = ProductVariantsRepository
   }
 
   async getAllShopping() {

@@ -1,9 +1,6 @@
-const express = require('express');
-const ShoppingService = require('../../services/shoppings/shopping.service');
-
 class ShoppingController {
-  constructor() {
-    this.shoppingService = new ShoppingService();
+  constructor(ShoppingService) {
+    this.shoppingService = ShoppingService;
   }
 
   async getAllShopping(req, res) {

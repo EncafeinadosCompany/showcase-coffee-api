@@ -1,8 +1,7 @@
-const SaleService = require('../../services/sales/sales.service');
-
 class SalesController {
-  constructor() {
-    this.saleService = new SaleService();
+  
+  constructor(SaleService) {
+    this.saleService = SaleService;
   }
 
   async getAllSales(req, res) {

@@ -1,13 +1,24 @@
-const express = require('express');
 const SalesController  = require('../../controllers/sales/sales.controller');
+const SalesRepository = require('../../repositories/sales/sales.repository');
+const SalesService = require('../../services/sales/sales.service');
+const SalesVariantRepository = require('../../repositories/sales/salesVariant.repository');
+const ProductVariantsRepository = require('../../repositories/products/products.repository');
+const { sequelize } = require('../../config/connection');
 
-const router = express.Router();
-const salesController = new SalesController();
+const saleVariantRepository = new SalesVariantRepository();
+const productVariantsRepository = new ProductVariantsRepository();
 
-router.get('/', (req, res) => salesController.getAllSales(req, res));
-router.get('/:id', (req, res) => salesController.getSalesById(req, res));
-router.post('/', (req, res) => salesController.createSaleWithDetails(req, res));
-router.get('/variant/all', (req, res) => salesController.getAllSaleVariant(req, res));
-router.get('/variant/:id', (req, res) => salesController.getSaleVariantById(req, res));
+const saleRepository = new SalesRepository(productVariantsRepository, saleVariantRepository, sequelize);
+const saleService = new SalesService(saleRepository);
+const saleController = new SalesController(saleService);
+
+const router = require('express').Router();
+
+router
+    .get('/', (req, res) => saleController.getAllSales(req, res))
+    .get('/:id', (req, res) => saleController.getSalesById(req, res))
+    .post('/', (req, res) => saleController.createSaleWithDetails(req, res))
+    .get('/variant/all', (req, res) => saleController.getAllSaleVariant(req, res))
+    .get('/variant/:id', (req, res) => saleController.getSaleVariantById(req, res))
 
 module.exports = router ;
