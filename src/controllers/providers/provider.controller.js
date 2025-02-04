@@ -5,7 +5,7 @@ class ProviderController {
 
     async createProvider(req, res) {
         try {
-            const providerData = req.body; // El body incluye cuentas bancarias
+            const providerData = req.body; 
             const provider = await this.providerService.createProvider(providerData);
             res.status(201).json({
                 message: "Provider created successfully",
