@@ -11,6 +11,7 @@ const routerApi = (app) => {
 
     router
         .use('/auth', require('./users/auth.routes'))
+        
         .use('/users', require('./users/user.routes'))
         .use('/roles', require('./users/role.routes'))
         .use('/employees', require('./users/employee.routes'))

@@ -18,7 +18,7 @@ const shoppingSchema = {
             key: 'id'
         }
     },
-    id_employees: {
+    id_employee: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {

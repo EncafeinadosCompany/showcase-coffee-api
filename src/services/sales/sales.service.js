@@ -81,7 +81,7 @@ class SaleService {
       throw new Error('SERVICE: ' + error.message);
     }
   };
-  
+
 }
 
 module.exports = SaleService
