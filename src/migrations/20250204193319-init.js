@@ -9,6 +9,8 @@ const { PROVIDER_TABLE, providerSchema } = require("../models/providers/provider
 const { STORE_TABLE, storeSchema } = require("../models/stores/store.entity");
 const { EMPLOYEE_TABLE, employeeSchema } = require("../models/users/employees.entity");
 const { BANK_ACCOUNT_TABLE, bankAccountSchema } = require("../models/providers/bank_accounts");
+const { STORE_PROVIDER_TABLE, storeProviderSchema } = require("../models/stores/storeProvider.entity");
+
 
 const { BRAND_TABLE, brandSchema } = require("../models/products/brands.entity");
 const { PRODUCT_TABLE, productSchema } = require("../models/products/products.entity");
@@ -38,6 +40,7 @@ module.exports = {
     await queryInterface.createTable(STORE_TABLE, storeSchema);
     await queryInterface.createTable(EMPLOYEE_TABLE, employeeSchema);
     await queryInterface.createTable(BANK_ACCOUNT_TABLE, bankAccountSchema );
+    await queryInterface.createTable(STORE_PROVIDER_TABLE, storeProviderSchema );
 
     await queryInterface.createTable(BRAND_TABLE, brandSchema);
     await queryInterface.createTable(PRODUCT_TABLE, productSchema);
@@ -66,6 +69,7 @@ module.exports = {
     await queryInterface.dropTable(STORE_TABLE);
     await queryInterface.dropTable(EMPLOYEE_TABLE);
     await queryInterface.dropTable(BANK_ACCOUNT_TABLE);
+    await queryInterface.dropTable(STORE_PROVIDER_TABLE);
 
     await queryInterface.dropTable(BRAND_TABLE);
     await queryInterface.dropTable(PRODUCT_TABLE);
