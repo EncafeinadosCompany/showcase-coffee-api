@@ -24,11 +24,14 @@ class EmployeeService {
     async createEmployee(employee) {
         try {
             const email = employee.email;
-            const password = await userService.createPassword(employee.name);
-            
-            const user = await userService.createUser({ id_role: employee.id_rol, email: email, password: password });
-    
-            employeeFinal = {
+            const role = employee.id_role;
+            const password = await this.userService.createPassword(employee.name);
+
+            const userData = { id_role: role, email: email, password: password };
+
+            const user = await this.userService.createUser(userData);
+
+            const employeeFinal = {
                 ...employee,
                 id_user: user.id,
             };
