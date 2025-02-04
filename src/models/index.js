@@ -5,6 +5,7 @@ const { ProviderModel, providerSchema } = require('./providers/provider.entity')
 const { BankAccountModel, bankAccountSchema } = require('./providers/bank_accounts');
 const { StoreModel, storeSchema } = require('./stores/store.entity');
 const { EmployeeModel, employeeSchema } = require('./users/employees.entity');
+const { StoreProviderModel, storeProviderSchema } = require('./stores/storeProvider.entity');
 
 const { ProductModel, productSchema } = require('./products/products.entity');
 const { BrandModel, brandSchema } = require('./products/brands.entity');
@@ -33,6 +34,7 @@ const setupModels = (sequelize) => {
     StoreModel.init(storeSchema, StoreModel.config(sequelize));
     EmployeeModel.init(employeeSchema, EmployeeModel.config(sequelize));
     BankAccountModel.init(bankAccountSchema, BankAccountModel.config(sequelize));
+    StoreProviderModel.init(storeProviderSchema, StoreProviderModel.config(sequelize));
 
     BrandModel.init(brandSchema, BrandModel.config(sequelize));
     ProductModel.init(productSchema, ProductModel.config(sequelize));
@@ -61,6 +63,7 @@ const setupModels = (sequelize) => {
     StoreModel.associate(sequelize.models)
     EmployeeModel.associate(sequelize.models)
     BankAccountModel.associate(sequelize.models)
+    StoreProviderModel.associate(sequelize.models)
 
     BrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)
