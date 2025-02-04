@@ -9,7 +9,11 @@ class StoreProviderController {
         const result = await this.storeProviderService.addStoreProvider(storeId, providerId);
         res.status(201).json(result);
       } catch (error) {
-        res.status(500).json({ error: error.message });
+        if (error.message === "La asociación entre store y provider ya existe.") {
+          res.status(400).json({ error: error.message });
+        } else {
+          res.status(500).json({ error: error.message });
+        }
       }
     }
   
