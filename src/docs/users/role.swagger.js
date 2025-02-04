@@ -75,7 +75,7 @@
  * @swagger
  * /roles:
  *   post:
- *     summary: Crear un nuevo rol
+ *     summary: Create new rol
  *     tags: [Roles]
  *     requestBody:
  *       required: true
