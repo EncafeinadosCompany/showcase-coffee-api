@@ -1,5 +1,4 @@
-
-const {SalesVariantModel} = require('../../models/sales/salesVariant.entity');
+const { SalesVariantModel } = require('../../models/sales/salesVariant.entity');
 
 class SaleVariantRepository {
     constructor(){}
@@ -18,11 +17,11 @@ class SaleVariantRepository {
         return newSaleVariant
     }
 
-    async findByShoppingAndProduct(id_sales, id_variant_products, options = {}) {
+    async findByShoppingAndProduct(id_sale, id_variant_products, options = {}) {
         try {
             const saleVariant = await SalesVariantModel.findOne({
                 where: {
-                    id_sales,
+                    id_sale,
                     id_variant_products
                 },
                 ...options

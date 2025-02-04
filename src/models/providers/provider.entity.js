@@ -32,19 +32,6 @@ const providerSchema = {
         unique: true,
         allowNull: false,
     },
-    bank_account: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-    },
-    type_account: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    bank: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     status: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
@@ -65,6 +52,11 @@ const providerSchema = {
 class ProviderModel extends Model {
     static associate(models) {
 
+        this.hasMany(models.BankAccountModel, {
+            as: "bankAccounts",
+            foreignKey: "provider_id",
+          });
+          
         this.hasMany(models.Product_providerModel, {
             as: 'id_provider',
             foreignKey: 'products',

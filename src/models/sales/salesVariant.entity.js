@@ -11,7 +11,7 @@ const saleVariantSchema = {
         primaryKey: true,
         autoIncrement: true,
     },
-    id_sales: {
+    id_sale: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -57,7 +57,7 @@ class SalesVariantModel extends Model {
 
         this.belongsTo(models.SalesModel, {
             as: 'sale',
-            foreignKey: 'id_sales'
+            foreignKey: 'id_sale'
         });
 
         this.belongsTo(models.VariantProductModel, {

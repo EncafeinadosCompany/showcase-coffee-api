@@ -1,8 +1,7 @@
-const DepositService = require('../../services/payments/deposit.service');
 
 class DepositController {
-  constructor() {
-    this.depositService = new DepositService();
+  constructor(depositService) {
+    this.depositService = depositService;
   }
 
   async getAllDeposits(req, res) {

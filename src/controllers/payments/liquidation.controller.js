@@ -1,8 +1,6 @@
-const LiquidationService = require('../../services/payments/liquidation.service');
-
 class LiquidationController {
-  constructor() {
-    this.liquidationService = new LiquidationService();
+  constructor(liquidationService) {
+    this.liquidationService = liquidationService;
   }
 
   async getAllLiquidations(req, res) {

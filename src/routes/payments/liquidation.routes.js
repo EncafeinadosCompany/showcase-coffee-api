@@ -1,8 +1,13 @@
 const express = require('express');
 const LiquidationController = require('../../controllers/payments/liquidation.controller');
+const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
+const LiquidationService = require('../../services/payments/liquidation.service');
+
+const liquidationRepository = new LiquidationRepository();
+const liquidationService = new LiquidationService(liquidationRepository);
+const liquidationController = new LiquidationController(liquidationService);
 
 const router = express.Router();
-const liquidationController = new LiquidationController();
 
 router.get('/', (req, res) => liquidationController.getAllLiquidations(req, res));
 router.get('/:id', (req, res) => liquidationController.getLiquidationById(req, res));
