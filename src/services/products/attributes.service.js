@@ -1,12 +1,9 @@
-
-const AttributeRepository = require('../../repositories/products/attributes.repository');
-const  AttributeProductsRepository= require('../../repositories/products/attributesProducts.repository');
 const {sequelize} = require('../../config/connection');
 
 class AttributeService {
-    constructor() {
-        this.attributeProductsRepository =  new AttributeProductsRepository();
-        this.attributeRepository = new AttributeRepository();
+    constructor(AttributeProductsRepository, AttributeRepository) {
+        this.attributeProductsRepository =  AttributeProductsRepository;
+        this.attributeRepository = AttributeRepository;
     }
     
     async getAll() {

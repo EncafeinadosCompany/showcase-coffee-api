@@ -12,8 +12,7 @@ const attributeProductSchema = {
   },
   valor: {
     type: DataTypes.STRING(50),
-    allowNull: false,
-    unique: true
+    allowNull: false
   },
   id_attribute: {
     type: DataTypes.INTEGER,

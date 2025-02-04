@@ -1,9 +1,8 @@
 const express = require('express');
-const AttributeService = require('../../services/products/attributes.service');
 
 class AttributeController {
-    constructor (){
-        this.attributeService = new AttributeService();
+    constructor (AttributeService){
+        this.attributeService = AttributeService;
     }
 
     async getAllAttributes(req, res){
