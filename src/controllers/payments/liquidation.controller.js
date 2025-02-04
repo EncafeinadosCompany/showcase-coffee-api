@@ -1,6 +1,6 @@
 class LiquidationController {
   constructor(liquidationService) {
-    this.liquidationService = new liquidationService();
+    this.liquidationService = liquidationService;
   }
 
   async getAllLiquidations(req, res) {

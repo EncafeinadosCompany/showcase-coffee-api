@@ -3,9 +3,9 @@ const LiquidationController = require('../../controllers/payments/liquidation.co
 const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
 const LiquidationService = require('../../services/payments/liquidation.service');
 
-const LiquidationRepository = new LiquidationRepository();
-const liquidationController = new LiquidationController(LiquidationRepository);
-const liquidationService = new LiquidationService(LiquidationRepository);
+const liquidationRepository = new LiquidationRepository();
+const liquidationService = new LiquidationService(liquidationRepository);
+const liquidationController = new LiquidationController(liquidationService);
 
 const router = express.Router();
 
