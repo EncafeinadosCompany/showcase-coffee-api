@@ -7,7 +7,9 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 class AuthService {
     
-    constructor() {}
+    constructor(EmployeeRepository) {
+        this.employeeRepository = EmployeeRepository;
+    }
 
     async login(email, password) {
         const user = await UserModel.findOne({ where: { email } });
@@ -25,13 +27,15 @@ class AuthService {
             throw error;
         }
 
+        const employee = await this.employeeRepository.getEmployeeByUserId(user.id);
+
         const token = jwt.sign(
             { id: user.id, email: user.email, role: user.id_role },
             SECRET_KEY,
             { expiresIn: "10h" }
         );
 
-        return { success: true, message: "Successful login", token, user };
+        return { success: true, message: "Successful login", token, user, employee: employee ? employee : null };
     }
 }
 

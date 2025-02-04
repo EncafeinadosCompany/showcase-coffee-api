@@ -1,8 +1,9 @@
 class ShoppingService {
-  constructor(ShoppingRepository, ShoppingVariantRepositories, ProductVariantsRepository) {
+  constructor(ShoppingRepository, ShoppingVariantRepositories, ProductVariantsRepository, sequelize) {
     this.shoppingRepositories = ShoppingRepository,
       this.shoppingVariantRepositories = ShoppingVariantRepositories,
-      this.productsVariantRepository = ProductVariantsRepository
+      this.productsVariantRepository = ProductVariantsRepository,
+      this.sequelize = sequelize
   }
 
   async getAllShopping() {
@@ -26,7 +27,7 @@ class ShoppingService {
   }
 
   async createShoppingWithDetails(shoppingData, detailsData) {
-    const transaction = await sequelize.transaction();
+    const transaction = await this.sequelize.transaction();
     try {
       const newShopping = await this.shoppingRepositories.create(shoppingData, { transaction });
 
@@ -47,7 +48,7 @@ class ShoppingService {
 
 
   async createShoppingVariant(shoppingDetailData) {
-    const transaction = await sequelize.transaction();
+    const transaction = await this.sequelize.transaction();
     try {
       const shopping = await this.shoppingRepositories.getById(shoppingDetailData.id_shopping, { transaction });
       if (!shopping) throw new Error('SERVICE: shopping not found.');

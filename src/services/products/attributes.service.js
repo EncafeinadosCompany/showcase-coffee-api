@@ -15,7 +15,7 @@ class AttributeService {
                 {
                     model: AttributeProductsRepository,
                     as: 'details',
-                    attributes: ['id', 'valor']
+                    attributes: ['id', 'value']
                 }
             ]
         });

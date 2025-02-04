@@ -30,7 +30,8 @@ class EmployeeService {
             const userData = { id_role: role, email: email, password: password };
 
             const user = await this.userService.createUser(userData);
-
+            console.log(user);
+            
             const employeeFinal = {
                 ...employee,
                 id_user: user.id,
