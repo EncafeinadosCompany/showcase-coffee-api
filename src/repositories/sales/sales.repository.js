@@ -6,7 +6,7 @@ class SaleRepository {
     async getAll() {
         const sales = await SalesModel.findAll(
             {
-                include: ['shopping_variant']
+                include: ['sales_variant']
             }
         );
         return sales
@@ -14,7 +14,7 @@ class SaleRepository {
     async getById(id) {
         const sales = await SalesModel.findByPk(id,
             {
-                include: ['shopping_variant']
+                include: ['sales_variant']
             }
         );
         return sales

@@ -63,10 +63,11 @@ class StoreModel extends Model {
         });
 
         this.belongsToMany(models.ProviderModel, {
-            through: models.StoreProviderModel,
-            foreignKey: "store_id",
-            as: "providers",
-          });
+            through: 'store_provider',
+            foreignKey: "id_store",
+            otherKey: "id_provider",
+            as: "stores_providers", 
+        });
     }
 
     static config(sequelize) {

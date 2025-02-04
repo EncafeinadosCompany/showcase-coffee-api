@@ -1,4 +1,6 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");
+const { PROVIDER_TABLE } = require("../providers/provider.entity");
+const { STORE_TABLE } = require("./store.entity");
 
 const STORE_PROVIDER_TABLE = "store_provider";
 
@@ -8,21 +10,21 @@ const storeProviderSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  store_id: {
+  id_store: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "stores", 
+      model: STORE_TABLE, 
       key: "id", 
     },
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
   },
-  provider_id: {
+  id_provider: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "providers", 
+      model: PROVIDER_TABLE, 
       key: "id", 
     },
     onUpdate: "CASCADE",
@@ -43,14 +45,15 @@ const storeProviderSchema = {
 
 class StoreProviderModel extends Model {
   static associate(models) {
+    
     this.belongsTo(models.StoreModel, {
       as: "store",
-      foreignKey: "store_id",
+      foreignKey: "id_store",
     });
 
     this.belongsTo(models.ProviderModel, {
       as: "provider",
-      foreignKey: "provider_id",
+      foreignKey: "id_provider",
     });
   }
 

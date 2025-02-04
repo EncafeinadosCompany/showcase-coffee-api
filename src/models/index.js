@@ -4,7 +4,6 @@ const { UserModel, userSchema } = require('./users/users.entity');
 const { ProviderModel, providerSchema } = require('./providers/provider.entity');
 const { BankAccountModel, bankAccountSchema } = require('./providers/bank_accounts');
 const { StoreModel, storeSchema } = require('./stores/store.entity');
-const { StoreModel, storeSchema } = require('./stores/store.entity');
 const { EmployeeModel, employeeSchema } = require('./users/employees.entity');
 
 const { ProductModel, productSchema } = require('./products/products.entity');
@@ -66,6 +65,7 @@ const setupModels = (sequelize) => {
     BrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)
     AttributeModel.associate(sequelize.models)
+    AttributeProductModel.associate(sequelize.models)
    
     VariantProductModel.associate(sequelize.models)
     ImageVariantModel.associate(sequelize.models)

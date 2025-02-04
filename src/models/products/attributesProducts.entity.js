@@ -44,8 +44,19 @@ const attributeProductSchema = {
 };
 
 class AttributeProductModel extends Model {
+  static associate(models) {
+    this.belongsTo(models.AttributeModel, {
+      as: "attribute",
+      foreignKey: "id_attribute",
+    });
+
+    this.belongsTo(models.ProductModel, {
+      as: "product",
+      foreignKey: "id_product",
+    });
+  }
+
   static config(sequelize) {
-    
     return {
       sequelize,
       tableName: ATTRIBUTE_PRODUCT_TABLE,
