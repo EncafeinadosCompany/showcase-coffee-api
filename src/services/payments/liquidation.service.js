@@ -1,10 +1,7 @@
-const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
-const DepositService = require('./deposit.service');
-
 class LiquidationService {
-  constructor() {
-    this.liquidationRepository = new LiquidationRepository();
-    this.depositService = new DepositService();
+  constructor(liquidationRepository, depositService) {
+    this.liquidationRepository = liquidationRepository;
+    this.depositService = depositService
   }
 
   async getAllLiquidations() {
