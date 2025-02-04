@@ -5,16 +5,13 @@ class ProviderController {
 
     async createProvider(req, res) {
         try {
-            const providerData = req.body; 
-            const provider = await this.providerService.createProvider(providerData);
-            res.status(201).json({
-                message: "Provider created successfully",
-                provider
-            });
+          const providerData = req.body;
+          const newProvider = await this.providerService.createProvider(providerData);
+          res.status(201).json(newProvider);
         } catch (error) {
-            res.status(500).json({ error: `Error creating provider: ${error.message}` });
+          res.status(500).json({ error: error.message });
         }
-    }
+      }
 
     async getAllProviders(req, res) {
         try {
