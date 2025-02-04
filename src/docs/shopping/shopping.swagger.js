@@ -25,7 +25,7 @@
  *                     type: integer
  *                   id_store:
  *                     type: integer
- *                   id_employees:
+ *                   id_employee:
  *                     type: integer
  *                   date_entry:
  *                     type: string
@@ -58,7 +58,7 @@
  *                   type: integer
  *                 id_store:
  *                   type: integer
- *                 id_employees:
+ *                 id_employee:
  *                   type: integer
  *                 date_entry:
  *                   type: string
@@ -87,7 +87,7 @@
  *                 properties:
  *                   id_store:
  *                     type: integer
- *                   id_employees:
+ *                   id_employee:
  *                     type: integer
  *                   date_entry:
  *                     type: string

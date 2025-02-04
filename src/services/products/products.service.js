@@ -37,7 +37,7 @@ class ProductService {
             await this.attributeProductsRepository.create({
                 id_product: newProduct.id,
                 id_attribute: attribute.id,
-                valor: detail.valor 
+                value: detail.value 
             }, { transaction });
         }));
 

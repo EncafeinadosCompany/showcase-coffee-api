@@ -96,7 +96,7 @@ class EmployeeModel extends Model {
     });
 
     this.hasMany(models.ShoppingsModel, {
-      foreignKey: 'id_employees',
+      foreignKey: 'id_employee',
       as: 'shoppings',
     });
 
