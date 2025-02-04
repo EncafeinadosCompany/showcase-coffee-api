@@ -27,6 +27,21 @@ class UserService {
             throw new Error(error);
         }
     };
+
+    async createPassword (name) {
+
+        const cleanName = name
+        .trim() 
+        .replace(/\s+/g, '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') 
+        .toLowerCase(); 
+    
+        const finalName = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+    
+        const nrmd = Math.floor(Math.random() * 1000).toString().padStart(4, '0');
+        return `${finalName}${nrmd}.`;
+    };
 }
 
 module.exports = UserService;

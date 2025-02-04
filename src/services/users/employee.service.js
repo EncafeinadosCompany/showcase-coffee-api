@@ -1,6 +1,7 @@
 class EmployeeService {
 
-    constructor(EmployeeRepository) {
+    constructor(EmployeeRepository, UserService) {
+        this.userService = UserService;
         this.employeeRepository = EmployeeRepository;
     }
 
@@ -22,7 +23,17 @@ class EmployeeService {
 
     async createEmployee(employee) {
         try {
-            return this.employeeRepository.createEmployee(employee);
+            const email = employee.email;
+            const password = await userService.createPassword(employee.name);
+            
+            const user = await userService.createUser({ id_role: employee.id_rol, email: email, password: password });
+    
+            employeeFinal = {
+                ...employee,
+                id_user: user.id,
+            };
+
+            return this.employeeRepository.createEmployee(employeeFinal);
         } catch (error) {
             throw error;
         }
