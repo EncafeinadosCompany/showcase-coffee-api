@@ -1,9 +1,10 @@
 class SaleService {
 
-  constructor(SalesRepository, SalesVariantRepository, ProductVariantsRepository) {
+  constructor(SalesRepository, SalesVariantRepository, ProductVariantsRepository, sequelize) {
     this.saleRepository = SalesRepository,
       this.salesVariantRepository = SalesVariantRepository,
-      this.productsVariantRepository = ProductVariantsRepository
+      this.productsVariantRepository = ProductVariantsRepository,
+      this.sequelize = sequelize
   }
 
   async getAllSales() {
@@ -27,7 +28,7 @@ class SaleService {
   }
 
   async createSale(data) {
-    const transaction = await sequelize.transaction();
+    const transaction = await this.sequelize.transaction();
     try {
       const newSale = await this.saleRepository.create(data.sale, { transaction });
 
