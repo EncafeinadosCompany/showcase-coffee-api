@@ -1,4 +1,5 @@
 class SaleService {
+
   constructor(SalesRepository, SalesVariantRepository, ProductVariantsRepository) {
     this.saleRepository = SalesRepository,
       this.salesVariantRepository = SalesVariantRepository,
@@ -25,79 +26,61 @@ class SaleService {
     }
   }
 
-  async createSaleWithDetails(saleData, detailsData) {
+  async createSale(data) {
     const transaction = await sequelize.transaction();
     try {
-      const newSale = await this.saleRepository.create(saleData, { transaction });
+      const newSale = await this.saleRepository.create(data.sale, { transaction });
 
-      await Promise.all(detailsData.map(async (detail) => {
-        detail.id_sales = newSale.id;
-
-        await this.salesVariantRepository.create(detail, { transaction });
+      await Promise.all(data.details.map(async (detail) => {
+        detail.id_sale = newSale.id;
+        await this.createSaleVariant(detail, transaction);
       }));
 
       await transaction.commit();
       return newSale;
+
     } catch (error) {
       await transaction.rollback();
       throw new Error('SERVICE: ' + error.message);
     }
-  }
+  };
 
-
-
-  async createSaleVariant(saleDetailData) {
-    const transaction = await sequelize.transaction();
+  async createSaleVariant(saleDetailData, transaction) {
     try {
-      const sale = await this.saleRepository.getById(saleDetailData.id_sales, { transaction });
-      if (!sale) throw new Error('SERVICE: Sale not found.');
+      const [sale, productVariant] = await Promise.all([
+        this.saleRepository.getById(saleDetailData.id_sale, { transaction }),
+        this.productsVariantRepository.findById(saleDetailData.id_variant_products, { transaction })
+      ]);
+
+      if (!sale) throw new Error('Sale not found');
+      if (!productVariant) throw new Error('Variant product not found');
+      if (productVariant.stock < saleDetailData.quantity) {
+        throw new Error(`Not enough stock for variant ID ${saleDetailData.id_variant_products}`);
+      }
 
       const existingDetail = await this.salesVariantRepository.findByShoppingAndProduct(
-        saleDetailData.id_sales,
+        saleDetailData.id_sale,
         saleDetailData.id_variant_products,
         { transaction }
       );
 
-      if (existingDetail) {
-        throw new Error('A sale detail already exists with this product.');
-      }
+      if (existingDetail) throw new Error('Sale detail already exists with this product');
 
-      const newSaleDetail = await this.salesVariantRepository.create(saleDetailData, { transaction });
+      const [newSaleDetail] = await Promise.all([
+        this.salesVariantRepository.create(saleDetailData, { transaction }),
+        this.productsVariantRepository.updateStock(
+          productVariant.id,
+          productVariant.stock - saleDetailData.quantity,
+          { transaction }
+        )
+      ]);
 
-      // Actualizar el stock del producto variante
-      const productVariant = await this.productsVariantRepository.findById(saleDetailData.id_variant_products, { transaction });
-      if (!productVariant) throw new Error('SERVICE: Variant product not found.');
-
-      const newStock = productVariant.stock - saleDetailData.quantity;
-      await this.productsVariantRepository.updateStock(productVariant.id, newStock, { transaction });
-
-      await transaction.commit();
       return newSaleDetail;
     } catch (error) {
-      await transaction.rollback();
-      throw new Error('SERVICE:' + error.message);
+      throw new Error('SERVICE: ' + error.message);
     }
-  }
-
-      async getAllSaleVariant() {
-      try {
-        const saleVariant = await this.salesVariantRepository.getAll();
-        return saleVariant;
-      } catch (error) {
-        console.error('SERVICE: Error in service layer while fetching all sale variants:', error);
-        throw error;
-      }
-    }
-
-    async getSaleVariantById(id) {
-      try {
-        const saleVariant = await this.salesVariantRepository.getById(id);
-        return saleVariant;
-      } catch (error) {
-        console.error(`SERVICE: Error in service layer while fetching sale variants with id ${id}:`, error);
-        throw error;
-      }
-    }
-  }
+  };
+  
+}
 
 module.exports = SaleService

@@ -4,9 +4,22 @@ class ShoppingVariantRepository {
     constructor() { }
 
     async getAll() {
-        const shoppingVariant = await ShoppingVariantModel.findAll();
+        const shoppingVariant = await ShoppingVariantModel.findAll(
+            {
+                attributes: [
+                    'id_shopping',
+                    'id_variant_products',
+                    'sale_prices',
+                    'shopping_prices',
+                    [Sequelize.fn('SUM', Sequelize.col('quantity')), 'total_stock'],
+                ],
+                group: ['id_variant_products','shopping_prices','sale_prices'],
+                raw: true
+            }
+        );
         return shoppingVariant;
     }
+
     async getById(id) {
         const shoppingVariant = await ShoppingVariantModel.findByPk(id);
         return shoppingVariant;

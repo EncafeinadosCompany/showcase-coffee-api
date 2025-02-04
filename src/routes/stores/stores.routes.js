@@ -1,8 +1,12 @@
 const express = require('express');
+const router = express.Router();
+const { StoreRepository } = require('../../repositories/stores/store.repository');
+const { StoreService } = require('../../services/stores/stores.service');
 const { StoreController } = require('../../controllers/store/store.controller');
 
-const router = express.Router();
-const storeController = new StoreController();
+const storeRepository = new StoreRepository();
+const storeService = new StoreService(storeRepository);
+const storeController = new StoreController(storeService);
 
 router.post('/', (req, res) => storeController.createStore(req, res));
 router.get('/', (req, res) => storeController.getAllStores(req, res));

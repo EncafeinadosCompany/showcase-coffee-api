@@ -37,7 +37,7 @@ class SalesModel extends Model {
     static associate(models) {
         this.hasMany(models.SalesVariantModel, {
             as: 'variants',
-            foreignKey: 'id_sales'
+            foreignKey: 'id_sale'
         });
     }
 

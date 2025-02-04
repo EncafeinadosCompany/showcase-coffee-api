@@ -1,8 +1,6 @@
-const { StoreService } = require('../../services/stores/stores.service');
-
 class StoreController {
-    constructor() {
-        this.storeService = new StoreService();
+    constructor(StoreService) {
+        this.storeService = StoreService;
     }
 
     async createStore(req, res) {
