@@ -1,7 +1,7 @@
 
 class DepositController {
   constructor(depositService) {
-    this.depositService = new depositService();
+    this.depositService = depositService;
   }
 
   async getAllDeposits(req, res) {

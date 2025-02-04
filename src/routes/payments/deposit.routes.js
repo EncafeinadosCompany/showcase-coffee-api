@@ -5,9 +5,8 @@ const DepositRepository = require('../../repositories/payments/deposit.repositor
 const DepositService = require('../../services/payments/deposit.service');
 
 const depositRepository = new DepositRepository();
-const depositController = new DepositController(depositRepository);
 const depositService = new DepositService(depositRepository);
-
+const depositController = new DepositController(depositService);
 
 const router = express.Router();
 

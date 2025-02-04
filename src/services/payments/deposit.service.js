@@ -1,7 +1,7 @@
 class DepositService {
   constructor(depositRepository, liquidationRepository) {
-    this.depositRepository = depositRepository();
-    this.liquidationRepository = liquidationRepository();
+    this.depositRepository = depositRepository;
+    this.liquidationRepository = liquidationRepository;
   }
  
   async getAllDeposits() {
