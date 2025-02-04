@@ -13,8 +13,7 @@ class UsersRepository {
     }
 
     async createUser(user) {
-        const newUser = await UserModel.create(user);
-        return newUser;
+        return await UserModel.create(user);
     }
 
 }

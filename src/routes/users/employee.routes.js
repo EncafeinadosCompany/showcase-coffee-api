@@ -2,8 +2,10 @@ const EmployeeRepository = require('../../repositories/users/employee.repository
 const EmployeeController = require('../../controllers/users/employee.controller');
 const EmployeeService = require('../../services/users/employee.service');
 const UserService = require('../../services/users/user.service');
+const UserRepository = require('../../repositories/users/user.repository');
 
-const userService = new UserService();
+const userRepository = new UserRepository();
+const userService = new UserService(userRepository);
 const employeeRepository = new EmployeeRepository();
 const employeeService = new EmployeeService(employeeRepository, userService);
 const employeeController = new EmployeeController(employeeService);
