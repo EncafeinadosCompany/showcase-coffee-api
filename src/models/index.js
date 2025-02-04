@@ -68,6 +68,7 @@ const setupModels = (sequelize) => {
     BrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)
     AttributeModel.associate(sequelize.models)
+    AttributeProductModel.associate(sequelize.models)
    
     VariantProductModel.associate(sequelize.models)
     ImageVariantModel.associate(sequelize.models)

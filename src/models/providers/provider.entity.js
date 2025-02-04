@@ -68,9 +68,9 @@ class ProviderModel extends Model {
         });
         
         this.belongsToMany(models.StoreModel, {
-            through: models.StoreProviderModel,
-            foreignKey: "provider_id", 
-            as: "stores", 
+            through: 'store_provider',
+            foreignKey: "id_provider", otherKey: "id_store",
+            as: "provider_store", 
           });
     }
 
