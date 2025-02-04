@@ -1,13 +1,8 @@
-const SalesRepository = require('../../repositories/sales/sales.repository');
-const SalesVariantRepository = require('../../repositories/sales/salesVariant.repository');
-const ProductVariantsRepository = require('../../repositories/products/products.repository');
-const {sequelize} = require('../../config/connection');
-
 class SaleService {
-  constructor() {
-    this.saleRepository = new SalesRepository(),
-      this.salesVariantRepository = new SalesVariantRepository(),
-      this.productsVariantRepository = new ProductVariantsRepository()
+  constructor(SalesRepository, SalesVariantRepository, ProductVariantsRepository) {
+    this.saleRepository = SalesRepository,
+      this.salesVariantRepository = SalesVariantRepository,
+      this.productsVariantRepository = ProductVariantsRepository
   }
 
   async getAllSales() {
