@@ -10,7 +10,7 @@ const attributeProductSchema = {
     type: DataTypes.INTEGER,
     primaryKey: true
   },
-  valor: {
+  value: {
     type: DataTypes.STRING(50),
     allowNull: false,
     unique: true
@@ -45,6 +45,7 @@ const attributeProductSchema = {
 
 class AttributeProductModel extends Model {
   static config(sequelize) {
+    
     return {
       sequelize,
       tableName: ATTRIBUTE_PRODUCT_TABLE,
@@ -54,8 +55,4 @@ class AttributeProductModel extends Model {
   }
 }
 
-module.exports = {
-  ATTRIBUTE_PRODUCT_TABLE,
-  attributeProductSchema,
-  AttributeProductModel,
-};
+module.exports = { ATTRIBUTE_PRODUCT_TABLE, attributeProductSchema, AttributeProductModel };
