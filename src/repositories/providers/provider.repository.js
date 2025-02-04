@@ -11,7 +11,7 @@ class ProviderRepository {
 
             if (bankAccounts && bankAccounts.length > 0) {
                 const createdBankAccounts = await BankAccountModel.bulkCreate(
-                    bankAccounts.map(account => ({ ...account, provider_id: newProvider.id })),
+                    bankAccounts.map(account => ({ ...account, id_provider: newProvider.id })),
                     { transaction }
                 );
                 newProvider.bankAccounts = createdBankAccounts; 
@@ -43,55 +43,6 @@ class ProviderRepository {
                 },
             ],
         });
-    }
-    async updateProvider(id, providerData) {
-        const { bankAccounts, ...provider } = providerData; 
-        const transaction = await ProviderModel.sequelize.transaction(); 
-        try {
-            const [updatedRows] = await ProviderModel.update(provider, {
-                where: { id },
-                transaction,
-            });
-
-            if (bankAccounts && bankAccounts.length > 0) {
-                await BankAccountModel.destroy({
-                    where: { provider_id: id },
-                    transaction,
-                });
-
-                const createdBankAccounts = await BankAccountModel.bulkCreate(
-                    bankAccounts.map(account => ({ ...account, provider_id: id })),
-                    { transaction }
-                );
-                providerData.bankAccounts = createdBankAccounts;
-            }
-
-            await transaction.commit(); 
-            return providerData;
-        } catch (error) {
-            await transaction.rollback(); 
-            throw error;
-        }
-    }
-
-    async deleteProvider(id) {
-        const transaction = await ProviderModel.sequelize.transaction(); // Iniciar una transacción
-        try {
-            await BankAccountModel.destroy({
-                where: { provider_id: id },
-                transaction,
-            });
-
-            const deletedRows = await ProviderModel.destroy({
-                where: { id },
-                transaction,
-            });
-            await transaction.commit(); 
-            return deletedRows;
-        } catch (error) {
-            await transaction.rollback(); 
-            throw error;
-        }
     }
 }
 module.exports = { ProviderRepository };

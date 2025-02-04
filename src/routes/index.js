@@ -25,7 +25,7 @@ const routerApi = (app) => {
         .use('/providers', require('./providers/providers.routes'))
         .use('/liquidation', require('./payments/liquidation.routes'))
         .use('/deposit', require('./payments/deposit.routes'))
-
+        .use("/store-provider", require("./stores/storeProvider.routes"))
 
 }
 
