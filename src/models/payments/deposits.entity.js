@@ -19,8 +19,8 @@ const depositSchema = {
         allowNull: false
     },
 
-    type_of_payment: {
-        type: DataTypes.ENUM('CASH'),
+    type_payment: {
+        type: DataTypes.STRING(20),
         allowNull: false
     },
 

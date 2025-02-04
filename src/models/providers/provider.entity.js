@@ -54,7 +54,7 @@ class ProviderModel extends Model {
 
         this.hasMany(models.BankAccountModel, {
             as: "bankAccounts",
-            foreignKey: "provider_id",
+            foreignKey: "id_provider",
           });
           
         this.hasMany(models.Product_providerModel, {
@@ -66,6 +66,12 @@ class ProviderModel extends Model {
             foreignKey: 'id_provider',
             as: 'employees'
         });
+        
+        this.belongsToMany(models.StoreModel, {
+            through: models.StoreProviderModel,
+            foreignKey: "provider_id", 
+            as: "stores", 
+          });
     }
 
     static config(sequelize) {

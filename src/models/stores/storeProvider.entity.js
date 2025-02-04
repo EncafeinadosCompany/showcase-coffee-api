@@ -1,32 +1,28 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");
-const { PROVIDER_TABLE } = require("./provider.entity");
 
-const BANK_ACCOUNT_TABLE = "bank_accounts";
+const STORE_PROVIDER_TABLE = "store_provider";
 
-const bankAccountSchema = {
+const storeProviderSchema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  bank_account: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  type_account: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  bank: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  id_provider: {
+  store_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: PROVIDER_TABLE,
+      model: "stores", 
+      key: "id", 
+    },
+    onUpdate: "CASCADE",
+    onDelete: "CASCADE",
+  },
+  provider_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: "providers", 
       key: "id", 
     },
     onUpdate: "CASCADE",
@@ -45,24 +41,27 @@ const bankAccountSchema = {
   },
 };
 
-class BankAccountModel extends Model {
+class StoreProviderModel extends Model {
   static associate(models) {
-    
+    this.belongsTo(models.StoreModel, {
+      as: "store",
+      foreignKey: "store_id",
+    });
+
     this.belongsTo(models.ProviderModel, {
       as: "provider",
-      foreignKey: "id_provider",
+      foreignKey: "provider_id",
     });
-    
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: BANK_ACCOUNT_TABLE,
-      modelName: "BankAccountModel",
+      tableName: STORE_PROVIDER_TABLE,
+      modelName: "StoreProviderModel",
       timestamps: false,
     };
   }
 }
 
-module.exports = { BANK_ACCOUNT_TABLE, bankAccountSchema, BankAccountModel };
+module.exports = { STORE_PROVIDER_TABLE, storeProviderSchema, StoreProviderModel };

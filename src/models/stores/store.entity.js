@@ -61,6 +61,12 @@ class StoreModel extends Model {
             foreignKey: 'id_store',
             as: 'employees',
         });
+
+        this.belongsToMany(models.ProviderModel, {
+            through: models.StoreProviderModel,
+            foreignKey: "store_id",
+            as: "providers",
+          });
     }
 
     static config(sequelize) {

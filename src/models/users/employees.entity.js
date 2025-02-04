@@ -24,10 +24,6 @@ const employeeSchema = {
     unique: true,
     allowNull: false,
   },
-  position: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -40,7 +36,7 @@ const employeeSchema = {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  address: {
+  email: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -117,12 +113,12 @@ class EmployeeModel extends Model {
           if (employee.type === 'store') {
             employee.id_provider = null;
             if (!employee.id_store) {
-              throw new Error("La tienda es obligatorio para empleados de tienda");
+              throw new Error("Store ID is required");
             }
           } else if (employee.type === 'provider') {
             employee.id_store = null;
             if (!employee.id_provider) {
-              throw new Error("El proveedor es obligatorio para empleados de proveedor");
+              throw new Error("Provider ID is required");
             }
           }
         }

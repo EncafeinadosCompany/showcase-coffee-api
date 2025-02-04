@@ -4,6 +4,7 @@ const { UserModel, userSchema } = require('./users/users.entity');
 const { ProviderModel, providerSchema } = require('./providers/provider.entity');
 const { BankAccountModel, bankAccountSchema } = require('./providers/bank_accounts');
 const { StoreModel, storeSchema } = require('./stores/store.entity');
+const { StoreModel, storeSchema } = require('./stores/store.entity');
 const { EmployeeModel, employeeSchema } = require('./users/employees.entity');
 
 const { ProductModel, productSchema } = require('./products/products.entity');
@@ -30,19 +31,17 @@ const setupModels = (sequelize) => {
     UserModel.init(userSchema, UserModel.config(sequelize));
 
     ProviderModel.init(providerSchema, ProviderModel.config(sequelize));
-    BankAccountModel.init(bankAccountSchema, BankAccountModel.config(sequelize));
     StoreModel.init(storeSchema, StoreModel.config(sequelize));
     EmployeeModel.init(employeeSchema, EmployeeModel.config(sequelize));
+    BankAccountModel.init(bankAccountSchema, BankAccountModel.config(sequelize));
 
-    ProductModel.init(productSchema, ProductModel.config(sequelize));
     BrandModel.init(brandSchema, BrandModel.config(sequelize));
+    ProductModel.init(productSchema, ProductModel.config(sequelize));
     AttributeModel.init(attributeSchema, AttributeModel.config(sequelize));
     AttributeProductModel.init(attributeProductSchema, AttributeProductModel.config(sequelize));
 
     VariantProductModel.init(variantProductSchema, VariantProductModel.config(sequelize));
-    
     ImageVariantModel.init(imageVariantSchema, ImageVariantModel.config(sequelize));
-
     Product_providerModel.init(productProviderSchema, Product_providerModel.config(sequelize));
 
     SalesModel.init(saleSchema, SalesModel.config(sequelize));
@@ -54,24 +53,32 @@ const setupModels = (sequelize) => {
     LiquidationModel.init(liquidationSchema, LiquidationModel.config(sequelize));
     DepositModel.init(depositSchema, DepositModel.config(sequelize));
 
-
     
     // Relationships
-    UserModel.associate(sequelize.models)
     RoleModel.associate(sequelize.models)
+    UserModel.associate(sequelize.models)
+
     ProviderModel.associate(sequelize.models)
-    BankAccountModel.associate(sequelize.models)
     StoreModel.associate(sequelize.models)
     EmployeeModel.associate(sequelize.models)
+    BankAccountModel.associate(sequelize.models)
 
     BrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)
+    AttributeModel.associate(sequelize.models)
+   
     VariantProductModel.associate(sequelize.models)
     ImageVariantModel.associate(sequelize.models)
-    AttributeModel.associate(sequelize.models)
+    Product_providerModel.associate(sequelize.models)
 
     SalesModel.associate(sequelize.models)
     SalesVariantModel.associate(sequelize.models)
+
+    ShoppingsModel.associate(sequelize.models)
+    ShoppingVariantModel.associate(sequelize.models)
+
+    LiquidationModel.associate(sequelize.models)
+    DepositModel.associate(sequelize.models)
 }
 
 module.exports = setupModels
