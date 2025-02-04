@@ -2,6 +2,7 @@ const { RoleModel, roleSchema } = require('./users/roles.entity');
 const { UserModel, userSchema } = require('./users/users.entity');
 
 const { ProviderModel, providerSchema } = require('./providers/provider.entity');
+const { BankAccountModel, bankAccountSchema } = require('./providers/bank_accounts');
 const { StoreModel, storeSchema } = require('./stores/store.entity');
 const { EmployeeModel, employeeSchema } = require('./users/employees.entity');
 
@@ -29,6 +30,7 @@ const setupModels = (sequelize) => {
     UserModel.init(userSchema, UserModel.config(sequelize));
 
     ProviderModel.init(providerSchema, ProviderModel.config(sequelize));
+    BankAccountModel.init(bankAccountSchema, BankAccountModel.config(sequelize));
     StoreModel.init(storeSchema, StoreModel.config(sequelize));
     EmployeeModel.init(employeeSchema, EmployeeModel.config(sequelize));
 
@@ -57,8 +59,8 @@ const setupModels = (sequelize) => {
     // Relationships
     UserModel.associate(sequelize.models)
     RoleModel.associate(sequelize.models)
-
     ProviderModel.associate(sequelize.models)
+    BankAccountModel.associate(sequelize.models)
     StoreModel.associate(sequelize.models)
     EmployeeModel.associate(sequelize.models)
 
