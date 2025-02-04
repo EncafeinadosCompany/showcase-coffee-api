@@ -20,6 +20,12 @@ class EmployeesRepository {
         });
     }
 
+    getEmployeeByUserId(id_user) {
+        return EmployeeModel.findOne({
+            where: { id_user }
+        });
+    }
+
     async createEmployee(employee) {
         const newEmployee = await EmployeeModel.create(employee);
         return newEmployee;
