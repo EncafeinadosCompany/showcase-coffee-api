@@ -1,4 +1,5 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");
+const { PROVIDER_TABLE } = require("./provider.entity");
 
 const BANK_ACCOUNT_TABLE = "bank_accounts";
 
@@ -21,11 +22,11 @@ const bankAccountSchema = {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  provider_id: {
+  id_provider: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "providers",
+      model: PROVIDER_TABLE,
       key: "id", 
     },
     onUpdate: "CASCADE",
@@ -46,10 +47,12 @@ const bankAccountSchema = {
 
 class BankAccountModel extends Model {
   static associate(models) {
+    
     this.belongsTo(models.ProviderModel, {
       as: "provider",
-      foreignKey: "provider_id",
+      foreignKey: "id_provider",
     });
+    
   }
 
   static config(sequelize) {

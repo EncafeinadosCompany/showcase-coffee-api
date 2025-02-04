@@ -54,7 +54,7 @@ class ProviderModel extends Model {
 
         this.hasMany(models.BankAccountModel, {
             as: "bankAccounts",
-            foreignKey: "provider_id",
+            foreignKey: "id_provider",
           });
           
         this.hasMany(models.Product_providerModel, {
