@@ -19,6 +19,11 @@ const depositSchema = {
         allowNull: false
     },
 
+    type_of_payment: {
+        type: DataTypes.ENUM('CASH'),
+        allowNull: false
+    },
+
     voucher: {
         type: DataTypes.STRING(200),
         allowNull: false,
