@@ -28,7 +28,7 @@ class ProductRepository {
         
         {
           model:VariantProductModel,
-          as: "variants",
+          as: "product",
           attributes: ['id', 'id_product', 'grammage', 'stock']
         }
       ],
@@ -55,7 +55,7 @@ class ProductRepository {
         },
         {
           model:VariantProductModel,
-          as: "variants",
+          as: "product",
           attributes: ['id', 'grammage', 'stock']
         }
       ],
