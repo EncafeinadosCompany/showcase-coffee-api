@@ -25,6 +25,7 @@ class ProductRepository {
             attributes: ['valor']
           }
         },
+        
         {
           model:VariantProductModel,
           as: "variants",
