@@ -25,6 +25,12 @@ class ProductRepository {
             attributes: ['value']
           }
         },
+        
+        {
+          model:VariantProductModel,
+          as: "variants",
+          attributes: ['id', 'id_product', 'grammage', 'stock', 'roasting_date','shopping_price','sale_price']
+        }
       ],
     });
     return products;
@@ -50,7 +56,7 @@ class ProductRepository {
         {
           model:VariantProductModel,
           as: "variants",
-          attributes: ['id', 'grammage', 'stock']
+          attributes: ['id', 'grammage', 'stock', 'roasting_date','shopping_price','sale_price']
         }
       ],
     });

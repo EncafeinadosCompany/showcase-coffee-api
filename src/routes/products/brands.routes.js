@@ -1,7 +1,11 @@
 const express = require('express');
-const BrandController  = require('../../controllers/products/brands.controller');
+
 
 const router = express.Router();
+
+const BrandController  = require('../../controllers/products/brands.controller');
+
+
 const brandController = new BrandController();
 
 router.get('/', (req, res) => brandController.getAll(req, res));

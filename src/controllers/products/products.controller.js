@@ -46,11 +46,11 @@ class ProductController {
 
         const productData = req.body;
 
-        if (!productData.product || !productData.attributes || productData.attributes.length === 0) {
+        if (!productData.attributes || productData.attributes.length === 0) {
             return res.status(400).json({ message: "Product data and attributes are required" });
         }
         try {
-            const product = await this.productService.create(productData.product, productData.attributes);
+            const product = await this.productService.create(productData, productData.attributes);
             res.status(200).json(product);
         } catch (error) {
             res.status(500).json({error: error.message})
