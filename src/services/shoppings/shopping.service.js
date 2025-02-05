@@ -25,6 +25,7 @@ class ShoppingService {
       throw error;
     }
   }
+
   async createShoppingWithDetails(shoppingData, detailsData) {
     const transaction = await this.sequelize.transaction();
     try {
@@ -33,14 +34,11 @@ class ShoppingService {
       await Promise.all(detailsData.map(async (detail) => {
         detail.id_shopping = newShopping.id;
   
-        // Crear el detalle de la compra
         await this.shoppingVariantRepositories.create(detail, { transaction });
   
-        // Obtener la variante del producto
         const productVariant = await this.productsVariantRepository.getById(detail.id_variant_products, { transaction });
         if (!productVariant) throw new Error('SERVICE: Variant product not found.');
   
-        // Actualizar el stock
         const newStock = productVariant.stock + detail.quantity;
         await this.productsVariantRepository.updateStock(productVariant.id, newStock, { transaction });
       }));

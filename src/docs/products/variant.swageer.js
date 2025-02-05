@@ -11,6 +11,7 @@
  *   post:
  *     summary: Creates a new product variant.
  *     description: Creates a new product variant with grammage, stock, and associated product.
+ *     tags: [Variant Products]
  *     requestBody:
  *       required: true
  *       content:
@@ -55,6 +56,7 @@
  *   get:
  *     summary: Lists all product variants.
  *     description: Retrieves a list of all product variants.
+ *     tags: [Variant Products]
  *     responses:
  *       200:
  *         description: A list of product variants.
@@ -85,6 +87,7 @@
  *   get:
  *     summary: Get a product variant by ID.
  *     description: Retrieves a specific product variant by its ID.
+ *     tags: [Variant Products]
  *     parameters:
  *       - in: path
  *         name: id

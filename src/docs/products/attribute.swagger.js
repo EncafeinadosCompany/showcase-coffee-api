@@ -2,56 +2,18 @@
  * @swagger
  * tags:
  *   name: Attributes
- *   description: API to manage attributes
+ *   description: API to manage product attributes
  */
 
 /**
  * @swagger
- * /attributes:
- *   post:
- *     summary: Creates a new attribute.
- *     description: Creates a new attribute.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               description:
- *                 type: string
- *                 example: "Color"
- *     responses:
- *       201:
- *         description: Attribute created successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                   example: 1
- *                 description:
- *                   type: string
- *                   example: "Color"
- *                 created_at:
- *                   type: string
- *                   format: date-time
- *                 updated_at:
- *                   type: string
- *                   format: date-time
- */
-
-/**
- * @swagger
- * /attributes:
+ * /:
  *   get:
- *     summary: Retrieves a list of attributes.
- *     description: Fetches all attributes available.
+ *     summary: Get all attributes
+ *     tags: [Attributes]
  *     responses:
  *       200:
- *         description: A list of attributes.
+ *         description: List of attributes
  *         content:
  *           application/json:
  *             schema:
@@ -61,34 +23,25 @@
  *                 properties:
  *                   id:
  *                     type: integer
- *                     example: 1
  *                   description:
  *                     type: string
- *                     example: "Color"
- *                   created_at:
- *                     type: string
- *                     format: date-time
- *                   updated_at:
- *                     type: string
- *                     format: date-time
  */
 
 /**
  * @swagger
- * /attributes/{id}:
+ * /{id}:
  *   get:
- *     summary: Retrieves a specific attribute by ID.
- *     description: Fetches a single attribute using its ID.
+ *     summary: Get an attribute by ID
+ *     tags: [Attributes]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
- *         description: The ID of the attribute
  *     responses:
  *       200:
- *         description: The requested attribute.
+ *         description: Attribute information
  *         content:
  *           application/json:
  *             schema:
@@ -96,16 +49,30 @@
  *               properties:
  *                 id:
  *                   type: integer
- *                   example: 1
  *                 description:
  *                   type: string
- *                   example: "Color"
- *                 created_at:
- *                   type: string
- *                   format: date-time
- *                 updated_at:
- *                   type: string
- *                   format: date-time
  *       404:
- *         description: Attribute not found.
+ *         description: Attribute not found
+ */
+
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     summary: Create a new attribute
+ *     tags: [Attributes]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               description:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Attribute successfully created
+ *       400:
+ *         description: Invalid Data
  */
