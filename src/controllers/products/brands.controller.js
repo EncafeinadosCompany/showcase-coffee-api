@@ -4,8 +4,8 @@ const BrandService = require('../../services/products/brands.service')
 
 class BrandController {
 
-    constructor() {
-        this.brandService = new BrandService();
+    constructor(BrandService) {
+        this.brandService = BrandService;
     }
     async getAll (req , res) {
         try {

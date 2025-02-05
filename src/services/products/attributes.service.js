@@ -10,7 +10,7 @@ class AttributeService {
         return this.attributeRepository.getAll({
             include: [
                 {
-                    model: AttributeProductsRepository,
+                    model: this.attributeProductsRepository,
                     as: 'details',
                     attributes: ['id', 'value']
                 }
