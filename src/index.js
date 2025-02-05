@@ -34,7 +34,7 @@ class Server {
             await connectToDatabase();
            
         } catch (error) {
-            console.error('Error al conectar a la base de datos:', error.message);
+            console.error('Error connecting to the database:', error.message);
             throw error;
         }
     };

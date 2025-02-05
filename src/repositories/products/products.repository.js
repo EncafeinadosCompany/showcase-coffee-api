@@ -29,7 +29,7 @@ class ProductRepository {
         {
           model:VariantProductModel,
           as: "variants",
-          attributes: ['id', 'id_product', 'grammage', 'stock', 'roasting_date','shopping_price','sale_price']
+          attributes: ['id', 'id_product', 'grammage', 'stock']
         }
       ],
     });
@@ -56,7 +56,7 @@ class ProductRepository {
         {
           model:VariantProductModel,
           as: "variants",
-          attributes: ['id', 'grammage', 'stock', 'roasting_date','shopping_price','sale_price']
+          attributes: ['id', 'grammage', 'stock']
         }
       ],
     });

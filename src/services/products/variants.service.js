@@ -1,9 +1,7 @@
-const VariantRepository = require('../../repositories/products/variant.repository')
-
 class VariantService {
 
-    constructor (){
-       this.variantRepository = new VariantRepository();
+    constructor (VariantRepository){
+       this.variantRepository = VariantRepository;
     }
     async getAll (){
         return await this.variantRepository.getAll();

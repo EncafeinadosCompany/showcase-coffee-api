@@ -1,9 +1,9 @@
 const express = require("express");
-const VariantService = require("../../services/products/variants.service");
+
 
 class VariantController {
-  constructor() {
-    this.variantService = new VariantService();
+  constructor(VariantService) {
+    this.variantService = VariantService;
   }
 
   async getAll(req, res) {

@@ -12,6 +12,7 @@ const variantProductSchema = {
   grammage: {
     type: DataTypes.STRING(10),
     allowNull: false,
+    unique: true,
     validate: {
       notEmpty: true,
       len: [1, 10],
@@ -19,32 +20,12 @@ const variantProductSchema = {
   },
   stock: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0,
     validate: {
       min: 0,
       isInt: true,
     },
-  },
-  roasting_date:{
-    type: DataTypes.DATE,
-    allowNull:true
-  },
-  shopping_price: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
-    validate: {
-      min: 0,
-      isDecimal: true,
-  },
-  },
-  sale_price: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
-    validate: {
-      min: 0,
-      isDecimal: true,
-  }
   },
   id_product: {
     type: DataTypes.INTEGER,
@@ -72,13 +53,20 @@ const variantProductSchema = {
 class VariantProductModel extends Model {
   static associate(models) {
 
-    this.belongsTo(models.ProductModel, { foreignKey: "id_product" });
+    this.belongsTo(models.ProductModel, {
+      as: "product",
+      foreignKey: "id_product"
+    });
 
     this.hasMany(models.ImageVariantModel, {
-      as: "images", 
+      as: "images",
       foreignKey: "id_variant",
     });
 
+    this.hasMany(models.ShoppingVariantModel, {
+      as: "shoppingVariants",
+      foreignKey: "id_variant_products",
+    });
 
     this.hasMany(models.SalesVariantModel, {
       as: "salesVariants",
