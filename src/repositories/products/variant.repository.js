@@ -11,6 +11,7 @@ class VariantRepository {
       include: [
         {
           model: ProductModel,
+          as: 'product',
           attributes: ["name"],
         }
       ],
@@ -24,6 +25,7 @@ class VariantRepository {
       include: [
         {
           model: ProductModel,
+          as: 'product',
           attributes: ["name"],
         },
         {
@@ -55,17 +57,15 @@ class VariantRepository {
 
     return newVariant;
   }
-
   async updateStock(id, newStock, options = {}) {
     try {
       const productVariant = await VariantProductModel.findByPk(id, options);
       if (!productVariant) throw new Error('Producto variante no encontrado.');
-
+  
       productVariant.stock = newStock;
       await productVariant.save(options);
       return productVariant;
     } catch (error) {
-      console.error('Error updating product variant stock:', error);
       throw error;
     }
   }

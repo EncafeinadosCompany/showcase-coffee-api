@@ -1,8 +1,8 @@
 class ShoppingService {
-  constructor(ShoppingRepository, ShoppingVariantRepositories, ProductVariantsRepository, sequelize) {
+  constructor(ShoppingRepository, ShoppingVariantRepositories, productVariantsRepository, sequelize) {
     this.shoppingRepositories = ShoppingRepository,
       this.shoppingVariantRepositories = ShoppingVariantRepositories,
-      this.productsVariantRepository = ProductVariantsRepository,
+      this.productsVariantRepository = productVariantsRepository,
       this.sequelize = sequelize
   }
 
@@ -25,57 +25,31 @@ class ShoppingService {
       throw error;
     }
   }
-
   async createShoppingWithDetails(shoppingData, detailsData) {
     const transaction = await this.sequelize.transaction();
     try {
       const newShopping = await this.shoppingRepositories.create(shoppingData, { transaction });
-
+  
       await Promise.all(detailsData.map(async (detail) => {
         detail.id_shopping = newShopping.id;
-
+  
+        // Crear el detalle de la compra
         await this.shoppingVariantRepositories.create(detail, { transaction });
+  
+        // Obtener la variante del producto
+        const productVariant = await this.productsVariantRepository.getById(detail.id_variant_products, { transaction });
+        if (!productVariant) throw new Error('SERVICE: Variant product not found.');
+  
+        // Actualizar el stock
+        const newStock = productVariant.stock + detail.quantity;
+        await this.productsVariantRepository.updateStock(productVariant.id, newStock, { transaction });
       }));
-
+  
       await transaction.commit();
       return newShopping;
     } catch (error) {
       await transaction.rollback();
       throw new Error('SERVICE: ' + error.message);
-    }
-  }
-
-
-
-  async createShoppingVariant(shoppingDetailData) {
-    const transaction = await this.sequelize.transaction();
-    try {
-      const shopping = await this.shoppingRepositories.getById(shoppingDetailData.id_shopping, { transaction });
-      if (!shopping) throw new Error('SERVICE: shopping not found.');
-
-      const existingDetail = await this.shoppingVariantRepositories.findByShoppingAndProduct(
-        shoppingDetailData.id_shopping,
-        shoppingDetailData.id_variant_products,
-        { transaction }
-      );
-
-      if (existingDetail) {
-        throw new Error('A shopping detail already exists with this product');
-      }
-
-      const newShoppingDetail = await this.shoppingVariantRepositories.create(shoppingDetailData, { transaction });
-
-      const productVariant = await this.productsVariantRepository.findById(shoppingDetailData.id_variant_products, { transaction });
-      if (!productVariant) throw new Error('SERVICE: Variant product not found.');
-
-      const newStock = productVariant.stock + shoppingDetailData.quantity;
-      await this.productsVariantRepository.updateStock(productVariant.id, newStock, { transaction });
-
-      await transaction.commit();
-      return newShoppingDetail;
-    } catch (error) {
-      await transaction.rollback();
-      throw new Error('SERVICE:' + error.message);
     }
   }
 
