@@ -59,6 +59,10 @@ class VariantProductModel extends Model {
       foreignKey: "id_variant",
     });
 
+    this.hasMany(models.ShoppingVariantModel, {
+      as: "shoppingVariants",
+      foreignKey: "id_variant_products",
+    });
 
     this.hasMany(models.SalesVariantModel, {
       as: "salesVariants",
