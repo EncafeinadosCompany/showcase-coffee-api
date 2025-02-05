@@ -12,6 +12,10 @@ const saleSchema = {
         type: DataTypes.DATE,
         allowNull: false,
     },
+    type_payment: {
+        type: DataTypes.STRING(20),
+        allowNull: false
+    },
     total: {
         type: DataTypes.FLOAT,
         allowNull: false,
