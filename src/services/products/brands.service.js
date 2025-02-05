@@ -1,10 +1,8 @@
-
-const BrandRepository = require('../../repositories/products/blands.repository')
 class BrandService {
     
-    constructor (){
+    constructor (BrandRepository){
 
-    this.brandRepository = new BrandRepository()
+    this.brandRepository = BrandRepository
     }
 
     async getAll () {

@@ -34,11 +34,11 @@ const shoppingVariantSchema = {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    shopping_prices: {
+    shopping_price: {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
-    sale_prices: {
+    sale_price: {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
@@ -61,9 +61,15 @@ const shoppingVariantSchema = {
 
 class ShoppingVariantModel extends Model {
     static associate(models) {
+
         this.belongsTo(models.ShoppingsModel, {
             as: SHOPPING_TABLE,
             foreignKey: 'id_shopping'
+        });
+
+        this.belongsTo(models.VariantProductModel, {
+            as: VARIANT_PRODUCT_TABLE,
+            foreignKey: 'id_variant_products'
         });
     }
 

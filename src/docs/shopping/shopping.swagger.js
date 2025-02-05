@@ -123,7 +123,7 @@
 
 /**
  * @swagger
- * /shopping/variant/all:
+ * /shopping/shopping-variants:
  *   get:
  *     summary: Get all shopping variants
  *     tags: [Shopping]
@@ -156,7 +156,7 @@
 
 /**
  * @swagger
- * /shopping/variant/{id}:
+ * /shopping/shopping-variants/{id}:
  *   get:
  *     summary: Get a shopping variant by ID
  *     tags: [Shopping]
