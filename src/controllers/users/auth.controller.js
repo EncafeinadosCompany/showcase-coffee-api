@@ -17,7 +17,7 @@ class AuthController {
             if (error.statusCode) {
                 return res.status(error.statusCode).json({ message: error.message });
             }
-            return res.status(500).json({ message: "Server Error" });
+            return res.status(500).json({ message: error.message });
         }
     }
 

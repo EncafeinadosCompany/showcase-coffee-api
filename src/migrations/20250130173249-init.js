@@ -34,10 +34,10 @@ module.exports = {
     await queryInterface.createTable(ROLE_TABLE, roleSchema);
     await queryInterface.createTable(USER_TABLE, userSchema);
 
-    await queryInterface.createTable(BANK_ACCOUNT_TABLE, bankAccountSchema );
     await queryInterface.createTable(PROVIDER_TABLE, providerSchema);
     await queryInterface.createTable(STORE_TABLE, storeSchema);
     await queryInterface.createTable(EMPLOYEE_TABLE, employeeSchema);
+    await queryInterface.createTable(BANK_ACCOUNT_TABLE, bankAccountSchema );
 
     await queryInterface.createTable(BRAND_TABLE, brandSchema);
     await queryInterface.createTable(PRODUCT_TABLE, productSchema);
@@ -62,10 +62,10 @@ module.exports = {
     await queryInterface.dropTable(ROLE_TABLE);
     await queryInterface.dropTable(USER_TABLE);
 
-    await queryInterface.dropTable(BANK_ACCOUNT_TABLE);
     await queryInterface.dropTable(PROVIDER_TABLE);
     await queryInterface.dropTable(STORE_TABLE);
     await queryInterface.dropTable(EMPLOYEE_TABLE);
+    await queryInterface.dropTable(BANK_ACCOUNT_TABLE);
 
     await queryInterface.dropTable(BRAND_TABLE);
     await queryInterface.dropTable(PRODUCT_TABLE);

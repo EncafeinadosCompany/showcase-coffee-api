@@ -51,8 +51,8 @@ class UserModel extends Model {
         });
 
         this.hasMany(models.EmployeeModel, {
-            as: 'id_user',
-            foreignKey: 'employees'
+            as: 'employees',
+            foreignKey: 'id_user'
         });
     }
 

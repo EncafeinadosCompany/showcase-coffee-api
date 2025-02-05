@@ -5,19 +5,11 @@ class EmployeesRepository {
     constructor() { }
 
     async getEmployees() {
-        return await EmployeeModel.findAll({
-            attributes: {
-                exclude: ['employees']
-            }
-        });
+        return await EmployeeModel.findAll();
     }
 
     async getEmployeeById(id) {
-        return await EmployeeModel.findByPk(id, {
-            attributes: {
-                exclude: ['employees']
-            }
-        });
+        return await EmployeeModel.findByPk(id);
     }
 
     getEmployeeByUserId(id_user) {

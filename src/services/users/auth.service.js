@@ -26,9 +26,10 @@ class AuthService {
             error.statusCode = 401;
             throw error;
         }
-
+        console.log("user", user.id);
         const employee = await this.employeeRepository.getEmployeeByUserId(user.id);
 
+        console.log("employee", employee);
         const token = jwt.sign(
             { id: user.id, email: user.email, role: user.id_role },
             SECRET_KEY,
