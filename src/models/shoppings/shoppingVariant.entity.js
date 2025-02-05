@@ -34,11 +34,11 @@ const shoppingVariantSchema = {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    shopping_prices: {
+    shopping_price: {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
-    sale_prices: {
+    sale_price: {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
