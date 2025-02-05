@@ -26,26 +26,6 @@ const variantProductSchema = {
       isInt: true,
     },
   },
-  roasting_date:{
-    type: DataTypes.DATE,
-    allowNull:true
-  },
-  shopping_price: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
-    validate: {
-      min: 0,
-      isDecimal: true,
-  },
-  },
-  sale_price: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
-    validate: {
-      min: 0,
-      isDecimal: true,
-  }
-  },
   id_product: {
     type: DataTypes.INTEGER,
     allowNull: false,
