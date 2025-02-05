@@ -12,6 +12,7 @@ const variantProductSchema = {
   grammage: {
     type: DataTypes.STRING(10),
     allowNull: false,
+    unique: true,
     validate: {
       notEmpty: true,
       len: [1, 10],
@@ -19,7 +20,7 @@ const variantProductSchema = {
   },
   stock: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     defaultValue: 0,
     validate: {
       min: 0,
