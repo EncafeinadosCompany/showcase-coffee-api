@@ -79,25 +79,23 @@ class ShoppingService {
     }
   }
 
-      async getAllShoppingVariant() {
-      try {
-        const shoppingVariant = await this.shoppingVariantRepositories.getAll();
-        return shoppingVariant;
-      } catch (error) {
-        console.error('SERVICE: Error in service layer while fetching all shopping variants:', error);
-        throw error;
-      }
+  async getAllShoppingVariant() {
+    try {
+      const shoppingVariant = await this.shoppingVariantRepositories.getAll();
+      return shoppingVariant;
+    } catch (error) {
+      throw new Error('SERVICE:' + error.message);
     }
+  };
 
-    async getShoppingVariantById(id) {
-      try {
-        const shoppingVariant = await this.shoppingVariantRepositories.getById(id);
-        return shoppingVariant;
-      } catch (error) {
-        console.error(`SERVICE: Error in service layer while fetching shopping variants with id ${id}:`, error);
-        throw error;
-      }
+  async getShoppingVariantById(id) {
+    try {
+      const shoppingVariant = await this.shoppingVariantRepositories.getById(id);
+      return shoppingVariant;
+    } catch (error) {
+      throw new Error('SERVICE:' + error.message);
     }
   }
+}
 
 module.exports = ShoppingService

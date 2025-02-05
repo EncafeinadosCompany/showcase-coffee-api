@@ -16,10 +16,11 @@ const shoppingController = new ShoppingController(shoppingService)
 
 const router = express.Router();
 
-router.get('/', (req, res) => shoppingController.getAllShopping(req, res));
-router.get('/:id', (req, res) => shoppingController.getShoppingById(req, res));
-router.post('/', (req, res) => shoppingController.createShopping(req, res));
-router.get('/variant', (req, res) => shoppingController.getAllShoppingVariant(req, res));
-router.get('/variant/:id', (req, res) => shoppingController.getShoppingVariantById(req, res));
+router
+    .get('/', (req, res) => shoppingController.getAllShopping(req, res))
+    .get('/shopping-variants', (req, res) => shoppingController.getAllShoppingVariant(req, res))
+    .get('/shopping-variants/:id', (req, res) => shoppingController.getShoppingVariantById(req, res))
+    .get('/:id', (req, res) => shoppingController.getShoppingById(req, res))
+    .post('/', (req, res) => shoppingController.createShopping(req, res));
 
 module.exports = router ;

@@ -4,21 +4,14 @@ class ShoppingVariantRepository {
     constructor() { }
 
     async getAll() {
-        const shoppingVariant = await ShoppingVariantModel.findAll(
-            {
-                attributes: [
-                    'id_shopping',
-                    'id_variant_products',
-                    'sale_prices',
-                    'shopping_prices',
-                    [Sequelize.fn('SUM', Sequelize.col('quantity')), 'total_stock'],
-                ],
-                group: ['id_variant_products','shopping_prices','sale_prices'],
-                raw: true
-            }
-        );
-        return shoppingVariant;
-    }
+        try {
+            const shoppingVariant = await ShoppingVariantModel.findAll();
+            return shoppingVariant;
+        } catch (error) {
+            console.error("Error en la consulta:", error);
+            throw new Error("Hubo un problema al obtener los datos.");
+        }
+    };    
 
     async getById(id) {
         const shoppingVariant = await ShoppingVariantModel.findByPk(id);
