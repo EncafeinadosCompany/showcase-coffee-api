@@ -60,7 +60,7 @@ class ProductModel extends Model {
       as: "attributes"
     });
 
-    this.hasMany(models.VariantProductModel, { foreignKey: "id_product" , as: "product"});
+    this.hasMany(models.VariantProductModel, { foreignKey: "id_product" , as:"product"});
   }
 
   static config(sequelize) {

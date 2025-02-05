@@ -40,6 +40,8 @@ class VariantRepository {
 
   async create(variantData) {
     const { images, ...variant } = variantData;
+
+    
     
     if (!images || images.length === 0) {
       throw new Error("At least one image is required");
