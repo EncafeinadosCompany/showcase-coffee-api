@@ -68,7 +68,7 @@ class ShoppingVariantModel extends Model {
         });
 
         this.belongsTo(models.VariantProductModel, {
-            as: 'variant',
+            as: "variant",
             foreignKey: 'id_variant_products'
         });
     }
