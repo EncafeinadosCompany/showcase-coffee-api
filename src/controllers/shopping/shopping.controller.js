@@ -29,12 +29,11 @@ class ShoppingController {
 
   async createShopping(req, res) {
     try {
-      const shoppingData = req.body;
-      const newShopping = await this.shoppingService.createShoppingWithDetails(shoppingData.shopping, shoppingData.details);
+      const { shopping, details } = req.body;
+      const newShopping = await this.shoppingService.createShoppingWithDetails(shopping, details);
       res.status(201).json(newShopping);
     } catch (error) {
-      console.error('Error creating new shopping:', error);
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ error: error.message });
     }
   }
 

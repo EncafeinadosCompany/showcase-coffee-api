@@ -1,11 +1,26 @@
 const { ShoppingVariantModel } = require('../../models/shoppings/shoppingVariant.entity');
-
+const { ProductModel } = require('../../models/products/products.entity');
+const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
 class ShoppingVariantRepository {
     constructor() { }
 
     async getAll() {
         try {
-            const shoppingVariant = await ShoppingVariantModel.findAll();
+            const shoppingVariant = await ShoppingVariantModel.findAll({
+                include: [
+                    {
+                        model: VariantProductModel,
+                        as: "variant",
+                        include: [
+                            {
+                                model: ProductModel,
+                                as: "product",
+                                attributes: ["id", "name"]
+                            }
+                        ]
+                    }
+                ]
+            });
             return shoppingVariant;
         } catch (error) {
             console.error("Error en la consulta:", error);

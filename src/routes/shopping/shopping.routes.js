@@ -7,7 +7,6 @@ const {sequelize} = require('../../config/connection');
 const ShoppingService = require('../../services/shoppings/shopping.service');
 const ShoppingController  = require('../../controllers/shopping/shopping.controller');
 
-
 const shoppingRepository = new ShoppingRepository()
 const shoppingVariantRepository= new ShoppingVariantRepository()
 const productVariantsRepository = new VariantRepository()
@@ -23,4 +22,4 @@ router
     .get('/:id', (req, res) => shoppingController.getShoppingById(req, res))
     .post('/', (req, res) => shoppingController.createShopping(req, res));
 
-module.exports = router ;
+module.exports = router;
