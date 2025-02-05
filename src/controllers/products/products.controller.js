@@ -1,13 +1,11 @@
 const express = require ('express')
 
-const ProductService = require('../../services/products/products.service')
-
 
 class ProductController {
 
-    constructor() {
+    constructor(ProductService) {
         
-        this.productService = new ProductService();
+        this.productService = ProductService;
     }
 
     async getAll (req , res) {

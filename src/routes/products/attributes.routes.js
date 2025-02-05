@@ -13,8 +13,9 @@ const attributesRepository = new AttributesRepository();
 const attributeService = new AttributeService(attributeProductsRepository,attributesRepository);
 const attributesController = new AttributesController(attributeService);
 
-router.get('/', (req, res) => attributesController.getAllAttributes(req, res));
-router.get('/:id', (req, res) => attributesController.getAttributesID(req, res));
-router.post('/', (req, res) => attributesController.createAttribute(req, res));
+    router
+        .get('/', (req, res) => attributesController.getAllAttributes(req, res))
+        .get('/:id', (req, res) => attributesController.getAttributesID(req, res))
+        .post('/', (req, res) => attributesController.createAttribute(req, res))
 
 module.exports = router;
