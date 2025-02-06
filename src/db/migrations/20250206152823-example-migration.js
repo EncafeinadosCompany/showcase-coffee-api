@@ -95,5 +95,5 @@ module.exports = {
   //   await queryInterface.dropTable('products');
   //   await queryInterface.removeColumn('orders', 'user_id');
   //   await queryInterface.removeIndex('users', 'users_email_unique');
-  // }
+  }
 };
