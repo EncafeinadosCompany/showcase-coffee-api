@@ -36,7 +36,7 @@ class EmployeeService {
 
             const employee = this.employeeRepository.createEmployee(employeeFinal);
 
-            console.log('paswpord', password);
+            console.log('password', password);
             const sendEmail = this.userService.sendEmail(email, password);
             if(!sendEmail) {
                 ('Error sending email');
