@@ -21,23 +21,24 @@ class EmployeeService {
         }
     };
 
-    async createEmployee(employee) {
+    async createEmployee(data) {
         try {
-            const email = employee.email;
-            const role = employee.id_role;
-            const password = await this.userService.createPassword(employee.name);
+            const email = data.email;
+            const role = data.id_role;
+            const password = await this.userService.createPassword(data.name);
 
-            const userData = { id_role: role, email: email, password: password };
-            console.log(userData);
-            
-            const user = await this.userService.createUser(userData);
+            const user = await this.userService.createUser({ id_role: role, email: email, password: password });
             
             const employeeFinal = {
-                ...employee,
+                ...data,
                 id_user: user.id,
             };
 
-            return this.employeeRepository.createEmployee(employeeFinal);
+            const employee = this.employeeRepository.createEmployee(employeeFinal);
+
+            await this.userService.sendEmail(email, password);
+
+            return employee;
         } catch (error) {
             throw error;
         }

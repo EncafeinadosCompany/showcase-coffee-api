@@ -32,7 +32,6 @@ class AttributeController {
     async createAttribute(req, res){
         try {
             const attributeData = req.body;
-            console.log(attributeData);
             const newAttribute = await this.attributeService.createAttribute(attributeData);
             res.status(201).json(newAttribute);
         } catch (error) {
