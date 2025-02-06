@@ -2,8 +2,6 @@ const UserService = require('../../services/users/user.service');
 const UserController = require('../../controllers/users/user.controller');
 const UserRepository = require('../../repositories/users/user.repository');
 
-// const { authenticateJWT } = require('../../middlewares/auth.middleware');
-
 const router = require('express').Router();
 
 const userRepository = new UserRepository();

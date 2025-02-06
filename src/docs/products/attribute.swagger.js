@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /:
+ * /products/attributes:
  *   get:
  *     summary: Get all attributes
  *     tags: [Attributes]
@@ -29,7 +29,7 @@
 
 /**
  * @swagger
- * /{id}:
+ * /products/attributes/{id}:
  *   get:
  *     summary: Get an attribute by ID
  *     tags: [Attributes]
@@ -57,7 +57,7 @@
 
 /**
  * @swagger
- * /:
+ * /products/attributes/:
  *   post:
  *     summary: Create a new attribute
  *     tags: [Attributes]

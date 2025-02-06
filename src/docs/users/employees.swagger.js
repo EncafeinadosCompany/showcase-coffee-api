@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /employees:
+ * /users/employees:
  *   get:
  *     summary: Lists all employees.
  *     description: Retrieves a list of all employees.
@@ -53,7 +53,7 @@
 
 /**
  * @swagger
- * /employees/{id}:
+ * /users/employees/{id}:
  *   get:
  *     summary: Get an employee by ID.
  *     description: Retrieves a specific employee by its ID.
@@ -106,7 +106,7 @@
 
 /**
  * @swagger
- * /employees:
+ * /users/employees:
  *   post:
  *     summary: Creates a new employee.
  *     description: Creates a new employee with role ID, identification, name, last name, phone, email, type, and store ID.

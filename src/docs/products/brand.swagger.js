@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /brands:
+ * /products/brands:
  *   post:
  *     summary: Creates a new brand.
  *     description: Adds a new brand to the database.
@@ -41,7 +41,7 @@
 
 /**
  * @swagger
- * /brands:
+ * /products/brands:
  *   get:
  *     summary: Retrieves all brands.
  *     description: Fetches all brands from the database.
@@ -66,7 +66,7 @@
 
 /**
  * @swagger
- * /brands/{id}:
+ * /products/brands/{id}:
  *   get:
  *     summary: Retrieves a brand by ID.
  *     description: Fetches a single brand from the database using its ID.

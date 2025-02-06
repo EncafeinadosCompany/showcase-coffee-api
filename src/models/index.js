@@ -1,11 +1,11 @@
 const { RoleModel, roleSchema } = require('./users/roles.entity');
 const { UserModel, userSchema } = require('./users/users.entity');
 
-const { ProviderModel, providerSchema } = require('./providers/provider.entity');
-const { BankAccountModel, bankAccountSchema } = require('./providers/bank_accounts');
-const { StoreModel, storeSchema } = require('./stores/store.entity');
+const { ProviderModel, providerSchema } = require('./companies/provider.entity');
+const { BankAccountModel, bankAccountSchema } = require('./companies/bankAccounts.entity');
+const { StoreModel, storeSchema } = require('./companies/store.entity');
 const { EmployeeModel, employeeSchema } = require('./users/employees.entity');
-const { StoreProviderModel, storeProviderSchema } = require('./stores/storeProvider.entity');
+const { AllianceModel, storeProviderSchema } = require('./companies/alliances.entity');
 
 const { ProductModel, productSchema } = require('./products/products.entity');
 const { BrandModel, brandSchema } = require('./products/brands.entity');
@@ -13,13 +13,13 @@ const { AttributeModel, attributeSchema } = require('./products/attribute.entity
 const { AttributeProductModel, attributeProductSchema} = require('./products/attributesProducts.entity')
 
 const { VariantProductModel, variantProductSchema } = require('./products/variantsProducts.entity');
-const { Product_providerModel, productProviderSchema } = require('./providers/products_providers.entity');
+const { Product_providerModel, productProviderSchema } = require('./products/products_providers.entity');
 const { ImageVariantModel, imageVariantSchema } = require('../models/products/image_variants.entity');
 
-const { SalesModel, saleSchema } = require('./sales/sales.entity');
-const { SalesVariantModel, saleVariantSchema } = require('./sales/salesVariant.entity');
-const { ShoppingsModel, shoppingSchema } = require('./shoppings/shoppings.entity');
-const { ShoppingVariantModel, shoppingVariantSchema } = require('./shoppings/shoppingVariant.entity');
+const { SalesModel, saleSchema } = require('./transactions/sales.entity');
+const { SalesVariantModel, saleVariantSchema } = require('./transactions/salesVariant.entity');
+const { ShoppingsModel, shoppingSchema } = require('./transactions/shoppings.entity');
+const { ShoppingVariantModel, shoppingVariantSchema } = require('./transactions/shoppingVariant.entity');
 
 const { LiquidationModel, liquidationSchema } = require('./payments/liquidations.entity');
 const { DepositModel, depositSchema } = require('./payments/deposits.entity'); 
@@ -34,7 +34,7 @@ const setupModels = (sequelize) => {
     StoreModel.init(storeSchema, StoreModel.config(sequelize));
     EmployeeModel.init(employeeSchema, EmployeeModel.config(sequelize));
     BankAccountModel.init(bankAccountSchema, BankAccountModel.config(sequelize));
-    StoreProviderModel.init(storeProviderSchema, StoreProviderModel.config(sequelize));
+    AllianceModel.init(storeProviderSchema, AllianceModel.config(sequelize));
 
     BrandModel.init(brandSchema, BrandModel.config(sequelize));
     ProductModel.init(productSchema, ProductModel.config(sequelize));
@@ -63,7 +63,7 @@ const setupModels = (sequelize) => {
     StoreModel.associate(sequelize.models)
     EmployeeModel.associate(sequelize.models)
     BankAccountModel.associate(sequelize.models)
-    StoreProviderModel.associate(sequelize.models)
+    AllianceModel.associate(sequelize.models)
 
     BrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)

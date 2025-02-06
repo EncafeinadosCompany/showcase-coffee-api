@@ -2,6 +2,8 @@ const RoleRepository = require('../../repositories/users/role.repository');
 const RoleController = require('../../controllers/users/role.controller');
 const RoleService = require('../../services/users/role.service');
 
+const { authenticateJWT } = require('../../middlewares/auth.middleware');
+
 const roleRepository = new RoleRepository();
 const roleService = new RoleService(roleRepository);
 const roleController = new RoleController(roleService);

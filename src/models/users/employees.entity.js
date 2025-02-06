@@ -1,7 +1,7 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");;
 const { USER_TABLE } = require('./users.entity');
-const { STORE_TABLE } = require('../stores/store.entity');
-const { PROVIDER_TABLE } = require('../providers/provider.entity');
+const { STORE_TABLE } = require('../companies/store.entity');
+const { PROVIDER_TABLE } = require('../companies/provider.entity');
 
 const EMPLOYEE_TABLE = 'employees';
 

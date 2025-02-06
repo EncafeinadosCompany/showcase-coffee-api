@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /roles:
+ * /users/roles:
  *   get:
  *     summary: Get all roles
  *     tags: [Roles]
@@ -37,7 +37,7 @@
 
 /**
  * @swagger
- * /roles/{id}:
+ * /users/roles/{id}:
  *   get:
  *     summary: Get a Role by ID
  *     tags: [Roles]
@@ -73,7 +73,7 @@
 
 /**
  * @swagger
- * /roles:
+ * /users/roles:
  *   post:
  *     summary: Create new rol
  *     tags: [Roles]

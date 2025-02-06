@@ -5,26 +5,27 @@ const { DataTypes } = require("sequelize");
 const { ROLE_TABLE, roleSchema } = require("../models/users/roles.entity");
 const { USER_TABLE, userSchema } = require("../models/users/users.entity");
 
-const { BANK_ACCOUNT_TABLE, bankAccountSchema } = require("../models/providers/bank_accounts");
-const { PROVIDER_TABLE, providerSchema } = require("../models/providers/provider.entity");
-const { STORE_TABLE, storeSchema } = require("../models/stores/store.entity");
+const { STORE_TABLE, storeSchema } = require("../models/companies/store.entity");
+const { PROVIDER_TABLE, providerSchema } = require("../models/companies/provider.entity");
+const { STORE_PROVIDER_TABLE, storeProviderSchema } = require("../models/companies/alliances.entity");
+
 const { EMPLOYEE_TABLE, employeeSchema } = require("../models/users/employees.entity");
-const { STORE_PROVIDER_TABLE, storeProviderSchema } = require("../models/stores/storeProvider.entity");
+const { BANK_ACCOUNT_TABLE, bankAccountSchema } = require("../models/companies/bankAccounts.entity");
 
 const { BRAND_TABLE, brandSchema } = require("../models/products/brands.entity");
 const { PRODUCT_TABLE, productSchema } = require("../models/products/products.entity");
 const { ATTRIBUTE_TABLE, attributeSchema } = require("../models/products/attribute.entity");
 const { ATTRIBUTE_PRODUCT_TABLE, attributeProductSchema } = require("../models/products/attributesProducts.entity");
 
-const { VARIANT_PRODUCT_TABLE, variantProductSchema } = require("../models/products/variantsProducts.entity");
 const { IMAGE_VARIANTS_TABLE, imageVariantSchema } = require("../models/products/image_variants.entity");
-const { PRODUCT_PROVIDER_TABLE, productProviderSchema } = require("../models/providers/products_providers.entity");
+const { VARIANT_PRODUCT_TABLE, variantProductSchema } = require("../models/products/variantsProducts.entity");
+const { PRODUCT_PROVIDER_TABLE, productProviderSchema } = require("../models/products/products_providers.entity");
 
-const { SALE_TABLE, saleSchema } = require("../models/sales/sales.entity");
-const { SALE_VARIANT_TABLE, saleVariantSchema } = require("../models/sales/salesVariant.entity");
+const { SALE_TABLE, saleSchema } = require("../models/transactions/sales.entity");
+const { SALE_VARIANT_TABLE, saleVariantSchema } = require("../models/transactions/salesVariant.entity");
 
-const { SHOPPING_TABLE, shoppingSchema } = require("../models/shoppings/shoppings.entity");
-const { SHOPPING_VARIANT_TABLE, shoppingVariantSchema } = require("../models/shoppings/shoppingVariant.entity");
+const { SHOPPING_TABLE, shoppingSchema } = require("../models/transactions/shoppings.entity");
+const { SHOPPING_VARIANT_TABLE, shoppingVariantSchema } = require("../models/transactions/shoppingVariant.entity");
 
 const { LIQUIDATION_TABLE, liquidationSchema } = require("../models/payments/liquidations.entity");
 const { DEPOSIT_TABLE, depositSchema } = require("../models/payments/deposits.entity");
@@ -38,8 +39,8 @@ module.exports = {
     await queryInterface.createTable(PROVIDER_TABLE, providerSchema);
     await queryInterface.createTable(STORE_TABLE, storeSchema);
     await queryInterface.createTable(EMPLOYEE_TABLE, employeeSchema);
-    await queryInterface.createTable(BANK_ACCOUNT_TABLE, bankAccountSchema );
-    await queryInterface.createTable(STORE_PROVIDER_TABLE, storeProviderSchema );
+    await queryInterface.createTable(BANK_ACCOUNT_TABLE, bankAccountSchema);
+    await queryInterface.createTable(STORE_PROVIDER_TABLE, storeProviderSchema);
 
     await queryInterface.createTable(BRAND_TABLE, brandSchema);
     await queryInterface.createTable(PRODUCT_TABLE, productSchema);

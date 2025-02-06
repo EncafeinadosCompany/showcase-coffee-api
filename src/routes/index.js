@@ -12,21 +12,28 @@ const routerApi = (app) => {
     router
         .use('/auth', require('./users/auth.routes'))
         
-        .use('/users', require('./users/user.routes'))
-        .use('/roles', require('./users/role.routes'))
-        .use('/employees', require('./users/employee.routes'))
+        // Users
+        .use('/users/users', require('./users/user.routes'))
+        .use('/users/roles', require('./users/role.routes'))
+        .use('/users/employees', require('./users/employee.routes'))
 
-        .use('/products', require('./products/products.routes'))
-        .use('/attributes', require('./products/attributes.routes'))
-        .use('/variants', require('./products/variants.routes'))
-        .use('/brands', require('./products/brands.routes'))
-        .use('/stores', require('./stores/stores.routes'))
-        .use('/shopping', require('./shopping/shopping.routes'))
-        .use('/sales', require('./sales/sales.routes'))
-        .use('/providers', require('./providers/providers.routes'))
+        // Companies
+        .use('/companies/stores', require('./companies/stores.routes'))
+        .use('/companies/providers', require('./companies/providers.routes'))
+        .use('/companies/alliances', require('./companies/alliances.routes'))
+
+        // Products
+        .use('/products/products', require('./products/products.routes'))
+        .use('/products/attributes', require('./products/attributes.routes'))
+        .use('/products/variants', require('./products/variants.routes'))
+        .use('/products/brands', require('./products/brands.routes'))
+
+        // Transactions
+        .use('/transactions/shopping', require('./transactions/shopping.routes'))
+        .use('/transactions/sales', require('./transactions/sales.routes'))
+
         .use('/liquidation', require('./payments/liquidation.routes'))
         .use('/deposit', require('./payments/deposit.routes'))
-        .use("/store-provider", require("./stores/storeProvider.routes"))
 
 }
 

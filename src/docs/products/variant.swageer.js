@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /variants:
+ * /products/variants:
  *   post:
  *     summary: Creates a new product variant.
  *     description: Creates a new product variant with grammage, stock, and associated product.
@@ -52,7 +52,7 @@
 
 /**
  * @swagger
- * /variants:
+ * /products/variants:
  *   get:
  *     summary: Lists all product variants.
  *     description: Retrieves a list of all product variants.
@@ -83,7 +83,7 @@
 
 /**
  * @swagger
- * /variants/{id}:
+ * /products/variants/{id}:
  *   get:
  *     summary: Get a product variant by ID.
  *     description: Retrieves a specific product variant by its ID.
