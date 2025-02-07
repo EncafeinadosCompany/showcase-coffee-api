@@ -4,13 +4,15 @@ const SalesService = require('../../services/transactions/sales.service');
 const SalesController  = require('../../controllers/transactions/sales.controller');
 const SalesRepository = require('../../repositories/transactions/sales.repository');
 const SalesVariantRepository = require('../../repositories/transactions/salesVariant.repository');
-const ProductVariantsRepository = require('../../repositories/products/products.repository');
+const ShoppingVariantRepository = require('../../repositories/transactions/shoppingVariant.repository');
+const VariantRepository = require('../../repositories/products/variant.repository');
 
 const saleVariantRepository = new SalesVariantRepository();
-const productVariantsRepository = new ProductVariantsRepository();
+const shoppingRepository = new ShoppingVariantRepository();
+const variantRepository = new VariantRepository();
 
-const saleRepository = new SalesRepository(productVariantsRepository, saleVariantRepository, sequelize);
-const saleService = new SalesService(saleRepository);
+const saleRepository = new SalesRepository();
+const saleService = new SalesService(saleRepository, variantRepository, shoppingRepository, saleVariantRepository, sequelize);
 const saleController = new SalesController(saleService);
 
 const router = require('express').Router();

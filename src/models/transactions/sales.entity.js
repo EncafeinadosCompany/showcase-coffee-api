@@ -18,7 +18,7 @@ const saleSchema = {
     },
     total: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
     },
     status: {
         type: DataTypes.BOOLEAN,
