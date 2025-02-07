@@ -26,7 +26,7 @@ class ShoppingVariantRepository {
             console.error("Error en la consulta:", error);
             throw new Error("Hubo un problema al obtener los datos.");
         }
-    };    
+    };
 
     async getById(id) {
         const shoppingVariant = await ShoppingVariantModel.findByPk(id);
@@ -54,6 +54,19 @@ class ShoppingVariantRepository {
         }
     }
 
+    async findShoppingByVariant(id_variant_products) {
+        try {
+            const shoppingVariant = await ShoppingVariantModel.findOne({
+                where: { id_variant_products },
+                order: [['created_at', 'DESC']],
+            });
+            return shoppingVariant;
+        } catch (error) {
+            console.error('Error fetching latest shopping variant by variant:', error);
+            throw error;
+        }
+    }
+    
 }
 
 module.exports = ShoppingVariantRepository

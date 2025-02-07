@@ -27,9 +27,6 @@ const depositSchema = {
     voucher: {
         type: DataTypes.STRING(200),
         allowNull: false,
-        validate: {
-            isUrl: true
-        }
     },
 
     status: {

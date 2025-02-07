@@ -72,6 +72,10 @@ class VariantRepository {
     }
   }
 
+  async findByIdVariant(id) {
+    const variant = await VariantProductModel.findByPk(id);
+    return variant;
+  }
 }
 
 module.exports = VariantRepository
