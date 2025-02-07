@@ -1,11 +1,14 @@
 const express = require('express');
-const ProductController  = require('../../controllers/products/products.controller');
+
+// Middleware
 const productValidation = require('../../middlewares/products/Validations/product.validation');
 const errorMessages = require('../../middlewares/products/translations/errorMesaggesProduct');
 const validationMiddleware = require('../../middlewares/validateRequest');
 
 const router = express.Router();
+
 const ProductRepository = require('../../repositories/products/products.repository')
+const ProductController  = require('../../controllers/products/products.controller');
 const AttributeProductsRepository = require('../../repositories/products/attributesProducts.repository')
 const AttributeRepository = require('../../repositories/products/attributes.repository')
 const ProductService = require('../../services/products/products.service');
