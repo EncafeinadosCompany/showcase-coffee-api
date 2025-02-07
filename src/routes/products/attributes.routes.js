@@ -1,5 +1,10 @@
 const express = require('express');
 
+// Middleware
+
+const validationMiddleware = require('../../middlewares/validateRequest');
+const errorMessages = require('../../middlewares/products/translations/errorMesaggesAttributes');
+const attributeValidation = require('../../middlewares/products/Validations/attribute.validation');
 
 const router = express.Router();
 
@@ -16,6 +21,10 @@ const attributesController = new AttributesController(attributeService);
     router
         .get('/', (req, res) => attributesController.getAllAttributes(req, res))
         .get('/:id', (req, res) => attributesController.getAttributesID(req, res))
-        .post('/', (req, res) => attributesController.createAttribute(req, res))
+        .post('/',
+            attributeValidation,
+            validationMiddleware(errorMessages),
+            attributesController.createAttribute.bind(attributesController)
+        );
 
 module.exports = router;
