@@ -15,8 +15,8 @@ const employeeController = new EmployeeController(employeeService);
 const router = require('express').Router();
 
 router
-    .get('/', (req, res) => employeeController.getEmployees(req, res))
-    .get('/:id', (req, res) => employeeController.getEmployeeById(req, res))
-    .post('/', (req, res) => employeeController.createEmployee(req, res))
+    .get('/', authenticateJWT, (req, res) => employeeController.getEmployees(req, res))
+    .get('/:id', authenticateJWT, (req, res) => employeeController.getEmployeeById(req, res))
+    .post('/', authenticateJWT, (req, res) => employeeController.createEmployee(req, res))
 
 module.exports = router;
