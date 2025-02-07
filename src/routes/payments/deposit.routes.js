@@ -3,9 +3,11 @@ const express = require('express');
 const DepositController = require('../../controllers/payments/deposit.controller');
 const DepositRepository = require('../../repositories/payments/deposit.repository');
 const DepositService = require('../../services/payments/deposit.service');
+const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
 
 const depositRepository = new DepositRepository();
-const depositService = new DepositService(depositRepository);
+const liquidationRepository = new LiquidationRepository();
+const depositService = new DepositService(depositRepository, liquidationRepository);
 const depositController = new DepositController(depositService);
 
 const router = express.Router();
