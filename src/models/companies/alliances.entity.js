@@ -10,7 +10,7 @@ const storeProviderSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  storeId: {
+  id_store: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -20,7 +20,7 @@ const storeProviderSchema = {
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
   },
-  providerId: {
+  id_provider: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
