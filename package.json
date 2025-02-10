@@ -14,7 +14,8 @@
     "seed:create": "npx sequelize-cli seed:generate --name",
     "seed": "npx sequelize-cli db:seed:all",
     "seed:undo": "npx sequelize-cli db:seed:undo",
-    "seed:undo:all": "npx sequelize-cli db:seed:undo:all"
+    "seed:undo:all": "npx sequelize-cli db:seed:undo:all",
+    "seed:order":"npx sequelize-cli db:seed --seed src/database/seeders/20250210-seed-index.js"
   },
   "keywords": [],
   "author": "",
