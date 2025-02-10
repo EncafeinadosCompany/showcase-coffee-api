@@ -23,7 +23,7 @@ const attributesController = new AttributesController(attributeService);
         .get('/:id', (req, res) => attributesController.getAttributesID(req, res))
         .post('/',
             attributeValidation,
-            validationMiddleware(errorMessages),
+            validationMiddleware,
             attributesController.createAttribute.bind(attributesController)
         );
 

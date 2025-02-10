@@ -20,7 +20,7 @@ const brandController = new BrandController(brandService);
         .get('/:id', (req, res) => brandController.getById(req, res))
         .post('/',
             brandValidation,
-            validationMiddleware(errorMessages),
+            validationMiddleware,
             brandController.create.bind(brandController)
         );
         
