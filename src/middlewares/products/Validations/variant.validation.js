@@ -1,4 +1,5 @@
 const { body } = require("express-validator");
+const validationMiddleware = require('../../validateRequest');
 
 const variantProductValidation = [
   body("grammage")
@@ -12,6 +13,8 @@ const variantProductValidation = [
   body("id_product")
     .notEmpty().withMessage("Product ID is required")
     .isInt().withMessage("Product ID must be an integer"),
+
+  validationMiddleware
 ];
 
 module.exports = variantProductValidation;

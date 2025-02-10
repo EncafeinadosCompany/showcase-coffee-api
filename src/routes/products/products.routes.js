@@ -2,8 +2,6 @@ const express = require('express');
 
 // Middleware
 const productValidation = require('../../middlewares/products/Validations/product.validation');
-const errorMessages = require('../../middlewares/products/translations/errorMesaggesProduct');
-const validationMiddleware = require('../../middlewares/validateRequest');
 
 const router = express.Router();
 
@@ -12,6 +10,7 @@ const ProductController  = require('../../controllers/products/products.controll
 const AttributeProductsRepository = require('../../repositories/products/attributesProducts.repository')
 const AttributeRepository = require('../../repositories/products/attributes.repository')
 const ProductService = require('../../services/products/products.service');
+const { authenticateJWT } = require('../../middlewares/auth.middleware');
 
 const productRepository = new ProductRepository();
 const attributeProductsRepository = new AttributeProductsRepository();
@@ -20,12 +19,8 @@ const productService = new ProductService(productRepository, attributeProductsRe
 const productController = new ProductController(productService);
 
     router
-        .get('/', (req, res) =>  productController.getAll(req, res))
-        .get('/:id', (req, res) => productController.getById(req, res))
-        .post('/', 
-            productValidation, 
-            validationMiddleware, 
-            productController.create.bind(productController)
-        );
+        .get('/', authenticateJWT, (req, res) =>  productController.getAll(req, res))
+        .get('/:id', authenticateJWT, (req, res) => productController.getById(req, res))
+        .post('/', authenticateJWT, productValidation, (req, res) => productController.create(req, res));
 
 module.exports = router;

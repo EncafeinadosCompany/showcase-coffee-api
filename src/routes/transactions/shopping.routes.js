@@ -6,9 +6,7 @@ const VariantRepository = require('../../repositories/products/variant.repositor
 const { sequelize } = require('../../config/connection');
 const ShoppingService = require('../../services/transactions/shopping.service');
 const ShoppingController  = require('../../controllers/transactions/shopping.controller');
-const shoppingValidation = require('../../middlewares/shopping/Validation/shopping.validation');
-const errorMessages = require('../../middlewares/shopping/translations/errorMesaggeShopping');
-const validationMiddleware = require('../../middlewares/validateRequest');
+const shoppingValidation = require('../../middlewares/transactions/shopping.validation');
 
 const shoppingRepository = new ShoppingRepository();
 const shoppingVariantRepository = new ShoppingVariantRepository();
@@ -16,18 +14,16 @@ const productVariantsRepository = new VariantRepository();
 const shoppingService = new ShoppingService(shoppingRepository, shoppingVariantRepository, productVariantsRepository, sequelize);
 const shoppingController = new ShoppingController(shoppingService);
 
+const { authenticateJWT } = require('../../middlewares/auth.middleware');
+
 const router = express.Router();
 
 router
-  .get('/', shoppingController.getAllShopping.bind(shoppingController))
-  .get('/shopping-variants', shoppingController.getAllShoppingVariant.bind(shoppingController))
-  .get('/shopping-variants/:id', shoppingController.getShoppingVariantById.bind(shoppingController))
-  .get('/:id', shoppingController.getShoppingById.bind(shoppingController))
-  .post(
-    '/', 
-    shoppingValidation, 
-    validationMiddleware, 
-    shoppingController.createShopping.bind(shoppingController)
+  .get('/', authenticateJWT, (req, res) => shoppingController.getAllShopping(req, res))
+  .get('/shopping-variants', authenticateJWT, (req, res) => shoppingController.getAllShoppingVariant(req, res))
+  .get('/shopping-variants/:id', authenticateJWT, (req, res) => shoppingController.getShoppingVariantById(req, res))
+  .get('/:id', authenticateJWT, (req, res) => shoppingController.getShoppingById(req, res))
+  .post('/', authenticateJWT, shoppingValidation, (req, res) => shoppingController.createShopping(req, res)
   );
 
 module.exports = router;

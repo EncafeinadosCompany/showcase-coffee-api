@@ -9,19 +9,16 @@ const router = express.Router();
 
 const BrandController  = require('../../controllers/products/brands.controller');
 const BrandRepository = require('../../repositories/products/blands.repository')
-const BrandService = require('../../services/products/brands.service')
+const BrandService = require('../../services/products/brands.service');
+const { authenticateJWT } = require('../../middlewares/auth.middleware');
 
 const brandRepository = new BrandRepository();
 const brandService = new BrandService(brandRepository);
 const brandController = new BrandController(brandService);
 
     router
-        .get('/', (req, res) => brandController.getAll(req, res))
-        .get('/:id', (req, res) => brandController.getById(req, res))
-        .post('/',
-            brandValidation,
-            validationMiddleware,
-            brandController.create.bind(brandController)
-        );
+        .get('/', authenticateJWT, (req, res) => brandController.getAll(req, res))
+        .get('/:id', authenticateJWT, (req, res) => brandController.getById(req, res))
+        .post('/', authenticateJWT, brandValidation, (req , res) => brandController.create(req, res));
         
 module.exports = router;

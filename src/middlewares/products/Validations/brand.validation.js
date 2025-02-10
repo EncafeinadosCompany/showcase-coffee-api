@@ -1,4 +1,5 @@
 const { body } = require("express-validator");
+const validationMiddleware = require('../../validateRequest');
 
 const brandValidation = [
   body("name")
@@ -8,6 +9,8 @@ const brandValidation = [
   body("description")
     .optional()
     .isLength({ max: 150 }).withMessage("The description must be up to 150 characters"),
-];
+
+  validationMiddleware
+  ];
 
 module.exports = brandValidation;
