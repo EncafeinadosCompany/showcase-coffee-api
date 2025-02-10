@@ -30,5 +30,41 @@ class ProviderRepository {
             ],
         });
     }
+
+    async getProviderByNit(nit) {
+        return await ProviderModel.findOne({
+          where: { nit },
+          include: [
+            {
+              model: BankAccountModel,
+              as: "bankAccounts",
+            },
+          ],
+        });
+      }
+    
+      async getProviderByPhone(phone) {
+        return await ProviderModel.findOne({
+          where: { phone },
+          include: [
+            {
+              model: BankAccountModel,
+              as: "bankAccounts",
+            },
+          ],
+        });
+      }
+    
+      async getProviderByEmail(email) {
+        return await ProviderModel.findOne({
+          where: { email },
+          include: [
+            {
+              model: BankAccountModel,
+              as: "bankAccounts",
+            },
+          ],
+        });
+      }
 }
 module.exports = { ProviderRepository };

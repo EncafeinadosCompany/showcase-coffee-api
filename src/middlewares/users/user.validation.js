@@ -1,14 +1,13 @@
 const { body } = require('express-validator');
 const validationMiddleware = require('../validateRequest');
+const { emailValidation, idValidation } = require('../validationRules');
 
 const userValidation = [
-    body('id_role')
-        .notEmpty().withMessage('Role is required'),
 
-    body('email')
-        .notEmpty().withMessage('Email is required')
-        .isEmail().withMessage('Email is invalid'),
+    idValidation('id_role'),
 
+    emailValidation('email'),
+    
     body('password')
         .notEmpty().withMessage('Password is required')
         .isLength({ min:6, max:16 }).withMessage('Password must be at least 6 characters and at most 16 characters')
