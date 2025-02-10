@@ -14,5 +14,4 @@ const productValidation = [
     .isInt().withMessage("Brand ID must be an integer"),
 ];
 
-
 module.exports = productValidation

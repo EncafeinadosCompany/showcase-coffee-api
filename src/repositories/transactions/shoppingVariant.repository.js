@@ -2,16 +2,18 @@ const { ShoppingVariantModel } = require('../../models/transactions/shoppingVari
 const { ProductModel } = require('../../models/products/products.entity');
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
 
-const { sequelize } = require('../../config/connection')
+const { sequelize } = require('../../config/connection');
+const { EmployeeModel } = require('../../models/users/employees.entity');
+const { ProviderModel } = require('../../models/companies/provider.entity');
+const { ShoppingsModel } = require('../../models/transactions/shoppings.entity');
+
 class ShoppingVariantRepository {
     constructor() { }
 
     async getAll() {
         try {
             const shoppingVariant = await ShoppingVariantModel.findAll({
-                attributes: [
-                    "sale_price",
-                ],
+                attributes: ["sale_price"],
                 include: [
                     {
                         model: VariantProductModel,
@@ -24,13 +26,29 @@ class ShoppingVariantRepository {
                                 attributes: ["id", "name"]
                             }
                         ]
+                    },
+                    {
+                        model: ShoppingsModel,
+                        as: "shopping",
+                        attributes: ["id"],
+                        include: [
+                            {
+                                model: EmployeeModel,
+                                as: "employee",
+                                attributes: ["id", "type", "id_provider"]
+                            }
+                        ]
                     }
                 ],
                 group: [
                     "sale_price",
                     "variant.id",
                     "variant.product.id",
-                    "variant.product.name"
+                    "variant.product.name",
+                    "shopping.id",
+                    "shopping.employee.id",
+                    "shopping.employee.type",
+                    "shopping.employee.id_provider",
                 ]
             });
 
