@@ -1,7 +1,6 @@
 const { validationResult } = require("express-validator");
 
-const validationMiddleware = (errorMessages) => (req, res, next) => {
-  const lang = req.headers["accept-language"] || "en";
+const validationMiddleware = (req, res, next) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
