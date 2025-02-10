@@ -1,4 +1,5 @@
 const { AllianceModel } = require("../../models/companies/alliances.entity");
+const { ProviderModel } = require("../../models/companies/provider.entity");
 
 class AllianceRepository {
   async addAlliance(storeId, providerId) {
@@ -25,12 +26,28 @@ class AllianceRepository {
       include: ["provider"],
     });
   }
-  
+
   async getStoresByProvider(providerId) {
     return await AllianceModel.findAll({
       where: { id_provider: providerId },
       include: ["store"],
     });
+  }
+
+  async findProviderByNit(nit) {
+    return await ProviderModel.findOne({
+      where: { nit },
+    });
+  }
+
+  async isProviderAssociatedWithStore(storeId, providerId) {
+    const association = await AllianceModel.findOne({
+      where: {
+        id_store: storeId,
+        id_provider: providerId,
+      },
+    });
+    return !!association;
   }
 }
 
