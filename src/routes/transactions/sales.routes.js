@@ -15,11 +15,13 @@ const saleRepository = new SalesRepository();
 const saleService = new SalesService(saleRepository, variantRepository, shoppingRepository, saleVariantRepository, sequelize);
 const saleController = new SalesController(saleService);
 
+const { authenticateJWT } = require('../../middlewares/auth.middleware');
+
 const router = require('express').Router();
 
 router
-    .get('/', (req, res) => saleController.getAllSales(req, res))
-    .get('/:id', (req, res) => saleController.getSaleById(req, res))
-    .post('/', (req, res) => saleController.createSale(req, res))
+    .get('/', authenticateJWT, (req, res) => saleController.getAllSales(req, res))
+    .get('/:id', authenticateJWT, (req, res) => saleController.getSaleById(req, res))
+    .post('/', authenticateJWT, (req, res) => saleController.createSale(req, res))
 
 module.exports = router ;

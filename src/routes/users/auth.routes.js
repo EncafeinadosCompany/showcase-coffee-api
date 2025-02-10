@@ -1,7 +1,6 @@
 const EmployeeRepository = require("../../repositories/users/employee.repository");
 const AuthController = require('../../controllers/users/auth.controller');
 const AuthService = require("../../services/users/auth.service");
-// const { authenticateJWT } = require('../middlewares/auth.middleware');
 
 const employeeRepository = new EmployeeRepository();
 const authService = new AuthService(employeeRepository);
