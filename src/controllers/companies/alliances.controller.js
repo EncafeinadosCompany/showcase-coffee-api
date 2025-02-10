@@ -5,24 +5,7 @@ class AllianceController {
 
   async addAlliance(req, res) {
     try {
-      const { storeId, providerId, nit } = req.body;
-
-      const existingProvider = await this.storeProviderService.findProviderByNit(nit);
-
-      if (existingProvider) {
-
-        const isAssociated = await this.storeProviderService.isProviderAssociatedWithStore(storeId, existingProvider.id);
-
-        if (isAssociated) {
-          return res.status(400).json({ error: "El proveedor ya está asociado a esta tienda." });
-        } else {
-          return res.status(200).json({
-            message: "El proveedor ya existe. ¿Desea asociarlo a esta tienda?",
-            provider: existingProvider,
-          });
-        }
-      }
-
+      const { storeId, providerId } = req.body;
       const result = await this.storeProviderService.addAlliance(storeId, providerId);
       res.status(201).json(result);
     } catch (error) {
