@@ -6,4 +6,7 @@ const attributeValidation = [
     .isLength({ min: 1, max: 100 }).withMessage("The description must be between 1 and 100 characters"),
 ];
 
+
+
+
 module.exports = attributeValidation;

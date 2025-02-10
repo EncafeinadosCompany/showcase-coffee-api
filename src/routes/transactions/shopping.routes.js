@@ -26,7 +26,7 @@ router
   .post(
     '/', 
     shoppingValidation, 
-    validationMiddleware(errorMessages), 
+    validationMiddleware, 
     shoppingController.createShopping.bind(shoppingController)
   );
 

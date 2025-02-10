@@ -22,7 +22,7 @@ const variantController = new VariantController(variantService);
         .get('/:id', (req, res) => variantController.getById(req, res))
         .post('/', 
             variantValidation,
-            validationMiddleware(errorMessages),
+            validationMiddleware,
             variantController.create.bind(variantController)
         );
 
