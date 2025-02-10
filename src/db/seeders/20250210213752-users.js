@@ -2,24 +2,28 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('roles', [
-      
+  async up(queryInterface, Sequelize) {
+
+    await queryInterface.bulkInsert('users', [
       {
-        name: 'Administrador de Cafetería',
+        id_role: 1,
+        email: 'admin@gmail.com',
+        password: 'Admin123.',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: 'Empleado de Proveedor',
+        id_role: 1,
+        email: 'empleadotienda@gmail.com',
+        password: 'Empleado123.',
         createdAt: new Date(),
         updatedAt: new Date()
       }
-
     ]);
   },
 
-  async down (queryInterface, Sequelize) {
+
+  async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('roles', null, {});
   }
 };
