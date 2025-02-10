@@ -1,4 +1,5 @@
 const { body } = require("express-validator");
+const validationMiddleware = require('../../validateRequest');
 
 const productValidation = [
   body("name")
@@ -12,6 +13,8 @@ const productValidation = [
   body("id_brand")
     .notEmpty().withMessage("Brand is required")
     .isInt().withMessage("Brand ID must be an integer"),
+  
+  validationMiddleware
 ];
 
 module.exports = productValidation
