@@ -14,6 +14,14 @@ class AllianceService {
     async getStoresByProvider(providerId) {
       return await this.storeProviderRepository.getStoresByProvider(providerId);
     }
+
+    async findProviderByNit(nit) {
+      return await this.storeProviderRepository.findProviderByNit(nit);
+    }
+  
+    async isProviderAssociatedWithStore(storeId, providerId) {
+      return await this.storeProviderRepository.isProviderAssociatedWithStore(storeId, providerId);
+    }
   }
   
   module.exports = { AllianceService };

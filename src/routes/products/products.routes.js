@@ -24,7 +24,7 @@ const productController = new ProductController(productService);
         .get('/:id', (req, res) => productController.getById(req, res))
         .post('/', 
             productValidation, 
-            validationMiddleware(errorMessages), 
+            validationMiddleware(errorMesages), 
             productController.create.bind(productController)
         );
 
