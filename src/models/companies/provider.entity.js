@@ -71,6 +71,11 @@ class ProviderModel extends Model {
             foreignKey: "id_provider", otherKey: "id_store",
             as: "provider_store", 
           });
+
+          this.hasMany(models.LiquidationModel, {
+            as: "liquidations",
+            foreignKey: "id_provider",
+        });
     }
 
     static config(sequelize) {

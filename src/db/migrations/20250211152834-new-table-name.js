@@ -4,11 +4,11 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     
-    await queryInterface.renameTable('shoppings', 'shopping');
+    // await queryInterface.renameTable('shoppings', 'shopping');
   },
 
   async down (queryInterface, Sequelize) {
     
-    await queryInterface.renameTable('shopping', 'shoppings');
+    // await queryInterface.renameTable('shopping', 'shoppings');
   }
 };

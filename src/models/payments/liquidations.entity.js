@@ -1,7 +1,7 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");
-const { SHOPPING_TABLE } = require("../transactions/shopping.entity");
+const { PROVIDER_TABLE } = require("../companies/provider.entity");
 
-const LIQUIDATION_TABLE = 'liquidations'
+const LIQUIDATION_TABLE = 'liquidations';
 
 const liquidationSchema = {
     id: {
@@ -17,15 +17,14 @@ const liquidationSchema = {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true,
-
     },
-    id_shopping: {
+    id_provider: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: SHOPPING_TABLE,
-            key: "id",
-        },
+            model: PROVIDER_TABLE,
+            key: 'id'
+        }
     },
     created_at: {
         type: DataTypes.DATE,
@@ -38,19 +37,18 @@ const liquidationSchema = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
     }
-}
+};
 
 class LiquidationModel extends Model {
-
     static associate(models) {
         this.hasMany(models.DepositModel, {
             foreignKey: 'id_liquidation',
             as: 'deposits',
         });
 
-        this.belongsTo(models.ShoppingModel, {
-            foreignKey: 'id_shopping',
-            as: 'shopping',
+        this.belongsTo(models.ProviderModel, {
+            as: 'provider',
+            foreignKey: 'id_provider'
         });
     }
 
@@ -66,6 +64,3 @@ class LiquidationModel extends Model {
 }
 
 module.exports = { LIQUIDATION_TABLE, liquidationSchema, LiquidationModel };
-
-
-

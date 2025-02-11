@@ -55,11 +55,6 @@ class ShoppingModel extends Model {
             foreignKey: 'id_shopping'
         });
 
-        this.hasMany(models.LiquidationModel, {
-            as: 'liquidations',
-            foreignKey: 'id_shopping'
-        });
-
         this.belongsTo(models.StoreModel, {
             as: 'store',
             foreignKey: 'id_store'
