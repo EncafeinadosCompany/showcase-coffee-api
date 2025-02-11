@@ -11,9 +11,9 @@ const storeService = new StoreService(storeRepository);
 const storeController = new StoreController(storeService);
 
 router
-    .post('/', (req, res) => storeController.createStore(req, res))
-    .get('/', (req, res) => storeController.getAllStores(req, res))
-    .get('/:id', (req, res) => storeController.getStoreById(req, res))
-    .put('/:id', (req, res) => storeController.updateStore(req, res));
+    .post('/',authenticateJWT, (req, res) => storeController.createStore(req, res))
+    .get('/',authenticateJWT, (req, res) => storeController.getAllStores(req, res))
+    .get('/:id',authenticateJWT, (req, res) => storeController.getStoreById(req, res))
+    .put('/:id',authenticateJWT, (req, res) => storeController.updateStore(req, res));
 
 module.exports = router ;
