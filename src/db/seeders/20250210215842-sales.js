@@ -1,25 +1,23 @@
 'use strict';
 
+const { SALE_TABLE } = require('../../models/transactions/sales.entity');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    await queryInterface.bulkInsert( SALE_TABLE, [
+      {
+        date: new Date(),
+        type_payment: "Efectivo",
+        // total: 100,
+        created_at: new Date(),
+        updated_at: new Date(),
+      }
+    ]);
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    
+    
   }
 };
