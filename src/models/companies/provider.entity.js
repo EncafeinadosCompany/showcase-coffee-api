@@ -55,11 +55,6 @@ class ProviderModel extends Model {
             as: "bankAccounts",
             foreignKey: "id_provider",
           });
-          
-        this.hasMany(models.Product_providerModel, {
-            as: 'id_provider',
-            foreignKey: 'products',
-        });
 
         this.hasMany(models.EmployeeModel, {
             foreignKey: 'id_provider',
@@ -68,7 +63,8 @@ class ProviderModel extends Model {
         
         this.belongsToMany(models.StoreModel, {
             through: 'store_provider',
-            foreignKey: "id_provider", otherKey: "id_store",
+            foreignKey: "id_provider", 
+            otherKey: "id_store",
             as: "provider_store", 
           });
 
