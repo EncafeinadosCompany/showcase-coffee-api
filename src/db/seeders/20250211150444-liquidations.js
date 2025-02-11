@@ -1,9 +1,9 @@
-'use strict';
+const { LIQUIDATION_TABLE } = require('../../models/payments/liquidations.entity');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('liquidations', [
+    await queryInterface.bulkInsert(LIQUIDATION_TABLE, [
       {
         current_debt: 500.00,
         status: true,
@@ -29,6 +29,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('liquidations', null, {});
+    await queryInterface.bulkDelete(LIQUIDATION_TABLE, null, {});
   },
 };

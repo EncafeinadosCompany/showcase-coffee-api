@@ -1,13 +1,13 @@
-'use strict';
+const { DEPOSIT_TABLE } = require('../sequelize-cli/models/deposits.entity');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('deposits', [
+    await queryInterface.bulkInsert(DEPOSIT_TABLE, [
       {
-        date: new Date('2023-01-15'),
+        date: new Date(''),
         amount: 100.00,
-        type_payment: 'Credit Card',
+        type_payment: 'Tarjeta de Crédito',
         voucher: 'voucher12345',
         status: true,
         id_liquidation: 1,
@@ -15,9 +15,9 @@ module.exports = {
         updated_at: new Date()
       },
       {
-        date: new Date('2023-02-20'),
+        date: new Date(''),
         amount: 250.75,
-        type_payment: 'Bank Transfer',
+        type_payment: 'Transferencia Bancaria',
         voucher: 'voucher67890',
         status: false,
         id_liquidation: 2,
@@ -25,9 +25,9 @@ module.exports = {
         updated_at: new Date()
       },
       {
-        date: new Date('2023-03-10'),
+        date: new Date(''),
         amount: 500.50,
-        type_payment: 'Cash',
+        type_payment: 'Efectivo',
         voucher: 'voucher11223',
         status: true,
         id_liquidation: 3,
@@ -38,6 +38,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('deposits', null, {});
+    await queryInterface.bulkDelete(DEPOSIT_TABLE, null, {});
   }
 };
