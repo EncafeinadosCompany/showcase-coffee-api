@@ -16,7 +16,6 @@ const variantProductSchema = {
   grammage: {
     type: DataTypes.STRING(10),
     allowNull: false,
-    unique: true,
     validate: {
       notEmpty: true,
       len: [1, 10],
@@ -79,6 +78,12 @@ class VariantProductModel extends Model {
       tableName: VARIANT_PRODUCT_TABLE,
       modelName: "VariantProductModel",
       timestamps: false,
+      indexes:[
+        {
+          unique: true,
+          fields: ["grammage", "id_product"]
+        }
+      ]
     };
   }
 }
