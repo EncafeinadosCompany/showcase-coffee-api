@@ -7,13 +7,13 @@ module.exports = {
       
       {
         name: 'Administrador de Cafetería',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
       },
       {
         name: 'Empleado de Proveedor',
-        createdAt: new Date(),
-        updatedAt: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
       }
 
     ]);
