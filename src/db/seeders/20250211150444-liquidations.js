@@ -7,7 +7,7 @@ module.exports = {
       {
         current_debt: 120000,
         status: true,
-        id_shopping: 1,
+        id_provider: 1,
         created_at: new Date(),
         updated_at: new Date(),
       }

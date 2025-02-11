@@ -9,6 +9,10 @@ const variantProductSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
+  image: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
   grammage: {
     type: DataTypes.STRING(10),
     allowNull: false,
@@ -55,11 +59,6 @@ class VariantProductModel extends Model {
     this.belongsTo(models.ProductModel, {
       as: "product",
       foreignKey: "id_product"
-    });
-
-    this.hasMany(models.ImageVariantModel, {
-      as: "images",
-      foreignKey: "id_variant",
     });
 
     this.hasMany(models.ShoppingVariantModel, {

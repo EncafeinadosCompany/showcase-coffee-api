@@ -11,14 +11,6 @@ const employeeSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  id_user: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: USER_TABLE,
-      key: "id",
-    },
-  },
   identification: {
     type: DataTypes.STRING,
     unique: true,
@@ -44,6 +36,29 @@ const employeeSchema = {
     type: DataTypes.ENUM('store', 'provider'),
     allowNull: false,
   },
+  status: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+  id_user: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: USER_TABLE,
+      key: "id",
+    },
+  },
   id_store: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -59,21 +74,6 @@ const employeeSchema = {
       model: PROVIDER_TABLE,
       key: 'id'
     }
-  },
-  status: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-    onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
   },
 };
 

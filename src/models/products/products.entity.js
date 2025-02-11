@@ -10,6 +10,10 @@ const productSchema = {
     type: DataTypes.INTEGER,
     primaryKey: true,
   },
+  image: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
   name: {
     type: DataTypes.STRING(50),
     allowNull: false,
@@ -51,7 +55,11 @@ const productSchema = {
 
 class ProductModel extends Model {
   static associate(models) {
-    this.belongsTo(models.BrandModel, { foreignKey: "id_brand", as: "brand" });
+
+    this.belongsTo(models.BrandModel, {
+      foreignKey: "id_brand",
+      as: "brand"
+    });
 
     this.belongsToMany(models.AttributeModel, {
       through: "attributes_products",
@@ -60,7 +68,10 @@ class ProductModel extends Model {
       as: "attributes"
     });
 
-    this.hasMany(models.VariantProductModel, { foreignKey: "id_product" , as:"product"});
+    this.hasMany(models.VariantProductModel, { 
+      foreignKey: "id_product", 
+      as: "product" 
+    });
   }
 
   static config(sequelize) {

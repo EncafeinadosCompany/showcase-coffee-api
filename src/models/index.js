@@ -11,10 +11,7 @@ const { ProductModel, productSchema } = require('./products/products.entity');
 const { BrandModel, brandSchema } = require('./products/brands.entity');
 const { AttributeModel, attributeSchema } = require('./products/attribute.entity');
 const { AttributeProductModel, attributeProductSchema} = require('./products/attributesProducts.entity')
-
 const { VariantProductModel, variantProductSchema } = require('./products/variantsProducts.entity');
-const { Product_providerModel, productProviderSchema } = require('./products/products_providers.entity');
-const { ImageVariantModel, imageVariantSchema } = require('../models/products/image_variants.entity');
 
 const { SalesModel, saleSchema } = require('./transactions/sales.entity');
 const { SalesVariantModel, saleVariantSchema } = require('./transactions/salesVariant.entity');
@@ -23,7 +20,6 @@ const { ShoppingVariantModel, shoppingVariantSchema } = require('./transactions/
 
 const { LiquidationModel, liquidationSchema } = require('./payments/liquidations.entity');
 const { DepositModel, depositSchema } = require('./payments/deposits.entity'); 
-
 
 const setupModels = (sequelize) => {
 
@@ -40,10 +36,7 @@ const setupModels = (sequelize) => {
     ProductModel.init(productSchema, ProductModel.config(sequelize));
     AttributeModel.init(attributeSchema, AttributeModel.config(sequelize));
     AttributeProductModel.init(attributeProductSchema, AttributeProductModel.config(sequelize));
-
     VariantProductModel.init(variantProductSchema, VariantProductModel.config(sequelize));
-    ImageVariantModel.init(imageVariantSchema, ImageVariantModel.config(sequelize));
-    Product_providerModel.init(productProviderSchema, Product_providerModel.config(sequelize));
 
     SalesModel.init(saleSchema, SalesModel.config(sequelize));
     SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
@@ -69,10 +62,7 @@ const setupModels = (sequelize) => {
     ProductModel.associate(sequelize.models)
     AttributeModel.associate(sequelize.models)
     AttributeProductModel.associate(sequelize.models)
-   
     VariantProductModel.associate(sequelize.models)
-    ImageVariantModel.associate(sequelize.models)
-    Product_providerModel.associate(sequelize.models)
 
     SalesModel.associate(sequelize.models)
     SalesVariantModel.associate(sequelize.models)

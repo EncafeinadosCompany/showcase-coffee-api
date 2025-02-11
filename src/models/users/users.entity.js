@@ -19,16 +19,6 @@ const userSchema = {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    id_role: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: ROLE_TABLE,
-            key: "id",
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-    },
     created_at: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -39,7 +29,17 @@ const userSchema = {
         allowNull: false,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         onUpdate: Sequelize.literal("CURRENT_TIMESTAMP"),
-    }
+    },
+    id_role: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: ROLE_TABLE,
+            key: "id",
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+    },
 };
 
 class UserModel extends Model {
