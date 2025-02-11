@@ -5,16 +5,19 @@ const DepositRepository = require('../../repositories/payments/deposit.repositor
 const DepositService = require('../../services/payments/deposit.service');
 const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
 
+const { authenticateJWT } = require('../../middlewares/auth.middleware');
+
 const depositRepository = new DepositRepository();
 const liquidationRepository = new LiquidationRepository();
 const depositService = new DepositService(depositRepository, liquidationRepository);
 const depositController = new DepositController(depositService);
 
-const router = express.Router();
+const router = require('express').Router();
 
-router.get('/', (req, res) => depositController.getAllDeposits(req, res));
-router.get('/:id', (req, res) => depositController.getDepositById(req, res));
-router.post('/', (req, res) =>  depositController.createDeposit(req, res));
-router.get('/by-liquidation/:liquidationId', (req, res) => depositController.getDepositsByLiquidation(req, res));
+router
+    .get('/', authenticateJWT, (req, res) => depositController.getAllDeposits(req, res))
+    .get('/:id', authenticateJWT, (req, res) => depositController.getDepositById(req, res))
+    .post('/', authenticateJWT, (req, res) =>  depositController.createDeposit(req, res))
+    .get('/by-liquidation/:liquidationId', authenticateJWT, (req, res) => depositController.getDepositsByLiquidation(req, res))
 
 module.exports = router;
