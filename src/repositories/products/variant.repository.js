@@ -1,6 +1,5 @@
 const { ProductModel } = require("../../models/products/products.entity");
-const {VariantProductModel} = require('../../models/products/variantsProducts.entity')
-const { ImageVariantModel } = require("../../models/products/image_variants.entity");
+const { VariantProductModel } = require('../../models/products/variantsProducts.entity')
 
 class VariantRepository {
   constructor() {}
@@ -27,20 +26,14 @@ class VariantRepository {
           model: ProductModel,
           as: 'product',
           attributes: ["name"],
-        },
-        {
-          model: ImageVariantModel,
-          as: "images",
-          attributes: ["image_url"],
-        },
+        }
       ],
     });
     return !variant ? null : variant;
   }
 
   async create(variantData) {
-    const { variant } = variantData;
-    const newVariant = await VariantProductModel.create(variant);
+    const newVariant = await VariantProductModel.create(variantData);
     return newVariant;
   }
 
