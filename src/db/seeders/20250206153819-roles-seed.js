@@ -9,19 +9,15 @@ module.exports = {
       
       {
         name: 'Administrador de Cafetería',
-        created_at: new Date(),
-        updated_at: new Date()
       },
       {
         name: 'Empleado de Proveedor',
-        created_at: new Date(),
-        updated_at: new Date()
       }
 
     ]);
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('roles', null, {});
+    await queryInterface.bulkDelete( ROLE_TABLE, null, {});
   }
 };

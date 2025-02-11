@@ -1,5 +1,8 @@
 'use strict';
 
+const { SHOPPING_TABLE } = require('../../models/transactions/shopping.entity');
+const { SHOPPING_VARIANT_TABLE } = require('../../models/transactions/shoppingVariant.entity');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -16,7 +19,7 @@ module.exports = {
       updated_at: new Date(),
     };
 
-    const [shoppingResult] = await queryInterface.bulkInsert('shopping', [shoppingData], {
+    const [shoppingResult] = await queryInterface.bulkInsert(SHOPPING_TABLE, [shoppingData], {
       returning: ['id'],
     });
 
@@ -34,12 +37,12 @@ module.exports = {
       updated_at: new Date(),
     }));
 
-    await queryInterface.bulkInsert('shopping_variant', shoppingVariantData);
+    await queryInterface.bulkInsert(SHOPPING_VARIANT_TABLE, shoppingVariantData);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('shopping_variant', null, {});
+    await queryInterface.bulkDelete(SHOPPING_VARIANT_TABLE, null, {});
 
-    await queryInterface.bulkDelete('shopping', null, {});
+    await queryInterface.bulkDelete(SHOPPING_TABLE, null, {});
   },
 };

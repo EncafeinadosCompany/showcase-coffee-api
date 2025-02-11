@@ -8,50 +8,52 @@ module.exports = {
     await queryInterface.bulkInsert(ATTRIBUTE_PRODUCT_TABLE, [
 
       {
-      id_attribute: 1,
-      id_product: 2,
-      value: 'San Carlos',
-      created_at: new Date(),
-      updated_at: new Date(),
+        id_attribute: 1,
+        id_product: 1,
+        value: 'Notas florales con toques de jazmín',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        id_attribute: 3,
+        id_product: 1,
+        value: 'Huila, Colombia',
+        created_at: new Date(),
+        updated_at: new Date(),
       },
 
       {
-      id_attribute: 2,
-      id_product: 1,
-      value: 'Notas frutales',
-      created_at: new Date(),
-      updated_at: new Date(),
-      },
-      {
-      id_attribute: 3,
-      id_product: 2,
-      value: 'Dulce y afrutado',
-      created_at: new Date(),
-      updated_at: new Date(),
-      },
-      {
-      id_attribute: 1,
-      id_product: 3,
-      value: 'La Esperanza',
-      created_at: new Date(),
-      updated_at: new Date(),
-      },
-      {
-      id_attribute: 4,
-      id_product: 5,
-      value: 'Ligero',
-      created_at: new Date(),
-      updated_at: new Date(),
-      },
-      {id_attribute: 4,
-        id_product:4,
-        value:'Medio',
+        id_attribute: 2,
+        id_product: 2,
+        value: ' Dulce y balanceada, con notas de frutos rojos',
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
+      },
+      {
+        id_attribute: 1,
+        id_product: 2,
+        value: 'Afrutado y vibrante',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
+        id_attribute: 2,
+        id_product: 3,
+        value: 'Suave y melosa, con toques de manzana verde',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        id_attribute: 3,
+        id_product: 3,
+        value: 'Tolima, Colombia',
+        created_at: new Date(),
+        updated_at: new Date(),
       }
-      
+
     ]);
-      
+
   },
 
   async down(queryInterface) {

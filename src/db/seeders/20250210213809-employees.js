@@ -8,22 +8,22 @@ module.exports = {
 
     await queryInterface.bulkInsert( EMPLOYEE_TABLE, [
       {
-        id_role: 1,
+        id_user: 1,
         identification: '100001',
         name: 'Jader',
         last_name: 'Rojas',
         phone: '1234567',
-        email: 'adminstore@gmail.com',
+        email: 'admintienda@gmail.com',
         type: 'store',
         id_store: 1
       },
       {
-        id_role:2,
+        id_user: 2,
         identification:"100002",
         name:'Camila',
         last_name:'Ortega',
         phone:'1234567',
-        email:'employeeprovider@gmail.com',
+        email:'empleadoproveedor@gmail.com',
         type:'provider',
         id_provider:1
       }

@@ -1,7 +1,8 @@
 const { Sequelize } = require("sequelize");
 
-const rolesSeeder = require("./20250206153819-roles-seed");
-const usersSeeder = require("./20250210213752-users");
+const roleSeeder = require("./20250206153819-roles-seed");
+const userSeeder = require("./20250210213752-users");
+const employeeSeeder = require("./20250210213809-employees");
 
 const providerSeeder = require("./20250211170326-providers-seed");
 const bankAccountSeeder = require("./20250211171412-bank-accounts-seed");
@@ -25,14 +26,16 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     
     // Users
-    await rolesSeeder.up(queryInterface, Sequelize);
-    await usersSeeder.up(queryInterface, Sequelize);
+    await roleSeeder.up(queryInterface, Sequelize);
+    await userSeeder.up(queryInterface, Sequelize);
 
     // Companies
     await providerSeeder.up(queryInterface, Sequelize);
     await bankAccountSeeder.up(queryInterface, Sequelize);
     await storeSeeder.up(queryInterface, Sequelize);
     await allianceSeeder.up(queryInterface, Sequelize);
+
+    await employeeSeeder.up(queryInterface, Sequelize);
 
     // Products
     await brandSeeder.up(queryInterface, Sequelize);
@@ -53,8 +56,8 @@ module.exports = {
   async down(queryInterface, Sequelize) {
 
     // Users
-    await rolesSeeder.down(queryInterface, Sequelize);
-    await usersSeeder.down(queryInterface, Sequelize);
+    await roleSeeder.down(queryInterface, Sequelize);
+    await userSeeder.down(queryInterface, Sequelize);
 
     // Companies
     await providerSeeder.down(queryInterface, Sequelize);
@@ -62,6 +65,8 @@ module.exports = {
     await storeSeeder.down(queryInterface, Sequelize);
     await allianceSeeder.down(queryInterface, Sequelize);
 
+    await employeeSeeder.down(queryInterface, Sequelize);
+    
     // Products
     await attributeSeeder.down(queryInterface, Sequelize);
     await productSeeder.down(queryInterface, Sequelize);

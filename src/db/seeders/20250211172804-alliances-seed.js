@@ -1,11 +1,12 @@
 'use strict';
 
-const { STORE_PROVIDER_TABLE } = require('../../models/storeProvider.entity');
-const { PROVIDER_TABLE } = require('../../models/provider.entity');
-const { STORE_TABLE } = require('../../models/store.entity');
+const { STORE_PROVIDER_TABLE } = require('../../models/companies/alliances.entity');
+const { PROVIDER_TABLE } = require('../../models/companies/provider.entity');
+const { STORE_TABLE } = require('../../models/companies/store.entity');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    
     const providers = await queryInterface.sequelize.query(
       `SELECT id FROM ${PROVIDER_TABLE};`
     );
@@ -29,8 +30,8 @@ module.exports = {
         updated_at: new Date(),
       },
       {
-        id_store: storeIds[0],
-        id_provider: providerIds[2],
+        id_store: storeIds[1],
+        id_provider: providerIds[1],
         created_at: new Date(),
         updated_at: new Date(),
       },

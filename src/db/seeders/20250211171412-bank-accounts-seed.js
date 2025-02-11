@@ -4,9 +4,11 @@ const { BANK_ACCOUNT_TABLE } = require('../../models/companies/bankAccounts.enti
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+
     const providers = await queryInterface.sequelize.query(
       `SELECT id FROM ${PROVIDER_TABLE};`
     );
+    
     const providerIds = providers[0].map((provider) => provider.id);
 
     await queryInterface.bulkInsert(BANK_ACCOUNT_TABLE, [
@@ -33,15 +35,8 @@ module.exports = {
         id_provider: providerIds[1],
         created_at: new Date(),
         updated_at: new Date(),
-      },
-      {
-        bank_account: '556677889',
-        type_account: 'Ahorro',
-        bank: 'Banco de Bogotá',
-        id_provider: providerIds[2], 
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
+      }
+      
     ]);
   },
 

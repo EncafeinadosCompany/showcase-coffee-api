@@ -1,4 +1,4 @@
-const { DEPOSIT_TABLE } = require('../sequelize-cli/models/deposits.entity');
+const { DEPOSIT_TABLE } = require('../../models/payments/deposits.entity');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert(DEPOSIT_TABLE, [
       {
         date: new Date(''),
-        amount: 100.00,
+        amount: 7000,
         type_payment: 'Tarjeta de Crédito',
         voucher: 'voucher12345',
         status: true,
@@ -16,7 +16,7 @@ module.exports = {
       },
       {
         date: new Date(''),
-        amount: 250.75,
+        amount: 30000,
         type_payment: 'Transferencia Bancaria',
         voucher: 'voucher67890',
         status: false,
@@ -26,7 +26,7 @@ module.exports = {
       },
       {
         date: new Date(''),
-        amount: 500.50,
+        amount: 15000,
         type_payment: 'Efectivo',
         voucher: 'voucher11223',
         status: true,

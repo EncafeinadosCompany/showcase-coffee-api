@@ -14,12 +14,21 @@ module.exports = {
         updated_at: new Date(),
       },
       {
+        grammage: "100g",
+        stock: 0,
+        id_product: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+      {
         grammage: "500g",
         stock: 30,
         id_product: 2,
         created_at: new Date(),
         updated_at: new Date(),
       },
+      
       {
         grammage: "1kg",
         stock: 20,
