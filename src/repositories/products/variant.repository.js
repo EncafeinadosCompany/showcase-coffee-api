@@ -39,26 +39,11 @@ class VariantRepository {
   }
 
   async create(variantData) {
-    const { images, ...variant } = variantData;
-
-    
-    
-    if (!images || images.length === 0) {
-      throw new Error("At least one image is required");
-    }
-
+    const { variant } = variantData;
     const newVariant = await VariantProductModel.create(variant);
-    const imagePromises = images.map((image) =>
-      ImageVariantModel.create({
-        id_variant: newVariant.id,
-        image_url: image.url,
-      })
-    );
-
-    await Promise.all(imagePromises);
-
     return newVariant;
   }
+
   async updateStock(id, newStock, options = {}) {
     try {
       const productVariant = await VariantProductModel.findByPk(id, options);
