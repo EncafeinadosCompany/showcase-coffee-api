@@ -36,6 +36,8 @@ module.exports = {
     // Transactions
     await shoppingSeeder.up(queryInterface, Sequelize);
     await salesSeeder.up(queryInterface, Sequelize);
+
+    // Payments
     await liquidationSeeder.up(queryInterface, Sequelize);
     await depositSeeder.up(queryInterface, Sequelize);
   },
@@ -58,6 +60,8 @@ module.exports = {
     // Transactions
     await shoppingSeeder.down(queryInterface, Sequelize);
     await salesSeeder.down(queryInterface, Sequelize);
+
+    // Payments
     await liquidationSeeder.down(queryInterface, Sequelize);
     await depositSeeder.down(queryInterface, Sequelize);
   },

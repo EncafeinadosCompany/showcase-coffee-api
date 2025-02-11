@@ -1,6 +1,6 @@
 const express = require('express');
 
-const ShoppingRepository = require('../../repositories/transactions/shoppings.repository');
+const ShoppingRepository = require('../../repositories/transactions/shopping.repository');
 const ShoppingVariantRepository = require('../../repositories/transactions/shoppingVariant.repository');
 const VariantRepository = require('../../repositories/products/variant.repository');
 const { sequelize } = require('../../config/connection');

@@ -2,7 +2,7 @@ const { DataTypes, Model, Sequelize } = require("sequelize");;
 const { STORE_TABLE } = require('../companies/store.entity');
 const { EMPLOYEE_TABLE } = require('../users/employees.entity');
 
-const SHOPPING_TABLE = 'shoppings';
+const SHOPPING_TABLE = 'shopping';
 
 const shoppingSchema = {
     id: {
@@ -47,7 +47,7 @@ const shoppingSchema = {
     },
 };
 
-class ShoppingsModel extends Model {
+class ShoppingModel extends Model {
     static associate(models) {
 
         this.hasMany(models.ShoppingVariantModel, {
@@ -75,11 +75,11 @@ class ShoppingsModel extends Model {
         return {
             sequelize,
             tableName: SHOPPING_TABLE,
-            modelName: 'ShoppingsModel',
+            modelName: 'ShoppingModel',
             timestamps: false,
         };
     }
 
 }
 
-module.exports = { SHOPPING_TABLE, shoppingSchema, ShoppingsModel };
+module.exports = { SHOPPING_TABLE, shoppingSchema, ShoppingModel };

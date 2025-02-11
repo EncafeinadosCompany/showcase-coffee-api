@@ -24,7 +24,7 @@ const { PRODUCT_PROVIDER_TABLE, productProviderSchema } = require("../../models/
 const { SALE_TABLE, saleSchema } = require("../../models/transactions/sales.entity");
 const { SALE_VARIANT_TABLE, saleVariantSchema } = require("../../models/transactions/salesVariant.entity");
 
-const { SHOPPING_TABLE, shoppingSchema } = require("../../models/transactions/shoppings.entity");
+const { SHOPPING_TABLE, shoppingSchema } = require("../../models/transactions/shopping.entity");
 const { SHOPPING_VARIANT_TABLE, shoppingVariantSchema } = require("../../models/transactions/shoppingVariant.entity");
 
 const { LIQUIDATION_TABLE, liquidationSchema } = require("../../models/payments/liquidations.entity");

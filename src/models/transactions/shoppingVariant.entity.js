@@ -1,5 +1,5 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");;
-const { SHOPPING_TABLE } = require('./shoppings.entity')
+const { SHOPPING_TABLE } = require('./shopping.entity')
 const { VARIANT_PRODUCT_TABLE } = require('../products/variantsProducts.entity')
 
 const SHOPPING_VARIANT_TABLE = 'shopping_variant';
@@ -62,7 +62,7 @@ const shoppingVariantSchema = {
 class ShoppingVariantModel extends Model {
     static associate(models) {
 
-        this.belongsTo(models.ShoppingsModel, {
+        this.belongsTo(models.ShoppingModel, {
             as: 'shopping',
             foreignKey: 'id_shopping'
         });

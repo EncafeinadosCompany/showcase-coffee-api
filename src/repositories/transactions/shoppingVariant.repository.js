@@ -5,7 +5,7 @@ const { VariantProductModel } = require('../../models/products/variantsProducts.
 const { sequelize } = require('../../config/connection');
 const { EmployeeModel } = require('../../models/users/employees.entity');
 const { ProviderModel } = require('../../models/companies/provider.entity');
-const { ShoppingsModel } = require('../../models/transactions/shoppings.entity');
+const { ShoppingModel } = require('../../models/transactions/shopping.entity');
 
 class ShoppingVariantRepository {
     constructor() { }
@@ -28,7 +28,7 @@ class ShoppingVariantRepository {
                         ]
                     },
                     {
-                        model: ShoppingsModel,
+                        model: ShoppingModel,
                         as: "shopping",
                         attributes: ["id"],
                         include: [

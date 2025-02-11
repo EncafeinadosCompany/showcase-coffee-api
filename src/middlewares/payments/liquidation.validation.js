@@ -21,7 +21,7 @@ const liquidationValidation = [
     body('id_shopping')
         .custom(idValidation('id_shopping'))
         .custom(async (value, { req }) => {
-            const shopping = await ShoppingsModel.findByPk(value);
+            const shopping = await ShoppingModel.findByPk(value);
             if (!shopping) {
                 throw new Error('Shopping not found');
             }

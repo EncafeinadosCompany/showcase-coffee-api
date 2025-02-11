@@ -18,7 +18,7 @@ const { ImageVariantModel, imageVariantSchema } = require('../models/products/im
 
 const { SalesModel, saleSchema } = require('./transactions/sales.entity');
 const { SalesVariantModel, saleVariantSchema } = require('./transactions/salesVariant.entity');
-const { ShoppingsModel, shoppingSchema } = require('./transactions/shoppings.entity');
+const { ShoppingModel, shoppingSchema } = require('./transactions/shopping.entity');
 const { ShoppingVariantModel, shoppingVariantSchema } = require('./transactions/shoppingVariant.entity');
 
 const { LiquidationModel, liquidationSchema } = require('./payments/liquidations.entity');
@@ -48,7 +48,7 @@ const setupModels = (sequelize) => {
     SalesModel.init(saleSchema, SalesModel.config(sequelize));
     SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
 
-    ShoppingsModel.init(shoppingSchema, ShoppingsModel.config(sequelize));
+    ShoppingModel.init(shoppingSchema, ShoppingModel.config(sequelize));
     ShoppingVariantModel.init(shoppingVariantSchema, ShoppingVariantModel.config(sequelize));
 
     LiquidationModel.init(liquidationSchema, LiquidationModel.config(sequelize));
@@ -77,7 +77,7 @@ const setupModels = (sequelize) => {
     SalesModel.associate(sequelize.models)
     SalesVariantModel.associate(sequelize.models)
 
-    ShoppingsModel.associate(sequelize.models)
+    ShoppingModel.associate(sequelize.models)
     ShoppingVariantModel.associate(sequelize.models)
 
     LiquidationModel.associate(sequelize.models)

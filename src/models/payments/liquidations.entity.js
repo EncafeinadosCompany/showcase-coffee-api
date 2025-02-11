@@ -1,4 +1,5 @@
 const { DataTypes, Model, Sequelize } = require("sequelize");
+const { SHOPPING_TABLE } = require("../transactions/shopping.entity");
 
 const LIQUIDATION_TABLE = 'liquidations'
 
@@ -22,7 +23,7 @@ const liquidationSchema = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "shoppings",
+            model: SHOPPING_TABLE,
             key: "id",
         },
     },
@@ -47,9 +48,9 @@ class LiquidationModel extends Model {
             as: 'deposits',
         });
 
-        this.belongsTo(models.ShoppingsModel, {
+        this.belongsTo(models.ShoppingModel, {
             foreignKey: 'id_shopping',
-            as: 'shoppings',
+            as: 'shopping',
         });
     }
 

@@ -52,9 +52,9 @@ const storeSchema = {
 
 class StoreModel extends Model {
     static associate(models) {
-        this.hasMany(models.ShoppingsModel, {
+        this.hasMany(models.ShoppingModel, {
             foreignKey: 'id_store',
-            as: 'shoppings',
+            as: 'shopping',
         });
 
         this.hasMany(models.EmployeeModel, {

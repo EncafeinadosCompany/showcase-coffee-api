@@ -1,6 +1,6 @@
 const { LiquidationModel } = require('../../models/payments/liquidations.entity');
 const { DepositModel } = require('../../models/payments/deposits.entity');
-const { ShoppingsModel } = require('../../models/transactions/shoppings.entity');
+const { ShoppingModel } = require('../../models/transactions/shopping.entity');
 
 class LiquidationRepository {
   constructor() {}
@@ -41,8 +41,8 @@ class LiquidationRepository {
             as: 'deposits',
           },
           {
-            model: ShoppingsModel,
-            as: 'shoppings',
+            model: ShoppingModel,
+            as: 'shopping',
           },
         ],
       });
