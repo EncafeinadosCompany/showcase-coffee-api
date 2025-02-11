@@ -1,6 +1,3 @@
-const express = require("express");
-
-
 class VariantController {
   constructor(VariantService) {
     this.variantService = VariantService;
@@ -11,6 +8,7 @@ class VariantController {
       const variants = await this.variantService.getAll();
       res.status(200).json(variants);
     } catch (error) {
+      console.error("Error fetching all variants:", error);
       res.status(500).json({ message: error.message });
     }
   }

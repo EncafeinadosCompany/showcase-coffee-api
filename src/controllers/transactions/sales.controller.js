@@ -1,5 +1,5 @@
 class SalesController {
-  
+
   constructor(SaleService) {
     this.saleService = SaleService;
   }

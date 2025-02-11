@@ -1,11 +1,11 @@
 const express = require('express');
 
 class AttributeController {
-    constructor (AttributeService){
+    constructor(AttributeService) {
         this.attributeService = AttributeService;
     }
 
-    async getAllAttributes(req, res){
+    async getAllAttributes(req, res) {
         try {
             const attributes = await this.attributeService.getAll();
             res.status(200).json(attributes);
@@ -15,9 +15,9 @@ class AttributeController {
         }
     }
 
-    async getAttributesID(req, res){
+    async getAttributesID(req, res) {
         try {
-            const {id} = req.params;
+            const { id } = req.params;
             const attributes = await this.attributeService.getAttributesID(id);
             if (!attributes) {
                 return res.status(404).json({ message: `Attribute with id ${id} not found` });
@@ -29,7 +29,7 @@ class AttributeController {
         }
     }
 
-    async createAttribute(req, res){
+    async createAttribute(req, res) {
         try {
             const attributeData = req.body;
             const newAttribute = await this.attributeService.createAttribute(attributeData);

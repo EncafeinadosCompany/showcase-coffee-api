@@ -1,6 +1,5 @@
-
 class AuthController {
-    
+
     constructor(AuthService) {
         this.authService = AuthService;
     }
@@ -19,7 +18,7 @@ class AuthController {
             }
             return res.status(500).json({ message: error.message });
         }
-    }
+    };
 
 }
 

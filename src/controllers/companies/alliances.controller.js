@@ -1,4 +1,5 @@
 class AllianceController {
+
   constructor(storeProviderService) {
     this.storeProviderService = storeProviderService;
   }
@@ -14,8 +15,9 @@ class AllianceController {
       } else {
         res.status(500).json({ error: error.message });
       }
+      console.error('Error creating alliance:', error);
     }
-  }
+  };
 
   async getProvidersByStore(req, res) {
     try {
@@ -23,9 +25,10 @@ class AllianceController {
       const providers = await this.storeProviderService.getProvidersByStore(storeId);
       res.status(200).json(providers);
     } catch (error) {
+      console.error('Error getting providers by store:', error);
       res.status(500).json({ error: error.message });
     }
-  }
+  };
 
   async getStoresByProvider(req, res) {
     try {
@@ -33,9 +36,11 @@ class AllianceController {
       const stores = await this.storeProviderService.getStoresByProvider(providerId);
       res.status(200).json(stores);
     } catch (error) {
+      console.error('Error getting stores by provider:', error);
       res.status(500).json({ error: error.message });
     }
-  }
+  };
+  
 }
 
 module.exports = { AllianceController };

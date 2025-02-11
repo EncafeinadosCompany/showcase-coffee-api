@@ -1,4 +1,5 @@
 class LiquidationController {
+
   constructor(liquidationService) {
     this.liquidationService = liquidationService;
   }
@@ -11,7 +12,7 @@ class LiquidationController {
       console.error('Error fetching liquidations:', error.message);
       res.status(500).json({ message: 'An error occurred while fetching liquidations.' });
     }
-  }
+  };
 
   async getLiquidationById(req, res) {
     try {
@@ -25,7 +26,7 @@ class LiquidationController {
       console.error(`Error fetching liquidation with ID ${req.params.id}:`, error.message);
       res.status(500).json({ message: 'An error occurred while fetching the liquidation.' });
     }
-  }
+  };
 
   async createLiquidation(req, res) {
     try {
@@ -36,7 +37,7 @@ class LiquidationController {
       console.error('Error creating liquidation:', error.message);
       res.status(400).json({ message: 'An error occurred while creating the liquidation. Please check the input data.' });
     }
-  }
+  };
 
   async getLiquidationWithDeposits(req, res) {
     try {
@@ -50,7 +51,8 @@ class LiquidationController {
       console.error(`Error fetching liquidation with deposits (ID ${req.params.id}):`, error.message);
       res.status(500).json({ message: 'An error occurred while fetching the liquidation with deposits.' });
     }
-  }
+  };
+
 }
 
 module.exports = LiquidationController;

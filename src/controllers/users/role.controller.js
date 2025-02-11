@@ -2,14 +2,14 @@ class RoleController {
 
     constructor(RoleService) {
         this.roleService = RoleService;
-    }
-    
-     getRoles = async(req, res) =>{
+    };
+
+    getRoles = async (req, res) => {
         try {
             const roles = await this.roleService.getRoles();
-            if (!roles) {
-                return res.status(404).json({ message: 'Roles not found' });
-            }
+
+            if (!roles) return res.status(404).json({ message: 'Roles not found' });
+
             return res.status(200).json(roles);
         } catch (error) {
             console.error('Error getting roles:', error);
@@ -22,9 +22,7 @@ class RoleController {
             const { id } = req.params
             const role = await this.roleService.getRoleById(id);
 
-            if (!role) {
-                return res.status(404).json({ message: 'Rol not found' });
-            }
+            if (!role) return res.status(404).json({ message: 'Rol not found' });
 
             return res.status(200).json(role);
         } catch (error) {

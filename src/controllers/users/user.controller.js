@@ -1,15 +1,15 @@
 class UserController {
-    
+
     constructor(UserService) {
         this.userService = UserService;
     }
-    
-    async getUsers (req, res) {
+
+    async getUsers(req, res) {
         try {
             const users = await this.userService.getUsers();
-            if (!users) {
-                return res.status(404).json({ message: 'Users not found' });
-            }
+
+            if (!users) return res.status(404).json({ message: 'Users not found' });
+
             return res.status(200).json(users);
         } catch (error) {
             console.error('Error getting users:', error);
@@ -17,14 +17,12 @@ class UserController {
         }
     };
 
-    async getUserById (req, res) {
+    async getUserById(req, res) {
         try {
             const { id } = req.params
             const user = await this.userService.getUserById(id);
 
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
+            if (!user) return res.status(404).json({ message: 'User not found' });
 
             return res.status(200).json(user);
         } catch (error) {
@@ -33,7 +31,7 @@ class UserController {
         }
     };
 
-    async createUser (req, res) {
+    async createUser(req, res) {
         try {
             const userData = req.body
             const user = await this.userService.createUser(userData);
@@ -45,7 +43,6 @@ class UserController {
         }
     };
 
-    
 }
 
 module.exports = UserController 
