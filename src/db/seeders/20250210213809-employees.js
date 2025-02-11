@@ -1,10 +1,12 @@
 'use strict';
 
+const { EMPLOYEE_TABLE } = require('../../models/users/employees.entity');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    await queryInterface.bulkInsert('employees', [
+    await queryInterface.bulkInsert( EMPLOYEE_TABLE, [
       {
         id_role: 1,
         identification: '100001',
