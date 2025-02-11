@@ -11,8 +11,8 @@ const storeProviderService = new AllianceService(storeProviderRepository);
 const storeProviderController = new AllianceController(storeProviderService);
 
 router
-  .post("/", (req, res) => storeProviderController.addAlliance(req, res))
-  .get("/store/:storeId", (req, res) => storeProviderController.getProvidersByStore(req, res))
-  .get("/provider/:providerId", (req, res) => storeProviderController.getStoresByProvider(req, res));
+  .post("/",authenticateJWT, (req, res) => storeProviderController.addAlliance(req, res))
+  .get("/store/:storeId",authenticateJWT, (req, res) => storeProviderController.getProvidersByStore(req, res))
+  .get("/provider/:providerId",authenticateJWT, (req, res) => storeProviderController.getStoresByProvider(req, res));
 
 module.exports = router;
