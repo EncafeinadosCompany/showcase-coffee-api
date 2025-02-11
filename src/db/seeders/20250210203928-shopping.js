@@ -1,59 +1,50 @@
-// 'use strict';
+'use strict';
 
-// /** @type {import('sequelize-cli').Migration} */
-// module.exports = {
-//   async up (queryInterface, Sequelize) {
-//     // Insertar datos en la tabla `shoppings`
-//     await queryInterface.bulkInsert('shoppings', [
-//       {
-//         id_store: 1, // Asegúrate de que este ID exista en la tabla `stores`
-//         id_employee: 1, // Asegúrate de que este ID exista en la tabla `employees`
-//         date_entry: new Date(),
-//         status: true,
-//         created_at: new Date(),
-//         updated_at: new Date()
-//       }
-//     ]);
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    // Constantes para IDs (deben coincidir con datos existentes en las tablas relacionadas)
+    const STORE_ID = 1; // ID de la tienda
+    const EMPLOYEE_ID = 1; // ID del empleado
+    const VARIANT_PRODUCT_IDS = [1, 2]; // IDs de los productos variantes
 
-//     // Obtener el ID de la compra recién insertada
-//     const [shopping] = await queryInterface.sequelize.query(
-//       'SELECT id FROM shoppings ORDER BY id DESC LIMIT 1'
-//     );
+    // Insertar datos en la tabla `shoppings`
+    const shoppingData = {
+      id_store: STORE_ID,
+      id_employee: EMPLOYEE_ID,
+      date_entry: new Date(),
+      status: true,
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
 
-//     const shoppingId = shopping[0].id;
+    // Insertar la compra y obtener su ID
+    const [shoppingId] = await queryInterface.bulkInsert('shoppings', [shoppingData], {
+      returning: ['id'], // Retorna el ID del registro insertado
+    });
 
-//     // Insertar datos en la tabla `shopping_variant`
-//     await queryInterface.bulkInsert('shopping_variant', [
-//       {
-//         id_shopping: shoppingId,
-//         id_variant_products: 1, // Asegúrate de que este ID exista en la tabla `variant_products`
-//         roasting_date: new Date(),
-//         quantity: 10,
-//         shopping_price: 15.50,
-//         sale_price: 20.00,
-//         status: true,
-//         created_at: new Date(),
-//         updated_at: new Date()
-//       },
-//       {
-//         id_shopping: shoppingId,
-//         id_variant_products: 2, // Asegúrate de que este ID exista en la tabla `variant_products`
-//         roasting_date: new Date(),
-//         quantity: 5,
-//         shopping_price: 10.00,
-//         sale_price: 15.00,
-//         status: true,
-//         created_at: new Date(),
-//         updated_at: new Date()
-//       }
-//     ]);
-//   },
+    // Datos para la tabla `shopping_variant`
+    const shoppingVariantData = VARIANT_PRODUCT_IDS.map((id_variant_products, index) => ({
+      id_shopping: shoppingId,
+      id_variant_products,
+      roasting_date: new Date(),
+      quantity: index === 0 ? 10 : 5, // Cantidad diferente para cada producto
+      shopping_price: index === 0 ? 15.50 : 10.00, // Precio diferente para cada producto
+      sale_price: index === 0 ? 20.00 : 15.00, // Precio de venta diferente para cada producto
+      status: true,
+      created_at: new Date(),
+      updated_at: new Date(),
+    }));
 
-//   async down (queryInterface, Sequelize) {
-//     // Eliminar los datos insertados en la tabla `shopping_variant`
-//     await queryInterface.bulkDelete('shopping_variant', null, {});
+    // Insertar los detalles de la compra
+    await queryInterface.bulkInsert('shopping_variant', shoppingVariantData);
+  },
 
-//     // Eliminar los datos insertados en la tabla `shoppings`
-//     await queryInterface.bulkDelete('shoppings', null, {});
-//   }
-// };
+  async down(queryInterface, Sequelize) {
+    // Eliminar los datos insertados en la tabla `shopping_variant`
+    await queryInterface.bulkDelete('shopping_variant', null, {});
+
+    // Eliminar los datos insertados en la tabla `shoppings`
+    await queryInterface.bulkDelete('shoppings', null, {});
+  },
+};

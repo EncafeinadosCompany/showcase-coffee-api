@@ -5,6 +5,8 @@ const attributeSeeder = require("./20250210165043-attributes");
 const attributeProductsSeeder = require("./20250210201056-attributes_products");
 const variantsSeeder = require("./20250210165140-variants");
 const rolesSeeder = require("./20250206153819-roles-seed");
+const shoppingSeeder = require("./20250210203928-shopping")
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -16,6 +18,7 @@ module.exports = {
     await attributeSeeder.up(queryInterface, Sequelize);
     await variantsSeeder.up(queryInterface, Sequelize);
     await attributeProductsSeeder.up(queryInterface, Sequelize);
+    await shoppingSeeder.up(queryInterface, Sequelize);
    
   },
 
@@ -28,6 +31,7 @@ module.exports = {
     await brandSeeder.down(queryInterface, Sequelize);
     await variantsSeeder.down(queryInterface, Sequelize);
     await attributeProductsSeeder.down(queryInterface, Sequelize);
+    await shoppingSeeder.down(queryInterface, Sequelize);
     
   },
 };
