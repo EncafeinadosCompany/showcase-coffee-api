@@ -1,14 +1,11 @@
 'use strict';
 
-const { SHOPPING_TABLE } = require('../../models/transactions/shopping.entity');
-const { SHOPPING_VARIANT_TABLE } = require('../../models/transactions/shoppingVariant.entity');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     const STORE_ID = 1; 
-    const EMPLOYEE_ID = 1; 
-    const VARIANT_PRODUCT_IDS = [1, 2]; 
+    const EMPLOYEE_ID = 2; 
+    const VARIANT_PRODUCT_IDS = [1]; 
 
     const shoppingData = {
       id_store: STORE_ID,
@@ -19,28 +16,30 @@ module.exports = {
       updated_at: new Date(),
     };
 
-    const [shoppingId] = await queryInterface.bulkInsert(SHOPPING_TABLE, [shoppingData], {
-      returning: ['id'], 
+    const [shoppingResult] = await queryInterface.bulkInsert('shopping', [shoppingData], {
+      returning: ['id'],
     });
 
-    const shoppingVariantData = VARIANT_PRODUCT_IDS.map((id_variant_products, index) => ({
+    const shoppingId = shoppingResult.id;
+
+    const shoppingVariantData = VARIANT_PRODUCT_IDS.map((id_variant_products) => ({
       id_shopping: shoppingId,
       id_variant_products,
       roasting_date: new Date(),
-      quantity: index === 0 ? 10 : 5,
-      shopping_price: index === 0 ? 15.50 : 10.00, 
-      sale_price: index === 0 ? 20.00 : 15.00, 
+      quantity: 5,
+      shopping_price: 10000, 
+      sale_price: 15000, 
       status: true,
       created_at: new Date(),
       updated_at: new Date(),
     }));
 
-    await queryInterface.bulkInsert(SHOPPING_VARIANT_TABLE, shoppingVariantData);
+    await queryInterface.bulkInsert('shopping_variant', shoppingVariantData);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(SHOPPING_VARIANT_TABLE, null, {});
+    await queryInterface.bulkDelete('shopping_variant', null, {});
 
-    await queryInterface.bulkDelete(SHOPPING_TABLE, null, {});
+    await queryInterface.bulkDelete('shopping', null, {});
   },
 };
