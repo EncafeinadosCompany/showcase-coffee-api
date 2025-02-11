@@ -11,22 +11,23 @@ module.exports = {
         id_sale: 1,
         id_variant_products: 1,
         quantity: 2,
-        // subtotal: 100,
+        subtotal: 40000,
         created_at: new Date(),
         updated_at: new Date(),
       },
       {
-        id_sale: 2,
+        id_sale: 1,
         id_variant_products: 2,
         quantity: 3,
-        // subtotal:100,
+        subtotal: 45000,
         created_at: new Date(),
         updated_at: new Date(),
       }
+
     ]);
   },
 
   async down (queryInterface, Sequelize) {
-   
+    await queryInterface.bulkDelete( SALE_VARIANT_TABLE, null, {});
   }
 };

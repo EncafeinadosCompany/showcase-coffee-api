@@ -1,6 +1,6 @@
 'use strict';
 
-const { BANK_ACCOUNT_TABLE } = require('../../models/bankAccount.entity');
+const { BANK_ACCOUNT_TABLE } = require("../../models/companies/bankAccounts.entity");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -29,15 +29,8 @@ module.exports = {
         id_provider: 2, 
         created_at: new Date(),
         updated_at: new Date(),
-      },
-      {
-        bank_account: '556677889',
-        type_account: 'Ahorro',
-        bank: 'Banco de Bogotá',
-        id_provider: 3, 
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
+      }
+
     ]);
   },
 

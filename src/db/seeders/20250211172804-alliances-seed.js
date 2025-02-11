@@ -1,6 +1,6 @@
 'use strict';
 
-const { STORE_PROVIDER_TABLE } = require('../../models/companies/alliances.entity');
+const { STORE_PROVIDER_TABLE } = require("../../models/companies/alliances.entity");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -18,17 +18,12 @@ module.exports = {
         updated_at: new Date(),
       },
       {
-        id_store: 1, 
-        id_provider: 3, 
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        id_store: 1, 
+        id_store: 2, 
         id_provider: 1, 
         created_at: new Date(),
         updated_at: new Date(),
-      },
+      }
+      
     ]);
   },
 

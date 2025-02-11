@@ -6,13 +6,12 @@ const { SHOPPING_VARIANT_TABLE } = require('../../models/transactions/shoppingVa
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const STORE_ID = 1; 
-    const EMPLOYEE_ID = 2; 
+
     const VARIANT_PRODUCT_IDS = [1, 2]; 
 
     const shoppingData = {
-      id_store: STORE_ID,
-      id_employee: EMPLOYEE_ID,
+      id_store: 1,
+      id_employee: 2,
       date_entry: new Date(),
       status: true,
       created_at: new Date(),

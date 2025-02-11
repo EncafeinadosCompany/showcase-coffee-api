@@ -17,6 +17,7 @@ const variantsSeeder = require("./20250210165140-variants");
 
 const shoppingSeeder = require("./20250210203928-shopping");
 const salesSeeder = require("./20250210215842-sales");
+const saleVariantsSeeder = require("./20250211145355-saleVariants");
 
 const liquidationSeeder = require("./20250211150444-liquidations");
 const depositSeeder = require("./20250211150525-deposits");
@@ -47,6 +48,7 @@ module.exports = {
     // Transactions
     await shoppingSeeder.up(queryInterface, Sequelize);
     await salesSeeder.up(queryInterface, Sequelize);
+    await saleVariantsSeeder.up(queryInterface, Sequelize);
 
     // Payments
     await liquidationSeeder.up(queryInterface, Sequelize);
@@ -77,6 +79,7 @@ module.exports = {
     // Transactions
     await shoppingSeeder.down(queryInterface, Sequelize);
     await salesSeeder.down(queryInterface, Sequelize);
+    await saleVariantsSeeder.down(queryInterface, Sequelize);
 
     // Payments
     await liquidationSeeder.down(queryInterface, Sequelize);
