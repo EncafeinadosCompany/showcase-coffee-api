@@ -29,7 +29,6 @@ const providerSchema = {
     },
     address: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false,
     },
     status: {

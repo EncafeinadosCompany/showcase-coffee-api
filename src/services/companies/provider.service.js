@@ -36,11 +36,6 @@ class ProviderService {
     async getProviderByNit(nit) {
       return await this.providerRepository.getProviderByNit(nit);
     }
-  
-    async getProviderByPhone(phone) {
-      return await this.providerRepository.getProviderByPhone(phone);
-    }
-  
 
     async getProviderByEmail(email) {
       return await this.providerRepository.getProviderByEmail(email);

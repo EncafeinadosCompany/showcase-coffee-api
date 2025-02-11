@@ -12,11 +12,6 @@ class ProviderController {
             return res.status(400).json({ error: "Provider with this NIT already exists." });
           }
     
-          const existingProviderByPhone = await this.providerService.getProviderByPhone(providerData.phone);
-          if (existingProviderByPhone) {
-            return res.status(400).json({ error: "Provider with this phone number already exists." });
-          }
-    
           const existingProviderByEmail = await this.providerService.getProviderByEmail(providerData.email);
           if (existingProviderByEmail) {
             return res.status(400).json({ error: "Provider with this email already exists." });
@@ -54,18 +49,6 @@ class ProviderController {
         try {
           const { nit } = req.params;
           const provider = await this.providerService.getProviderByNit(nit);
-          if (!provider) {
-            return res.status(404).json({ message: "Provider not found" });
-          }
-          res.status(200).json(provider);
-        } catch (error) {
-          res.status(500).json({ error: `Error fetching provider: ${error.message}` });
-        }
-      }
-      async getProviderByPhone(req, res) {
-        try {
-          const { phone } = req.params;
-          const provider = await this.providerService.getProviderByPhone(phone);
           if (!provider) {
             return res.status(404).json({ message: "Provider not found" });
           }

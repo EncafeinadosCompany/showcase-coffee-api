@@ -42,18 +42,7 @@ class ProviderRepository {
           ],
         });
       }
-    
-      async getProviderByPhone(phone) {
-        return await ProviderModel.findOne({
-          where: { phone },
-          include: [
-            {
-              model: BankAccountModel,
-              as: "bankAccounts",
-            },
-          ],
-        });
-      }
+
     
       async getProviderByEmail(email) {
         return await ProviderModel.findOne({
