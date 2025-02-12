@@ -31,13 +31,27 @@ class DepositController {
   async createDeposit(req, res) {
     try {
       const depositData = req.body;
+      if (!depositData.date || !depositData.amount || !depositData.voucher || !depositData.id_liquidation) {
+        return res.status(400).json({ message: 'Missing required data to create the deposit.' });
+      }
       const newDeposit = await this.depositService.createDeposit(depositData);
       res.status(201).json(newDeposit);
     } catch (error) {
-      console.error('Error creating deposit:', error.message);
-      res.status(400).json({ message: 'An error occurred while creating the deposit. Please check the input data.' });
+  
+      if (error.message === 'The deposit ID is invalid.' || 
+          error.message === 'The liquidation ID is invalid.' ||
+          error.message === 'The associated liquidation was not found.') {
+        res.status(404).json({ message: error.message });
+      } else if (error.message === 'The current debit is less than the amount.' ||
+                 error.message === 'The deposit amount exceeds the current debt.' ||
+                 error.message === 'Missing required data to create the deposit.') {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: 'An error occurred while creating the deposit. Please check the input data.' });
+      }
     }
-  };
+  }
+
 
   async getDepositsByLiquidation(req, res) {
     try {

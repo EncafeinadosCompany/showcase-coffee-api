@@ -4,12 +4,13 @@ const DepositController = require('../../controllers/payments/deposit.controller
 const DepositRepository = require('../../repositories/payments/deposit.repository');
 const DepositService = require('../../services/payments/deposit.service');
 const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
+const { sequelize } = require('../../config/connection');
 
 const { authenticateJWT } = require('../../middlewares/auth.middleware');
 
 const depositRepository = new DepositRepository();
 const liquidationRepository = new LiquidationRepository();
-const depositService = new DepositService(depositRepository, liquidationRepository);
+const depositService = new DepositService(depositRepository, liquidationRepository, sequelize);
 const depositController = new DepositController(depositService);
 
 const router = require('express').Router();

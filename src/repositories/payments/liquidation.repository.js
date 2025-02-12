@@ -179,6 +179,22 @@ class LiquidationRepository {
     }
   };
 
+  async updateLiquidation(id, updateData, options = {}) {
+    try {
+      const liquidation = await this.getLiquidationById(id, options);
+      if (!liquidation) {
+        throw new Error('Liquidation not found.');
+      }
+
+      await liquidation.update(updateData, options);
+      return liquidation;
+    } catch (error) {
+      console.error('Error updating liquidation:', error);
+      throw new Error('Error updating liquidation.');
+    }
+  }
+
+
 }
 
 module.exports = LiquidationRepository;
