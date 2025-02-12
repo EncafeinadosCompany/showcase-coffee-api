@@ -1,12 +1,12 @@
 class AllianceService {
+  
   constructor(allianceRepository, liquidationService, ) {
     this.liquidationService = liquidationService;
     this.allianceRepository = allianceRepository;
   }
 
   async addAlliance(storeId, providerId) {
-    console.log('addAlliance', storeId, providerId);
-
+    
     const newAlliance = await this.allianceRepository.addAlliance(storeId, providerId);
     
     this.liquidationService.createLiquidation(providerId);
