@@ -4,7 +4,6 @@ const { VariantProductModel } = require('../../models/products/variantsProducts.
 
 const { sequelize } = require('../../config/connection');
 const { EmployeeModel } = require('../../models/users/employees.entity');
-const { ProviderModel } = require('../../models/companies/provider.entity');
 const { ShoppingModel } = require('../../models/transactions/shopping.entity');
 
 class ShoppingVariantRepository {
@@ -13,7 +12,7 @@ class ShoppingVariantRepository {
     async getAll() {
         try {
             const shoppingVariant = await ShoppingVariantModel.findAll({
-                attributes: ["sale_price"],
+                attributes: ["sale_price","shopping_price"],
                 include: [
                     {
                         model: VariantProductModel,
@@ -42,6 +41,7 @@ class ShoppingVariantRepository {
                 ],
                 group: [
                     "sale_price",
+                    "shopping_price",
                     "variant.id",
                     "variant.product.id",
                     "variant.product.name",

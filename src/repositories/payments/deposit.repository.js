@@ -22,6 +22,15 @@ class DepositRepository {
     }
   }
 
+  async getDepositsByLiquidation(liquidationId) {
+    try {
+      return await DepositModel.findAll({ where: { id_liquidation: liquidationId } });
+    } catch (error) {
+      console.error(`Error while fetching deposits for liquidation ${liquidationId}:`, error);
+      throw new Error('Failed to retrieve deposits.');
+    }
+  }
+
   async createDeposit(deposit) {
     try {
       return await DepositModel.create(deposit);
