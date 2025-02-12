@@ -15,7 +15,7 @@ const depositSchema = {
     },
 
     amount: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT,
         allowNull: false
     },
 

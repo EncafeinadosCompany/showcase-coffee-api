@@ -23,8 +23,6 @@ class ProductController {
         }
 
         try {
-            console.log(`Fetching product with id: ${id}`);
-
             const product = await this.productService.getById(id);
 
             if (!product) {

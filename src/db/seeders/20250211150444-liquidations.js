@@ -5,7 +5,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(LIQUIDATION_TABLE, [
       {
-        current_debt: 120000,
+        current_debt: 0,
         status: true,
         id_provider: 1,
         created_at: new Date(),

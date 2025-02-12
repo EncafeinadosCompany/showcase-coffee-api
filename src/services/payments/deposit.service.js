@@ -1,8 +1,10 @@
 class DepositService {
-  constructor(depositRepository, liquidationRepository) {
-    this.depositRepository = depositRepository;
-    this.liquidationRepository = liquidationRepository;
-  }
+    constructor(depositRepository, liquidationRepository, sequelize) {
+      this.depositRepository = depositRepository;
+      this.liquidationRepository = liquidationRepository;
+      this.sequelize = sequelize
+    }
+  
  
   async getAllDeposits() {
     return await this.depositRepository.getDeposits();
@@ -16,34 +18,52 @@ class DepositService {
   }
 
   async createDeposit(deposit) {
-    const { date, amount, voucher, id_liquidation } = deposit;
-
-    if (!date || !amount || !voucher || !id_liquidation) {
+    const { date, amount, voucher, id_liquidation, type_payment } = deposit;
+    if (!date || !amount || !voucher || !id_liquidation  || !type_payment) {
       throw new Error('Missing required data to create the deposit.');
     }
 
-    const liquidation = await this.liquidationRepository.getLiquidationById(id_liquidation);
-    if (!liquidation) {
-      throw new Error('The associated liquidation was not found.');
+    const transaction = await this.sequelize.transaction();
+    try {
+      const liquidation = await this.liquidationRepository.getLiquidationById(id_liquidation, { transaction });
+
+      if (!liquidation) {
+        throw new Error('The associated liquidation was not found.');
+      }
+
+      if (liquidation.current_debt < amount) {
+        throw new Error('The current debit is less than the amount.');
+      }
+      const newDebt = liquidation.current_debt - amount;
+      if (newDebt < 0) {
+        throw new Error('The deposit amount exceeds the current debt.');
+      }
+      liquidation.current_debt = newDebt;
+
+      if (newDebt === 0) {
+        liquidation.status = false;
+      }
+      await this.liquidationRepository.updateLiquidation(liquidation.id, {
+        current_debt: liquidation.current_debt,
+        status: liquidation.status,
+      }, { transaction });
+
+      const newDeposit = await this.depositRepository.createDeposit({
+        date,
+        amount,
+        voucher,
+        type_payment,
+        id_liquidation,
+      }, { transaction });
+
+      await transaction.commit();
+      return newDeposit;
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
     }
-
-    const newDebt = liquidation.current_debt - amount;
-
-    if (newDebt < 0) {
-      throw new Error('The deposit amount exceeds the current debt.');
-    }
-
-    liquidation.current_debt = newDebt;
-    if (newDebt === 0) {
-      liquidation.status = 'false';
-    }
-    await this.liquidationRepository.updateLiquidation(liquidation.id, {
-      current_debt: liquidation.current_debt,
-      status: liquidation.status,
-    });
-
-    return await this.depositRepository.createDeposit(deposit);
   }
+
 
   async getDepositsByLiquidation(liquidationId) {
     if (!liquidationId || isNaN(liquidationId)) {

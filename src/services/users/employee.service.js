@@ -28,19 +28,17 @@ class EmployeeService {
             const password = await this.userService.createPassword(data.name);
 
             const user = await this.userService.createUser({ id_role: role, email: email, password: password });
-            
+
             const employeeFinal = {
                 ...data,
                 id_user: user.id,
             };
 
-            const employee = this.employeeRepository.createEmployee(employeeFinal);
+            const employee = await this.employeeRepository.createEmployee(employeeFinal);
 
-            console.log('password', password);
-            const sendEmail = this.userService.sendEmail(email, password);
-            if(!sendEmail) {
-                ('Error sending email');
-            }
+            this.userService.sendEmail(email, password).catch(error => {
+                console.error('Error sending email:', error);
+            });
 
             return employee;
         } catch (error) {

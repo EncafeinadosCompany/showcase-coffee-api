@@ -10,7 +10,7 @@ const liquidationSchema = {
         primaryKey: true
     },
     current_debt: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT,
         allowNull: false
     },
     status: {
