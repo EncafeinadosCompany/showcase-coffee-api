@@ -40,6 +40,8 @@ module.exports = {
     },
     test: {
         ...baseConfig,
+        database: process.env.DB_NAME + '_test',
+        logging: false,
         dialectOptions: isSSL ? {
             ssl: {
                 require: true,
