@@ -15,11 +15,20 @@ class LiquidationRepository {
 
   async getAllLiquidations() {
     try {
-      return await LiquidationModel.findAll();
+      return await LiquidationModel.findAll({
+        include: [
+          {
+            model: ProviderModel,
+            as: 'provider',
+            attributes: ['name'],
+          },
+        ],
+      });
     } catch (error) {
-      throw new error;
+      throw new Error(`Error retrieving liquidations: ${error.message}`);
     }
-  };
+  }
+  
 
   async getLiquidationById(liquidationId) {
     try {
