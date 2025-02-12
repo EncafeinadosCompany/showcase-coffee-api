@@ -21,8 +21,6 @@ class BrandController {
         }
 
         try {
-            console.log(`Fetching brand with id: ${id}`);
-
             const brands = await this.brandService.getById(id);
 
             if (!brands) {
