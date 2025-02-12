@@ -45,6 +45,10 @@ class ProductService {
             throw new Error('SERVICE: ' + error.message);
           }
     }
+
+    async updateImage(id, image_url) {
+        return await this.productRepository.updateImage(id, image_url);
+    }
 }
 
 module.exports = ProductService

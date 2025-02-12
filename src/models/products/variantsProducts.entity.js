@@ -40,6 +40,13 @@ const variantProductSchema = {
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
   },
+  image_url:{
+    type: DataTypes.STRING,
+    allowNull: true,
+    validate:{
+      isUrl: true
+    }
+  },
   created_at: {
     type: DataTypes.DATE,
     allowNull: false,

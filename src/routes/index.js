@@ -28,6 +28,9 @@ const routerApi = (app) => {
         .use('/products/variants', require('./products/variants.routes'))
         .use('/products/brands', require('./products/brands.routes'))
 
+        // Imagenes
+        .use('/products/images', require('./products/images.routes'))
+        
         // Transactions
         .use('/transactions/shopping', require('./transactions/shopping.routes'))
         .use('/transactions/sales', require('./transactions/sales.routes'))
@@ -36,6 +39,7 @@ const routerApi = (app) => {
         .use('/payments/liquidation', require('./payments/liquidation.routes'))
         .use('/payments/deposit', require('./payments/deposit.routes'))
 
+        
 }
 
 module.exports = routerApi;

@@ -14,5 +14,9 @@ class VariantService {
   async create(variantData) {
     return await this.variantRepository.create(variantData);
   }
+
+  async updateImage(id, image_url) {
+    return await this.variantRepository.updateImage(id, image_url);
+  }
 }
 module.exports = VariantService

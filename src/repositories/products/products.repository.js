@@ -10,7 +10,7 @@ class ProductRepository {
   constructor() {}
   async getAll() {
     const products = await ProductModel.findAll({
-      attributes: ['id', 'name','status'],
+      attributes: ['id', 'name','status','image_url'],
       include: [
         {
           model:BrandModel,
@@ -38,7 +38,7 @@ class ProductRepository {
 
   async getById(id) {
     const product = await ProductModel.findByPk(id, {
-      attributes: ['id', 'name','status'],
+      attributes: ['id', 'name','status', 'image_url'],
       include: [
         {
           model:BrandModel,
@@ -66,6 +66,22 @@ class ProductRepository {
   async create(product) {
     const newProduct = await ProductModel.create(product);
     return newProduct;
+  }
+
+  async updateImage (id , image_url){
+    try{
+
+      const productImage = await ProductModel.findByPk(id);
+
+      if(!productImage) throw new Error("product undefined")
+
+      await productImage.update({image_url});
+
+      return image_url
+        
+    }catch(error){
+        throw error;
+    }
   }
 
   
