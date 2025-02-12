@@ -29,11 +29,19 @@ class LiquidationRepository {
     }
   };
 
+  async getLiquidationByProvider(providerId) {
+    try {
+      return await LiquidationModel.findOne({ where: { id_provider: providerId } });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   async getLiquidationSales(liquidationId) {
     try {
       const liquidation = await LiquidationModel.findByPk(liquidationId);
       if (!liquidation) return [];
-  
+
       return await SalesVariantModel.findAll({
         attributes: [
           'id',
@@ -92,6 +100,7 @@ class LiquidationRepository {
       throw new Error(`Error getting liquidation sales: ${error.message}`);
     }
   };
+
   async createLiquidation(liquidationData) {
     return await LiquidationModel.create(liquidationData);
   };
@@ -108,7 +117,7 @@ class LiquidationRepository {
     } catch (error) {
       throw error;
     }
-  };  
+  };
 
   async findProviderSales(providerId, startDate, endDate, transaction) {
     try {
@@ -166,7 +175,7 @@ class LiquidationRepository {
     } catch (error) {
       throw new Error(`Error finding provider sales: ${error.message}`);
     }
-  }
+  };
 
   async closeLiquidation(liquidationId, transaction) {
     try {
@@ -192,8 +201,7 @@ class LiquidationRepository {
       console.error('Error updating liquidation:', error);
       throw new Error('Error updating liquidation.');
     }
-  }
-
+  };
 
 }
 

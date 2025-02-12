@@ -6,8 +6,9 @@ class AllianceController {
 
   async addAlliance(req, res) {
     try {
-      const { storeId, providerId } = req.body;
-      const result = await this.storeProviderService.addAlliance(storeId, providerId);
+      const { id_store, id_provider } = req.body;
+
+      const result = await this.storeProviderService.addAlliance(id_store, id_provider);
       res.status(201).json(result);
     } catch (error) {
       if (error.message === "La asociación entre store y provider ya existe.") {
