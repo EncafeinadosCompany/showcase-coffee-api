@@ -13,7 +13,7 @@ const baseConfig = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
-    dialect: process.env.DB_DIALECT || 'postgres', // Asegura un valor por defecto
+    dialect: process.env.DB_DIALECT || 'postgres',
     logging: false,
     define: {
         timestamps: true,
@@ -29,7 +29,6 @@ const baseConfig = {
 };
 
 module.exports = {
-   
     development: baseConfig,
     production: {
         ...baseConfig,
@@ -41,14 +40,12 @@ module.exports = {
         } : {}
     },
     test: {
-        ...baseConfig,
-        database: process.env.DB_NAME + '_test',
+        dialect: 'sqlite',
+        storage: ':memory:',
         logging: false,
-        dialectOptions: isSSL ? {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false,
-            },
-        } : {}
+        define: {
+            timestamps: true,
+            underscored: true,
+        }
     }
 };
