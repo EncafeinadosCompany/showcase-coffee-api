@@ -12,13 +12,21 @@ beforeAll(async () => {
     setupModels(sequelize);
     await sequelize.sync({ force: true });
 
-    console.log("✅ Base de datos sincronizada.");
 
     console.log("🧹 Eliminando datos previos...");
     await seedIndex.down(sequelize.getQueryInterface(), sequelize);
 
     console.log("🌱 Ejecutando seeds...");
-    await seedIndex.up(sequelize.getQueryInterface(), sequelize);
+    try {
+      await seedIndex.up(sequelize.getQueryInterface(), sequelize);
+    } catch (error) {
+        console.log(error)
+        console.error("❌ ERROR ejecutando seeds:");
+        console.error("🔍 Error message:", error.message);
+        console.error("📌 Stack Trace:", error.stack);
+        console.error("💡 SQL Query (si aplica):", error.sql || "No SQL query found");
+        process.exit(1);
+    }
 
     console.log("✅ Seeds ejecutados correctamente.");
 });

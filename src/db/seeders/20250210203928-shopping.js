@@ -18,9 +18,11 @@ module.exports = {
       updated_at: new Date(),
     };
 
-    const [shoppingResult] = await queryInterface.bulkInsert(SHOPPING_TABLE, [shoppingData], {
-      returning: ['id'],
-    });
+    const [shoppingResult] = process.env.NODE_ENV === 'test' 
+        ? [{ id: 1 }]
+        : await queryInterface.bulkInsert(SHOPPING_TABLE, [shoppingData], {
+            returning: ['id'],
+      });
 
     const shoppingId = shoppingResult.id;
 

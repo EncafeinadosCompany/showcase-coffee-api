@@ -41,7 +41,7 @@ module.exports = {
     // Products
     await brandSeeder.up(queryInterface, Sequelize);
     await productSeeder.up(queryInterface, Sequelize);
-    await attributeSeeder.up(queryInterface, Sequelize);
+    await attributeSeeder.up(queryInterface, Sequelize); 
     await variantsSeeder.up(queryInterface, Sequelize);
     await attributeProductsSeeder.up(queryInterface, Sequelize);
    
