@@ -71,9 +71,10 @@ class LiquidationService {
       const newDebt = this._calculateTotalDebt(sales);
 
       if (newDebt > 0) {
+        const totalDebt = liquidation.current_debt + newDebt;
         await this.liquidationRepository.updateLiquidationDebt(
           liquidation.id,
-          newDebt
+          totalDebt
         );
       }
 
