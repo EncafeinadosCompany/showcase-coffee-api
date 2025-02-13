@@ -39,7 +39,7 @@ class LiquidationService {
   async createLiquidation(idProvider) {
     if (!idProvider) throw new Error('Provider ID is required', 400);
 
-    const existingLiquidation = await this.liquidationRepository.findActiveLiquidation(idProvider);
+    const existingLiquidation = await this.liquidationRepository.getLiquidationByProvider(idProvider);
     if (existingLiquidation) return existingLiquidation;
 
     return await this.liquidationRepository.createLiquidation({ id_provider: idProvider, current_debt: 0 });

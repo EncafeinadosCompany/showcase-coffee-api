@@ -1,18 +1,24 @@
 class AllianceService {
-  constructor(storeProviderRepository) {
-    this.storeProviderRepository = storeProviderRepository;
+  
+  constructor(allianceRepository, liquidationService, ) {
+    this.liquidationService = liquidationService;
+    this.allianceRepository = allianceRepository;
   }
 
   async addAlliance(storeId, providerId) {
-    return await this.storeProviderRepository.addAlliance(storeId, providerId);
+    
+    const newAlliance = await this.allianceRepository.addAlliance(storeId, providerId);
+    
+    this.liquidationService.createLiquidation(providerId);
+    return newAlliance;
   }
 
   async getProvidersByStore(storeId) {
-    return await this.storeProviderRepository.getProvidersByStore(storeId);
+    return await this.allianceRepository.getProvidersByStore(storeId);
   }
 
   async getStoresByProvider(providerId) {
-    return await this.storeProviderRepository.getStoresByProvider(providerId);
+    return await this.allianceRepository.getStoresByProvider(providerId);
   }
 }
 
