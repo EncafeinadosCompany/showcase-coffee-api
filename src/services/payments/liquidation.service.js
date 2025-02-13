@@ -2,7 +2,7 @@ class LiquidationService {
 
   constructor(liquidationRepository, depositRepository) {
     this.liquidationRepository = liquidationRepository;
-    this.depositRepository = depositRepository
+    this.depositRepository = depositRepository;
   }
 
   async getAllLiquidations() {
@@ -32,7 +32,7 @@ class LiquidationService {
       return this._prepareLiquidationDetails(liquidation, sales, deposits);
 
     } catch (error) {
-      throw new Error( `Error fetching liquidation details: ${error.message}`);
+      throw new Error(`Error fetching liquidation details: ${error.message}`);
     }
   };
 
@@ -46,48 +46,45 @@ class LiquidationService {
   }
 
   async updateLiquidationCalculation(idProvider, dateRange = {}) {
-
-    const transaction = await this.liquidationRepository.sequelize.transaction();
-
     try {
       if (!idProvider) throw new Error('Provider ID is required', 400);
 
-      const liquidation = await this.createLiquidation(idProvider);
+      let liquidation = await this.liquidationRepository.getLiquidationByProvider(idProvider);
 
-      // Define calculation period
+      if (!liquidation) {
+        liquidation = await this.liquidationRepository.createLiquidation(
+          { id_provider: idProvider, current_debt: 0 }
+        );
+      }
+
       const calculationPeriod = {
         startDate: dateRange.startDate || liquidation.updated_at,
         endDate: dateRange.endDate || new Date()
       };
 
-      // Get sales for the period
       const sales = await this.liquidationRepository.findProviderSales(
         idProvider,
         calculationPeriod.startDate,
-        calculationPeriod.endDate,
-        transaction
+        calculationPeriod.endDate
       );
 
       const newDebt = this._calculateTotalDebt(sales);
 
       if (newDebt > 0) {
-        await this.liquidationRepository.updateLiquidationDebt( liquidation.id, newDebt, transaction );
+        await this.liquidationRepository.updateLiquidationDebt(
+          liquidation.id,
+          newDebt
+        );
       }
 
-      await transaction.commit();
-      return {
-        liquidationId: liquidation.id,
-        newDebt,
-        calculationPeriod
-      };
-      // return this.getLiquidationById(liquidation.id);
+      return { liquidationId: liquidation.id, newDebt, calculationPeriod };
 
     } catch (error) {
-      await transaction.rollback();
       console.error('Error updating liquidation calculation:', error);
       throw error;
     }
   }
+
 
   _calculateTotalDebt(sales) {
     return sales.reduce((total, sale) => {

@@ -1,4 +1,3 @@
-const express = require('express');
 const LiquidationController = require('../../controllers/payments/liquidation.controller');
 const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
 const LiquidationService = require('../../services/payments/liquidation.service');

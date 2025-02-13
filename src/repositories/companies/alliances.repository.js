@@ -25,7 +25,6 @@ class AllianceRepository {
       where: { id_store: storeId },
       include: ["provider"],
       
-      
     });
   }
   

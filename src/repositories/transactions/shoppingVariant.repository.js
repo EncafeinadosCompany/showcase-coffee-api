@@ -12,7 +12,7 @@ class ShoppingVariantRepository {
     async getAll() {
         try {
             const shoppingVariant = await ShoppingVariantModel.findAll({
-                attributes: ["sale_price","shopping_price"],
+                attributes: ["sale_price"],
                 include: [
                     {
                         model: VariantProductModel,
@@ -26,29 +26,13 @@ class ShoppingVariantRepository {
                             }
                         ]
                     },
-                    {
-                        model: ShoppingModel,
-                        as: "shopping",
-                        attributes: ["id"],
-                        include: [
-                            {
-                                model: EmployeeModel,
-                                as: "employee",
-                                attributes: ["id", "type", "id_provider"]
-                            }
-                        ]
-                    }
+                    
                 ],
                 group: [
                     "sale_price",
-                    "shopping_price",
                     "variant.id",
                     "variant.product.id",
                     "variant.product.name",
-                    "shopping.id",
-                    "shopping.employee.id",
-                    "shopping.employee.type",
-                    "shopping.employee.id_provider",
                 ]
             });
 

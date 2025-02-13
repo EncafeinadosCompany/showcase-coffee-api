@@ -114,26 +114,26 @@ class LiquidationRepository {
     return await LiquidationModel.create(liquidationData);
   };
 
-  async updateLiquidationDebt(liquidationId, newDebt, transaction) {
+  async updateLiquidationDebt(liquidationId, newDebt) {
     try {
       return await LiquidationModel.update(
         {
           current_debt: sequelize.literal(`current_debt + ${newDebt}`),
           updated_at: new Date()
         },
-        { where: { id: liquidationId }, transaction }
+        { where: { id: liquidationId } }
       );
     } catch (error) {
       throw error;
     }
   };
 
-  async findProviderSales(providerId, startDate, endDate, transaction) {
+  async findProviderSales(providerId, startDate, endDate) {
     try {
       return await SalesVariantModel.findAll({
         attributes: [
           'id',
-          'quantity',
+          ['quantity', 'quantity'],
           'subtotal',
           'created_at',
           [
@@ -141,7 +141,7 @@ class LiquidationRepository {
             'cost_price'
           ],
           [
-            sequelize.literal('quantity * variantProduct.shoppingVariants.shopping_price'),
+            sequelize.literal('"SalesVariantModel"."quantity" * "variantProduct->shoppingVariants".shopping_price'),
             'provider_amount'
           ]
         ],
@@ -179,18 +179,18 @@ class LiquidationRepository {
             [Op.between]: [startDate, endDate]
           }
         },
-        transaction
+    
       });
     } catch (error) {
       throw new Error(`Error finding provider sales: ${error.message}`);
     }
   };
 
-  async closeLiquidation(liquidationId, transaction) {
+  async closeLiquidation(liquidationId) {
     try {
       return await LiquidationModel.update(
         { status: false },
-        { where: { id: liquidationId }, transaction }
+        { where: { id: liquidationId } }
       );
     } catch (error) {
       throw new Error(`Error closing liquidation: ${error.message}`);
