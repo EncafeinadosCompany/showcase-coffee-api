@@ -118,7 +118,7 @@ class LiquidationRepository {
     try {
       return await LiquidationModel.update(
         {
-          current_debt: sequelize.literal(`current_debt + ${newDebt}`),
+          current_debt: newDebt,  
           updated_at: new Date()
         },
         { where: { id: liquidationId } }
@@ -126,7 +126,7 @@ class LiquidationRepository {
     } catch (error) {
       throw error;
     }
-  };
+  };   
 
   async findProviderSales(providerId, startDate, endDate) {
     try {
