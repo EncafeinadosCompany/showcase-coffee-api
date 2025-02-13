@@ -1,6 +1,6 @@
-const {sequelize} = require('../../../models');
-const {BrandModel} = require('../../../models/products/brands.entity');
-const {BrandSeeder} = require('../../../db/seeders/20250210165220-brands');
+const {sequelize} = require('../../config/database');
+const {BrandModel} = require('../../models/products/brands.entity');
+const {BrandSeeder} = require('../../db/seeders/20250210165220-brands');
 
 describe('Seeders: Brands', () => {
 
