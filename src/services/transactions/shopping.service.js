@@ -26,6 +26,17 @@ class ShoppingService {
     }
   }
 
+  async getShoppingVariantsByShoppingId(id) {
+    try {
+        const shoppingVariants = await this.shoppingVariantRepositories.getVariantByShoppingId(id);
+        return shoppingVariants;
+    } catch (error) {
+        console.error("Error en el servicio:", error);
+        throw error;
+    }
+}
+
+
   async createShoppingWithDetails(shoppingData, detailsData) {
     const transaction = await this.sequelize.transaction();
     try {

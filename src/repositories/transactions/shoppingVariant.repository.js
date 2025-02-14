@@ -43,6 +43,33 @@ class ShoppingVariantRepository {
         }
     };
 
+    async getVariantByShoppingId(id_shopping) {
+        try {
+            const shoppingVariants = await ShoppingVariantModel.findAll({
+                where: { id_shopping },
+                include: [
+                    {
+                        model: VariantProductModel,
+                        as: "variant",
+                        attributes: ["id", "grammage", "stock"],
+                        include: [
+                            {
+                                model: ProductModel,
+                                as: "product",
+                                attributes: ["id", "name"]
+                            }
+                        ]
+                    }
+                ]
+            });
+
+            return shoppingVariants;
+        } catch (error) {
+            console.error("Error al obtener los detalles de compra:", error);
+            throw new Error("Hubo un problema al obtener los detalles de compra.");
+        }
+    }
+
     async getById(id) {
         const shoppingVariant = await ShoppingVariantModel.findByPk(id);
         return shoppingVariant;
