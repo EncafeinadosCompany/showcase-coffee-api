@@ -20,7 +20,7 @@ module.exports = {
     };
 
     const variants = await VariantProductModel.findAll();
-    console.log('variants', variants);
+
 
     let shoppingId;
 
