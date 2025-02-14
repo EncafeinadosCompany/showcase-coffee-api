@@ -27,6 +27,30 @@ class ShoppingController {
     }
   }
 
+  async getShoppingVariantsByShoppingId(req, res) {
+    try {
+        const { id } = req.params; // Aquí se debe extraer "id", no "id_shopping"
+
+        // Validar que id es un número válido
+        if (!id || isNaN(id)) {
+            return res.status(400).json({ message: "ID de compra inválido" });
+        }
+
+        const shoppingVariants = await this.shoppingService.getShoppingVariantsByShoppingId(id);
+
+        // Si no hay variantes, devolver 404
+        if (!shoppingVariants || shoppingVariants.length === 0) {
+            return res.status(404).json({ message: "No se encontraron variantes para esta compra" });
+        }
+
+        return res.status(200).json(shoppingVariants);
+    } catch (error) {
+        console.error("Error al obtener variantes de compra:", error);
+        return res.status(500).json({ message: "Error interno del servidor" });
+    }
+}
+
+
   async createShopping(req, res) {
     try {
       const { shopping, details } = req.body;
