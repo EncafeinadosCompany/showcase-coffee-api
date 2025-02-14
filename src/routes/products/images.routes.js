@@ -16,7 +16,7 @@ const variantService = new VariantService(variantRepository);
 const imagesController = new ImagesController(variantService, productService);
 
 router
-
+    .post('/add-image', upload.single('image'), (req, res) => imagesController.uploadImages(req, res))
     .put('/:type/:id/add-image', upload.single('image'), (req, res) => imagesController.updateImages(req, res));
 
 module.exports = router;
