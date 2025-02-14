@@ -18,8 +18,8 @@ class DepositService {
   }
 
   async createDeposit(deposit) {
-    const { date, amount, voucher, id_liquidation, type_payment } = deposit;
-    if (!date || !amount || !voucher || !id_liquidation  || !type_payment) {
+    const { amount, voucher, id_liquidation, type_payment } = deposit;
+    if (!amount || !voucher || !id_liquidation  || !type_payment) {
       throw new Error('Missing required data to create the deposit.');
     }
 
@@ -43,19 +43,21 @@ class DepositService {
       if (newDebt === 0) {
         liquidation.status = false;
       }
-      await this.liquidationRepository.updateLiquidation(liquidation.id, {
-        current_debt: liquidation.current_debt,
-        status: liquidation.status,
-      }, { transaction });
 
       const newDeposit = await this.depositRepository.createDeposit({
-        date,
+        date: Date.now(),
         amount,
         voucher,
         type_payment,
         id_liquidation,
       }, { transaction });
+      
+      await this.liquidationRepository.updateLiquidation(liquidation.id, {
+        current_debt: liquidation.current_debt,
+        status: liquidation.status,
+      }, { transaction });
 
+    
       await transaction.commit();
       return newDeposit;
     } catch (error) {
