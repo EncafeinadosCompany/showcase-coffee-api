@@ -62,7 +62,7 @@ class LiquidationRepository {
           model: VariantProductModel,
           as: 'variantProduct',
           required: true,
-          attributes: ['id', 'stock', 'grammage', 'sku'],
+          attributes: ['id', 'stock', 'grammage'],
           include: [
             {
               model: ProductModel,

@@ -114,8 +114,6 @@ class LiquidationService {
     const totalPaid = deposits.reduce((total, deposit) =>
       total + Number(deposit.amount || 0), 0);
 
-    const remainingDebt = Number(liquidation.current_debt || 0) - totalPaid;
-
     const validSales = sales.filter(sale => 
       sale.variantProduct?.shoppingVariants?.some(sv => 
         sv.shopping?.employee?.id_provider === liquidation.id_provider
@@ -134,21 +132,19 @@ class LiquidationService {
       sales: validSales.map(sale => ({
         id: sale.id,
         quantity: sale.quantity,
-        costPrice: Number(sale.get('cost_price') || 0),
-        providerAmount: sale.quantity * Number(sale.get('cost_price') || 0),
+        costPrice: Number(sale.get('shopping_price') || 0),
+        providerAmount: sale.quantity * Number(sale.get('shopping_price') || 0),
         saleDate: sale.created_at,
         product: sale.variantProduct ? {
           id: sale.variantProduct.id,
           name: sale.variantProduct.product?.name,
-          variant: sale.variantProduct.grammage,
-          sku: sale.variantProduct.sku
+          variant: sale.variantProduct.grammage
         } : null
       })),
       deposits,
       summary: {
         totalDebt: Number(liquidation.current_debt || 0),
         totalPaid,
-        remainingDebt,
         lastCalculation: liquidation.updated_at
       }
     };

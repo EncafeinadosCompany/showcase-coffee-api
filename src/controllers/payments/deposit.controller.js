@@ -32,7 +32,7 @@ class DepositController {
     try {
       const depositData = req.body;
       if (!depositData.type_payment || !depositData.amount || !depositData.voucher || !depositData.id_liquidation) {
-        console.log(depositData)
+        
         return res.status(400).json({ message: 'Missing required data to create the deposit.' });
 
       }
