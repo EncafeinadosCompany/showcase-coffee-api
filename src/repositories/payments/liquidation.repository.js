@@ -8,6 +8,7 @@ const { SalesVariantModel } = require('../../models/transactions/salesVariant.en
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
 const { ShoppingVariantModel } = require('../../models/transactions/shoppingVariant.entity');
 const { EmployeeModel } = require('../../models/users/employees.entity');
+const { ProviderModel } = require('../../models/companies/provider.entity');
 
 class LiquidationRepository {
 
