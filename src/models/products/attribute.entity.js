@@ -29,7 +29,7 @@ const attributeSchema = {
 class AttributeModel extends Model {
 
     static associate(models) {
-        this.belongsToMany(models.ProductModel, { through: 'attributes_products', foreignKey: 'id_attribute', otherKey: 'id_product', as:'details' });
+        this.belongsToMany(models.ProductModel, { through: models.AttributeProductModel, foreignKey: 'id_attribute', otherKey: 'id_product', as:'details' });
     }
 
     static config(sequelize) {

@@ -22,6 +22,7 @@ router
   .get('/', authenticateJWT, (req, res) => shoppingController.getAllShopping(req, res))
   .get('/shopping-variants', authenticateJWT, (req, res) => shoppingController.getAllShoppingVariant(req, res))
   .get('/shopping-variants/:id', authenticateJWT, (req, res) => shoppingController.getShoppingVariantById(req, res))
+  .get('/shopping-variants-by-shopping/:id',authenticateJWT,  (req, res) => shoppingController.getShoppingVariantsByShoppingId(req, res))
   .get('/:id', authenticateJWT, (req, res) => shoppingController.getShoppingById(req, res))
   .post('/', authenticateJWT, shoppingValidation, (req, res) => shoppingController.createShopping(req, res)
   );
