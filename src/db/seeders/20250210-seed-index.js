@@ -34,25 +34,25 @@ module.exports = {
     await providerSeeder.up(queryInterface, Sequelize);
     await bankAccountSeeder.up(queryInterface, Sequelize);
     await storeSeeder.up(queryInterface, Sequelize);
-    await allianceSeeder.up(queryInterface, Sequelize);
+    // await allianceSeeder.up(queryInterface, Sequelize);
 
     await employeeSeeder.up(queryInterface, Sequelize);
 
     // Products
     await brandSeeder.up(queryInterface, Sequelize);
     await productSeeder.up(queryInterface, Sequelize);
-    await attributeSeeder.up(queryInterface, Sequelize); 
+    await attributeSeeder.up(queryInterface, Sequelize);
     await variantsSeeder.up(queryInterface, Sequelize);
     await attributeProductsSeeder.up(queryInterface, Sequelize);
    
-    // Transactions
-    await shoppingSeeder.up(queryInterface, Sequelize);
-    await salesSeeder.up(queryInterface, Sequelize);
-    await saleVariantsSeeder.up(queryInterface, Sequelize);
+    // // Transactions
+    // await shoppingSeeder.up(queryInterface, Sequelize);
+    // await salesSeeder.up(queryInterface, Sequelize);
+    // await saleVariantsSeeder.up(queryInterface, Sequelize);
 
-    // Payments
-    await liquidationSeeder.up(queryInterface, Sequelize);
-    // await depositSeeder.up(queryInterface, Sequelize);
+    // // Payments
+    // await liquidationSeeder.up(queryInterface, Sequelize);
+    // // await depositSeeder.up(queryInterface, Sequelize);
   },
 
   async down(queryInterface, Sequelize) {
@@ -65,7 +65,7 @@ module.exports = {
     await providerSeeder.down(queryInterface, Sequelize);
     await bankAccountSeeder.down(queryInterface, Sequelize);
     await storeSeeder.down(queryInterface, Sequelize);
-    await allianceSeeder.down(queryInterface, Sequelize);
+    // await allianceSeeder.down(queryInterface, Sequelize);
 
     await employeeSeeder.down(queryInterface, Sequelize);
     
@@ -77,11 +77,11 @@ module.exports = {
     await attributeProductsSeeder.down(queryInterface, Sequelize);
     
     // Transactions
-    await shoppingSeeder.down(queryInterface, Sequelize);
-    await salesSeeder.down(queryInterface, Sequelize);
-    await saleVariantsSeeder.down(queryInterface, Sequelize);
+    // await shoppingSeeder.down(queryInterface, Sequelize);
+    // await salesSeeder.down(queryInterface, Sequelize);
+    // await saleVariantsSeeder.down(queryInterface, Sequelize);
 
-    // Payments
-    await liquidationSeeder.down(queryInterface, Sequelize);
+    // // Payments
+    // await liquidationSeeder.down(queryInterface, Sequelize);
   },
 };

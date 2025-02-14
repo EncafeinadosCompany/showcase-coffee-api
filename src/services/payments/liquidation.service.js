@@ -84,15 +84,14 @@ class LiquidationService {
       console.error('Error updating liquidation calculation:', error);
       throw error;
     }
-  }
-
+  };
 
   _calculateTotalDebt(sales) {
     return sales.reduce((total, sale) => {
       const providerAmount = Number(sale.get('provider_amount') || 0);
       return total + providerAmount;
     }, 0);
-  }
+  };
 
   _prepareLiquidationDetails(liquidation, sales, deposits) {
     const totalPaid = deposits.reduce((total, deposit) =>
