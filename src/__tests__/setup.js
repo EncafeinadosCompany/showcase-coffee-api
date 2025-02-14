@@ -10,6 +10,7 @@ const seedIndex = require('../db/seeders/20250210-seed-index');
 beforeAll(async () => {
 
     setupModels(sequelize);
+    console.log("📌 Modelos registrados en Sequelize:", Object.keys(sequelize.models));
     await sequelize.sync({ force: true });
 
 

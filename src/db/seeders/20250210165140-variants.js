@@ -7,6 +7,7 @@ module.exports = {
 
     await queryInterface.bulkInsert(VARIANT_PRODUCT_TABLE, [
       {
+        id: 1,
         grammage: "250g",
         stock: 50,
         id_product: 1,
@@ -14,6 +15,7 @@ module.exports = {
         updated_at: new Date(),
       },
       {
+        id: 2,
         grammage: "100g",
         stock: 0,
         id_product: 1,
@@ -22,6 +24,7 @@ module.exports = {
       },
 
       {
+        id: 3,
         grammage: "500g",
         stock: 30,
         id_product: 2,
@@ -30,6 +33,7 @@ module.exports = {
       },
       
       {
+        id: 4,
         grammage: "1kg",
         stock: 20,
         id_product: 3,
