@@ -28,8 +28,7 @@ class LiquidationRepository {
     } catch (error) {
       throw new Error(`Error retrieving liquidations: ${error.message}`);
     }
-  }
-  
+  };
 
   async getLiquidationById(liquidationId) {
     try {
@@ -55,22 +54,15 @@ class LiquidationRepository {
       return await SalesVariantModel.findAll({
         attributes: [
           'id',
-          ['quantity', 'quantity'],
+          'quantity',
           'subtotal',
-          'created_at',
-          [
-            sequelize.col('variantProduct.shoppingVariants.shopping_price'),
-            'cost_price'
-          ],
-          [
-            sequelize.literal('"SalesVariantModel"."quantity" * "variantProduct->shoppingVariants".shopping_price'),
-            'provider_amount'
-          ]
+          'created_at'
         ],
         include: [{
           model: VariantProductModel,
           as: 'variantProduct',
-          attributes: ['id', 'stock', 'grammage'],
+          required: true,
+          attributes: ['id', 'stock', 'grammage', 'sku'],
           include: [
             {
               model: ProductModel,
@@ -80,18 +72,21 @@ class LiquidationRepository {
             {
               model: ShoppingVariantModel,
               as: 'shoppingVariants',
+              required: true,
               where: { status: true },
+              attributes: ['shopping_price'],
               include: [{
                 model: ShoppingModel,
                 as: "shopping",
-                attributes: ["id"],
+                required: true,
                 include: [
                   {
                     model: EmployeeModel,
                     as: "employee",
-                    attributes: ["id_provider"],
+                    required: true,
                     where: {
-                      id_provider: liquidation.id_provider
+                      id_provider: liquidation.id_provider,
+                      status: true
                     }
                   }
                 ]
@@ -119,7 +114,7 @@ class LiquidationRepository {
     try {
       return await LiquidationModel.update(
         {
-          current_debt: newDebt,  
+          current_debt: sequelize.literal(`current_debt + ${newDebt}`),  
           updated_at: new Date()
         },
         { where: { id: liquidationId } }
@@ -134,58 +129,44 @@ class LiquidationRepository {
       return await SalesVariantModel.findAll({
         attributes: [
           'id',
-          ['quantity', 'quantity'],
+          'quantity',
           'subtotal',
-          'created_at',
-          [
-            sequelize.col('variantProduct.shoppingVariants.shopping_price'),
-            'cost_price'
-          ],
-          [
-            sequelize.literal('"SalesVariantModel"."quantity" * "variantProduct->shoppingVariants".shopping_price'),
-            'provider_amount'
-          ]
+          'created_at'
         ],
-        include: [{
-          model: VariantProductModel,
-          as: 'variantProduct',
-          attributes: ['id', 'grammage'],
-          include: [
-            {
-              model: ProductModel,
-              as: 'product',
-              attributes: ['name']
-            },
-            {
-              model: ShoppingVariantModel,
-              as: 'shoppingVariants',
-              where: { status: true },
+        include: [
+          {
+            model: ShoppingVariantModel,
+            as: 'shoppingVariant',
+            required: true,
+            where: { status: true },
+            attributes: ['shopping_price'],
+            include: [{
+              model: ShoppingModel,
+              as: 'shopping',
+              required: true,
               include: [{
-                model: ShoppingModel,
-                as: 'shopping',
-                include: [
-                  {
-                    model: EmployeeModel,
-                    as: "employee",
-                    where: { id_provider: providerId }
-                  }
-                ]
+                model: EmployeeModel,
+                as: 'employee',
+                required: true,
+                where: { 
+                  id_provider: providerId,
+                  status: true 
+                }
               }]
-            }
-          ]
-        }],
+            }]
+          }
+        ],
         where: {
           status: true,
           created_at: {
             [Op.between]: [startDate, endDate]
           }
-        },
-    
+        }
       });
     } catch (error) {
       throw new Error(`Error finding provider sales: ${error.message}`);
     }
-  };
+  };  
 
   async closeLiquidation(liquidationId) {
     try {

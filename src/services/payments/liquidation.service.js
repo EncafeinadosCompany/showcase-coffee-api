@@ -29,7 +29,7 @@ class LiquidationService {
 
       const deposits = await this.depositRepository.getDepositsByLiquidation(liquidationId);
 
-      return this._prepareLiquidationDetails(liquidation, sales, deposits);
+      return this.prepareLiquidationDetails(liquidation, sales, deposits);
 
     } catch (error) {
       throw new Error(`Error fetching liquidation details: ${error.message}`);
@@ -50,12 +50,7 @@ class LiquidationService {
       if (!idProvider) throw new Error('Provider ID is required', 400);
 
       let liquidation = await this.liquidationRepository.getLiquidationByProvider(idProvider);
-
-      if (!liquidation) {
-        liquidation = await this.liquidationRepository.createLiquidation(
-          { id_provider: idProvider, current_debt: 0 }
-        );
-      }
+      if (!liquidation) throw new Error('Liquidation not found', 404);
 
       const calculationPeriod = {
         startDate: dateRange.startDate || liquidation.updated_at,
@@ -68,36 +63,64 @@ class LiquidationService {
         calculationPeriod.endDate
       );
 
-      const newDebt = this._calculateTotalDebt(sales);
+      const newDebt = this.calculateProviderDebt(sales);
 
       if (newDebt > 0) {
-        const totalDebt = liquidation.current_debt + newDebt;
-        await this.liquidationRepository.updateLiquidationDebt(
-          liquidation.id,
-          totalDebt
-        );
+        await this.liquidationRepository.updateLiquidationDebt(liquidation.id, newDebt);
       }
 
-      return { liquidationId: liquidation.id, newDebt, calculationPeriod };
+      return { 
+        liquidationId: liquidation.id, 
+        newDebt, 
+        calculationPeriod,
+        salesCount: sales.length 
+      };
 
     } catch (error) {
       console.error('Error updating liquidation calculation:', error);
       throw error;
     }
-  };
+  }
 
-  _calculateTotalDebt(sales) {
+  calculateProviderDebt(sales) {
     return sales.reduce((total, sale) => {
-      const providerAmount = Number(sale.get('provider_amount') || 0);
-      return total + providerAmount;
-    }, 0);
-  };
 
-  _prepareLiquidationDetails(liquidation, sales, deposits) {
+      if (!sale.shoppingVariant || !sale.shoppingVariant.shopping_price) {
+        return total;
+      }
+
+      const providerAmount = sale.quantity * sale.shoppingVariant.shopping_price;
+      return total + (providerAmount > 0 ? providerAmount : 0);
+    }, 0);
+  }
+
+  async getLiquidationDetails(liquidationId) {
+    try {
+      if (!liquidationId) throw new Error('Liquidation ID is required', 400);
+
+      const liquidation = await this.liquidationRepository.getLiquidationById(liquidationId);
+      if (!liquidation) throw new Error('Liquidation not found', 404);
+
+      const sales = await this.liquidationRepository.getLiquidationSales(liquidationId);
+      const deposits = await this.depositRepository.getDepositsByLiquidation(liquidationId);
+
+      return this.prepareLiquidationDetails(liquidation, sales, deposits);
+    } catch (error) {
+      throw new Error(`Error fetching liquidation details: ${error.message}`);
+    }
+  }
+
+  prepareLiquidationDetails(liquidation, sales, deposits) {
     const totalPaid = deposits.reduce((total, deposit) =>
       total + Number(deposit.amount || 0), 0);
 
     const remainingDebt = Number(liquidation.current_debt || 0) - totalPaid;
+
+    const validSales = sales.filter(sale => 
+      sale.variantProduct?.shoppingVariants?.some(sv => 
+        sv.shopping?.employee?.id_provider === liquidation.id_provider
+      )
+    );
 
     return {
       liquidation: {
@@ -108,11 +131,11 @@ class LiquidationService {
         createdAt: liquidation.created_at,
         updatedAt: liquidation.updated_at
       },
-      sales: sales.map(sale => ({
+      sales: validSales.map(sale => ({
         id: sale.id,
         quantity: sale.quantity,
         costPrice: Number(sale.get('cost_price') || 0),
-        providerAmount: Number(sale.get('provider_amount') || 0),
+        providerAmount: sale.quantity * Number(sale.get('cost_price') || 0),
         saleDate: sale.created_at,
         product: sale.variantProduct ? {
           id: sale.variantProduct.id,
@@ -121,14 +144,7 @@ class LiquidationService {
           sku: sale.variantProduct.sku
         } : null
       })),
-      deposits: deposits.map(deposit => ({
-        id: deposit.id,
-        date: deposit.date,
-        amount: Number(deposit.amount || 0),
-        type: deposit.type_payment,
-        reference: deposit.reference,
-        status: deposit.status
-      })),
+      deposits,
       summary: {
         totalDebt: Number(liquidation.current_debt || 0),
         totalPaid,
@@ -136,8 +152,7 @@ class LiquidationService {
         lastCalculation: liquidation.updated_at
       }
     };
-  };
-
+  }
 }
 
 module.exports = LiquidationService;
