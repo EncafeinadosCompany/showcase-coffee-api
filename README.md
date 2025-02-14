@@ -134,14 +134,6 @@ Development: `http://localhost:3000/api-docs`
 Once the server is running, you can access the API through
 `http://localhost:3000/api/v1/` (or your configured port).
 
-### Endpoints
-
-#### Users
-- `GET /users`: Retrieve list of users
-- `POST /users`: Create a new user
-- `GET /users/:id`: Retrieve specific user by ID
-- `PUT /users/:id`: Update existing user
-- `DELETE /users/:id`: Delete user
 
 ## 🧪 Testing
 
