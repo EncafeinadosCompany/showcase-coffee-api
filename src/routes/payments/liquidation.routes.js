@@ -1,12 +1,11 @@
-const LiquidationController = require('../../controllers/payments/liquidation.controller');
 const LiquidationRepository = require('../../repositories/payments/liquidation.repository');
+const LiquidationController = require('../../controllers/payments/liquidation.controller');
 const LiquidationService = require('../../services/payments/liquidation.service');
-const DepositRepository = require('../../repositories/payments/deposit.repository');
+
 const { authenticateJWT } = require('../../middlewares/auth.middleware');
 
-const depositRepository = new DepositRepository();
 const liquidationRepository = new LiquidationRepository();
-const liquidationService = new LiquidationService(liquidationRepository, depositRepository);
+const liquidationService = new LiquidationService(liquidationRepository);
 const liquidationController = new LiquidationController(liquidationService);
 
 const router = require('express').Router();

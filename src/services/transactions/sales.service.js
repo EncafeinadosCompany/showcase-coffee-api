@@ -3,7 +3,7 @@ class SaleService {
   constructor(SalesRepository, VariantRepository, ShoppingVariantRepository, SalesVariantRepository, LiquidationService, sequelize) {
     this.saleRepository = SalesRepository;
     this.variantRepository = VariantRepository;
-    this.shoppingRepository = ShoppingVariantRepository;
+    this.shoppingVariantRepository = ShoppingVariantRepository;
     this.salesVariantRepository = SalesVariantRepository;
     this.liquidationService = LiquidationService;
     this.sequelize = sequelize;
@@ -24,19 +24,34 @@ class SaleService {
         throw new Error('Invalid sales data: missing sale or details information');
       }
 
+      let total = 0;
       const sale = await this.saleRepository.create(data.sale, { transaction });
-      const { total, providerIds } = await this._processSaleDetails(sale.id, data.details, transaction);
+      const providerIds = new Set();
+
+      for (const detail of data.details) {
+        const saleDetail = await this.createSaleDetail(sale.id, detail, transaction);
+        total += Number(saleDetail.subtotal);
+
+        const providerId = await this.shoppingVariantRepository.getProviderByShoppingVariant(
+          detail.id_variant_products,
+          { transaction }
+        );
+
+        if (typeof providerId === 'number' && !isNaN(providerId)) {
+          providerIds.add(providerId);
+        }
+      }
+
       const newSale = await this.saleRepository.updateTotal(sale.id, { total }, { transaction });
 
       await transaction.commit();
 
-      if (providerIds.size) {
-        Promise.allSettled(
-          Array.from(providerIds).map(id =>
-            this.liquidationService.updateLiquidationCalculation(id)
-              .catch(err => console.error(`Liquidation update failed for provider ${id}:`, err))
-          )
-        );
+      for (const providerId of providerIds) {
+        try {
+          await this.liquidationService.calculateProviderDebt(providerId);
+        } catch (err) {
+          console.error(`❌ Error actualizando deuda para el proveedor ${providerId}:`, err);
+        }
       }
 
       return newSale;
@@ -44,65 +59,27 @@ class SaleService {
       await transaction.rollback();
       throw new Error(`Sale creation failed: ${error.message}`);
     }
-  }
-
-  async _processSaleDetails(saleId, details, transaction) {
-    let total = 0;
-    const providerIds = new Set();
-
-    for (const detail of details) {
-        const saleDetail = await this.createSaleDetail(saleId, detail, transaction);
-        total += Number(saleDetail.subtotal);
-
-        const providerId = await this.shoppingRepository.findShoppingByVariant(
-            detail.id_variant_products,
-            { transaction }
-        );
-      
-        if (typeof providerId === 'number' && !isNaN(providerId)) {
-            providerIds.add(providerId);
-        } else {
-            console.error(`❌ Error: providerId no es un número válido`, providerId);
-        }
-    }
-
-    return { total, providerIds };
-}
-
+  };
 
   async createSaleDetail(saleId, detail, transaction) {
-    if (!detail.id_variant_products || !detail.quantity) {
-      throw new Error('Invalid sales detail data: missing product information');
+    if (!detail.id_variant_products || !detail.quantity || !detail.id_shopping_variant) {
+      throw new Error('Invalid sales detail data: missing product or shopping variant information');
     }
 
-    const [productVariant, existingDetail] = await Promise.all([
-      this.variantRepository.findByIdVariant(detail.id_variant_products, { transaction }),
-      this.salesVariantRepository.findByShoppingAndProduct(
-        saleId,
-        detail.id_variant_products,
-        { transaction }
-      )
-    ]);
+    const productVariant = await this.variantRepository.findByIdVariant(detail.id_variant_products, { transaction });
 
     if (!productVariant) throw new Error('Variant product not found');
     if (productVariant.stock < detail.quantity) {
       throw new Error(`Insufficient stock for variant ID ${detail.id_variant_products}`);
     }
-    if (existingDetail) throw new Error('Sale detail already exists for this product');
-
-    const shoppingDetail = await this.shoppingRepository.findShoppingByVariant(
-      detail.id_variant_products,
-      { transaction }
-    );
-    if (!shoppingDetail) {
-      throw new Error(`No purchase detail found for variant ID ${detail.id_variant_products}`);
-    }
 
     const newSaleDetail = await this.salesVariantRepository.create(
       {
-        ...detail,
         id_sale: saleId,
-        subtotal: shoppingDetail.sale_price * detail.quantity
+        id_shopping_variant: detail.id_shopping_variant,
+        id_variant_products: detail.id_variant_products,
+        quantity: detail.quantity,
+        subtotal: detail.sale_price * detail.quantity
       },
       { transaction }
     );
@@ -114,7 +91,8 @@ class SaleService {
     );
 
     return newSaleDetail;
-  }
+  };
+
 }
 
 module.exports = SaleService;

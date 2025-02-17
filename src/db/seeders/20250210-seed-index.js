@@ -18,40 +18,34 @@ const variantsSeeder = require("./20250210165140-variants");
 module.exports = {
   async up(queryInterface, Sequelize) {
     
-    // Users
     await roleSeeder.up(queryInterface, Sequelize);
     await userSeeder.up(queryInterface, Sequelize);
 
-    // Companies
     await providerSeeder.up(queryInterface, Sequelize);
     await bankAccountSeeder.up(queryInterface, Sequelize);
     await storeSeeder.up(queryInterface, Sequelize);
 
     await employeeSeeder.up(queryInterface, Sequelize);
 
-    // Products
     await brandSeeder.up(queryInterface, Sequelize);
     await productSeeder.up(queryInterface, Sequelize);
     await attributeSeeder.up(queryInterface, Sequelize);
     await variantsSeeder.up(queryInterface, Sequelize);
     await attributeProductsSeeder.up(queryInterface, Sequelize);
-  
+    
   },
 
   async down(queryInterface, Sequelize) {
 
-    // Users
     await roleSeeder.down(queryInterface, Sequelize);
     await userSeeder.down(queryInterface, Sequelize);
 
-    // Companies
     await providerSeeder.down(queryInterface, Sequelize);
     await bankAccountSeeder.down(queryInterface, Sequelize);
     await storeSeeder.down(queryInterface, Sequelize);
 
     await employeeSeeder.down(queryInterface, Sequelize);
     
-    // Products
     await attributeSeeder.down(queryInterface, Sequelize);
     await productSeeder.down(queryInterface, Sequelize);
     await brandSeeder.down(queryInterface, Sequelize);

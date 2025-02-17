@@ -1,7 +1,7 @@
-const { DataTypes, Model, Sequelize } = require("sequelize");;
-const { VARIANT_PRODUCT_TABLE } = require('../products/variantsProducts.entity')
-const { SALE_TABLE } = require('./sales.entity')
-
+const { DataTypes, Model, Sequelize } = require("sequelize");
+const { VARIANT_PRODUCT_TABLE } = require('../products/variantsProducts.entity');
+const { SALE_TABLE } = require('./sales.entity');
+const { SHOPPING_VARIANT_TABLE } = require('../transactions/shoppingVariant.entity');
 
 const SALE_VARIANT_TABLE = 'sales_variant';
 
@@ -16,6 +16,14 @@ const saleVariantSchema = {
         allowNull: false,
         references: {
             model: SALE_TABLE,
+            key: 'id'
+        }
+    },
+    id_shopping_variant: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: SHOPPING_VARIANT_TABLE,
             key: 'id'
         }
     },
@@ -54,7 +62,6 @@ const saleVariantSchema = {
 
 class SalesVariantModel extends Model {
     static associate(models) {
-
         this.belongsTo(models.SalesModel, {
             as: 'sale',
             foreignKey: 'id_sale'
@@ -65,7 +72,10 @@ class SalesVariantModel extends Model {
             foreignKey: 'id_variant_products'
         });
 
-        this.belongsTo(models.ShoppingVariantModel, { foreignKey: 'id_variant_products',  as: 'shoppingVariant' });
+        this.belongsTo(models.ShoppingVariantModel, {
+            as: 'shoppingVariant',
+            foreignKey: 'id_shopping_variant'
+        });
     }
 
     static config(sequelize) {
@@ -76,7 +86,6 @@ class SalesVariantModel extends Model {
             timestamps: false,
         };
     }
-
 }
 
 module.exports = { SALE_VARIANT_TABLE, saleVariantSchema, SalesVariantModel };
