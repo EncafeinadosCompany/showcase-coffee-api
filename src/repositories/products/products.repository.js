@@ -22,6 +22,7 @@ class ProductRepository {
           attributes: ['description', 'id'],
           as: "attributes",
           through: {
+            as:'attributes_products',
             attributes: ['value']
           }
         },
@@ -50,6 +51,7 @@ class ProductRepository {
           attributes: ['description', 'id'],
           as: "attributes",
           through: {
+            as:'attributes_products',
             attributes: ['value']
           }
         },

@@ -30,7 +30,6 @@ class SaleService {
 
       await transaction.commit();
 
-      console.log('provvedores', providerIds);
       if (providerIds.size) {
         Promise.allSettled(
           Array.from(providerIds).map(id =>
@@ -59,9 +58,7 @@ class SaleService {
             detail.id_variant_products,
             { transaction }
         );
-
-        console.log(`🟡 Buscando providerId para variant ${detail.id_variant_products}:`, providerId);
-
+      
         if (typeof providerId === 'number' && !isNaN(providerId)) {
             providerIds.add(providerId);
         } else {

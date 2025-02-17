@@ -10,9 +10,7 @@ class AllianceRepository {
       },
     });
 
-    if (existingAssociation) {
-      throw new Error("La asociación entre store y provider ya existe.");
-    }
+    if (existingAssociation) return ("The alliance already exists.");
 
     return await AllianceModel.create({
       id_store: storeId,

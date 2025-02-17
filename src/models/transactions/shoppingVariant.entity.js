@@ -72,12 +72,7 @@ class ShoppingVariantModel extends Model {
             foreignKey: 'id_variant_products'
         });
 
-         // Nueva relación para rastrear las ventas asociadas
-         this.hasMany(models.SalesVariantModel, {
-            as: 'sales',
-            foreignKey: 'id_variant_products',
-            sourceKey: 'id_variant_products'
-        });
+        this.hasMany(models.SalesVariantModel, { foreignKey: 'id_variant_products', as: 'salesVariants' });
     }
 
     static config(sequelize) {

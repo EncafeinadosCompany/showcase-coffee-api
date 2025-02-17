@@ -61,7 +61,7 @@ class UserService {
                 }
             });
     
-            let emailTemplate = fs.readFileSync(path.resolve('src', 'share', 'emailTemplate.html'), 'utf8');
+            let emailTemplate = fs.readFileSync(path.resolve('src', 'utils', 'emailTemplate.html'), 'utf8');
             emailTemplate = emailTemplate.replace('{{email}}', email).replace('{{password}}', password);
 
             const mailOptions = {
