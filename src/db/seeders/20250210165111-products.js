@@ -8,6 +8,7 @@ module.exports = {
       {
         name: 'Café Juan Valdez Clásico',
         id_brand: 1,
+        image_url: "https://res.cloudinary.com/dllvnidd5/image/upload/v1739556008/images-coffee/1739556107547-c8.avif.png",
         created_at: new Date(),
         updated_at: new Date(),
       },

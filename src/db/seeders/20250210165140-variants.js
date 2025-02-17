@@ -9,7 +9,7 @@ module.exports = {
       {
         id: 1,
         grammage: "250g",
-        stock: 50,
+        stock: 0,
         id_product: 1,
         created_at: new Date(),
         updated_at: new Date(),
@@ -26,7 +26,7 @@ module.exports = {
       {
         id: 3,
         grammage: "500g",
-        stock: 30,
+        stock: 0,
         id_product: 2,
         created_at: new Date(),
         updated_at: new Date(),
@@ -35,7 +35,7 @@ module.exports = {
       {
         id: 4,
         grammage: "1kg",
-        stock: 20,
+        stock: 0,
         id_product: 3,
         created_at: new Date(),
         updated_at: new Date(),
