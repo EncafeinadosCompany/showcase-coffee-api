@@ -4,6 +4,7 @@ class StoreService {
     }
 
     async createStore(storeData) {
+        console.log('storeData', storeData);
         return await this.storeRepository.createStore(storeData);
     }
 
@@ -16,6 +17,7 @@ class StoreService {
     }
 
     async updateStore(id, storeData) {
+        console.log('storeData', storeData);
         return await this.storeRepository.updateStore(id, storeData);
     }
 }
