@@ -41,7 +41,7 @@ module.exports = {
     },
     test: {
         dialect: 'sqlite',
-        storage: path.resolve(__dirname, "..", "test.sqlite"),
+        storage: ':memory:',
         logging: false,
         define: {
             timestamps: true,
