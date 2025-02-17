@@ -26,7 +26,7 @@ const depositSchema = {
 
     voucher: {
         type: DataTypes.STRING(200),
-        allowNull: false,
+        allowNull: true,
     },
 
     status: {
