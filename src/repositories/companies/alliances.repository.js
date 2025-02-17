@@ -1,4 +1,6 @@
 const { AllianceModel } = require("../../models/companies/alliances.entity");
+const { BankAccountModel } = require('../../models/companies/bankAccounts.entity');
+const { ProviderModel } = require('../../models/companies/provider.entity');
 
 class AllianceRepository {
 
@@ -21,11 +23,20 @@ class AllianceRepository {
   async getProvidersByStore(storeId) {
     return await AllianceModel.findAll({
       where: { id_store: storeId },
-      include: ["provider"],
-      
+      include: [
+        {
+          model: ProviderModel,
+          as: 'provider', 
+          include: [
+            {
+              model: BankAccountModel,
+              as: 'bankAccounts', 
+            },
+          ],
+        },
+      ],
     });
   }
-  
   async getStoresByProvider(providerId) {
     return await AllianceModel.findAll({
       where: { id_provider: providerId },
