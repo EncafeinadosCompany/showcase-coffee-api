@@ -1,39 +1,19 @@
 class LiquidationService {
 
-  constructor(liquidationRepository, depositRepository) {
-    this.liquidationRepository = liquidationRepository;
-    this.depositRepository = depositRepository;
+  constructor(liquidationRepository) {
+
+    this.liquidationRepository = liquidationRepository
   }
 
   async getAllLiquidations() {
     return await this.liquidationRepository.getAllLiquidations();
-  }
+  };
 
   async getLiquidationById(id) {
-    if (!id || isNaN(id)) throw new Error('Invalid liquidation ID', 400);
-
+    if (!id || isNaN(id)) throw new Error('Invalid liquidation ID');
     const liquidation = await this.liquidationRepository.getLiquidationById(id);
-    if (!liquidation) throw new Error('Liquidation not found', 404);
-
+    if (!liquidation) throw new Error('Liquidation not found');
     return liquidation;
-  }
-
-  async getLiquidationDetails(liquidationId) {
-    try {
-      if (!liquidationId) throw new Error('Liquidation ID is required', 400);
-
-      const liquidation = await this.liquidationRepository.getLiquidationById(liquidationId);
-      if (!liquidation) throw new Error('Liquidation not found', 404);
-
-      const sales = await this.liquidationRepository.getLiquidationSales(liquidationId);
-
-      const deposits = await this.depositRepository.getDepositsByLiquidation(liquidationId);
-
-      return this.prepareLiquidationDetails(liquidation, sales, deposits);
-
-    } catch (error) {
-      throw new Error(`Error fetching liquidation details: ${error.message}`);
-    }
   };
 
   async createLiquidation(idProvider) {
@@ -43,112 +23,53 @@ class LiquidationService {
     if (existingLiquidation) return existingLiquidation;
 
     return await this.liquidationRepository.createLiquidation({ id_provider: idProvider, current_debt: 0 });
-  }
+  };
 
-  async updateLiquidationCalculation(idProvider, dateRange = {}) {
+  async calculateProviderDebt(providerId, dateRange) {
     try {
-      if (!idProvider) throw new Error('Provider ID is required', 400);
+      const liquidation = await this.liquidationRepository.getLiquidationByProvider(providerId);
+      if (!liquidation) throw new Error('Liquidation not found');
 
-      let liquidation = await this.liquidationRepository.getLiquidationByProvider(idProvider);
-      if (!liquidation) throw new Error('Liquidation not found', 404);
+      const { startDate, endDate } = this.validateDateRange(dateRange, liquidation);
+      const sales = await this.liquidationRepository.findProviderSalesPeriod(providerId, startDate, endDate);
+      const { totalDebt, details } = this.processProviderSales(sales);
 
-      const calculationPeriod = {
-        startDate: dateRange.startDate || liquidation.updated_at,
-        endDate: dateRange.endDate || new Date()
-      };
+      if (details.length > 0) {
+        await this.liquidationRepository.createLiquidationDetail(details.map(detail => ({
+          ...detail,
+          id_liquidation: liquidation.id
+        })));
 
-      const sales = await this.liquidationRepository.findProviderSales(
-        idProvider,
-        calculationPeriod.startDate,
-        calculationPeriod.endDate
-      );
-
-      const newDebt = this.calculateProviderDebt(sales);
-
-      if (newDebt > 0) {
-        await this.liquidationRepository.updateLiquidationDebt(liquidation.id, newDebt);
+        await this.liquidationRepository.updateLiquidationAmount(liquidation.id, totalDebt );
       }
-
-      return { 
-        liquidationId: liquidation.id, 
-        newDebt, 
-        calculationPeriod,
-        salesCount: sales.length 
-      };
-
+      
+      return { liquidationId: liquidation.id, totalCalculated: totalDebt, period: { startDate, endDate } };
     } catch (error) {
-      console.error('Error updating liquidation calculation:', error);
+      
       throw error;
     }
+  };
+
+  private
+
+  validateDateRange(dateRange, liquidation) {
+    const startDate = dateRange?.startDate || liquidation.updated_at;
+    const endDate = dateRange?.endDate || new Date();
+    if (new Date(startDate) >= new Date(endDate)) throw new Error('Invalid date range');
+    return { startDate, endDate };
   }
 
-  calculateProviderDebt(sales) {
-    return sales.reduce((total, sale) => {
-
-      if (!sale.shoppingVariant || !sale.shoppingVariant.shopping_price) {
-        return total;
-      }
-
-      const providerAmount = sale.quantity * sale.shoppingVariant.shopping_price;
-      return total + (providerAmount > 0 ? providerAmount : 0);
-    }, 0);
+  processProviderSales(sales) {
+    let totalDebt = 0;
+    const details = sales.map(sale => {
+      if (!sale.shoppingVariant?.shopping_price || !sale.quantity) return null;
+      const amount = sale.quantity * sale.shoppingVariant.shopping_price;
+      totalDebt += amount;
+      return { id_sales_variant: sale.id, amount };
+    }).filter(Boolean);
+    return { totalDebt, details };
   }
 
-  async getLiquidationDetails(liquidationId) {
-    try {
-      if (!liquidationId) throw new Error('Liquidation ID is required', 400);
-
-      const liquidation = await this.liquidationRepository.getLiquidationById(liquidationId);
-      if (!liquidation) throw new Error('Liquidation not found', 404);
-
-      const sales = await this.liquidationRepository.getLiquidationSales(liquidationId);
-      const deposits = await this.depositRepository.getDepositsByLiquidation(liquidationId);
-
-      return this.prepareLiquidationDetails(liquidation, sales, deposits);
-    } catch (error) {
-      throw new Error(`Error fetching liquidation details: ${error.message}`);
-    }
-  }
-
-  prepareLiquidationDetails(liquidation, sales, deposits) {
-    const totalPaid = deposits.reduce((total, deposit) =>
-      total + Number(deposit.amount || 0), 0);
-
-    const validSales = sales.filter(sale => 
-      sale.variantProduct?.shoppingVariants?.some(sv => 
-        sv.shopping?.employee?.id_provider === liquidation.id_provider
-      )
-    );
-
-    return {
-      liquidation: {
-        id: liquidation.id,
-        idProvider: liquidation.id_provider,
-        totalDebt: Number(liquidation.current_debt || 0),
-        status: liquidation.status,
-        createdAt: liquidation.created_at,
-        updatedAt: liquidation.updated_at
-      },
-      sales: validSales.map(sale => ({
-        id: sale.id,
-        quantity: sale.quantity,
-        costPrice: Number(sale.get('shopping_price') || 0),
-        providerAmount: sale.quantity * Number(sale.get('shopping_price') || 0),
-        saleDate: sale.created_at,
-        product: sale.variantProduct ? {
-          id: sale.variantProduct.id,
-          name: sale.variantProduct.product?.name,
-          variant: sale.variantProduct.grammage
-        } : null
-      })),
-      deposits,
-      summary: {
-        totalDebt: Number(liquidation.current_debt || 0),
-        totalPaid,
-        lastCalculation: liquidation.updated_at
-      }
-    };
-  }
 }
 
 module.exports = LiquidationService;

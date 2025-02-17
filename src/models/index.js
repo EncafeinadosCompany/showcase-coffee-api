@@ -13,12 +13,13 @@ const { AttributeModel, attributeSchema } = require('./products/attribute.entity
 const { AttributeProductModel, attributeProductSchema} = require('./products/attributesProducts.entity')
 const { VariantProductModel, variantProductSchema } = require('./products/variantsProducts.entity');
 
-const { SalesModel, saleSchema } = require('./transactions/sales.entity');
-const { SalesVariantModel, saleVariantSchema } = require('./transactions/salesVariant.entity');
 const { ShoppingModel, shoppingSchema } = require('./transactions/shopping.entity');
 const { ShoppingVariantModel, shoppingVariantSchema } = require('./transactions/shoppingVariant.entity');
+const { SalesModel, saleSchema } = require('./transactions/sales.entity');
+const { SalesVariantModel, saleVariantSchema } = require('./transactions/salesVariant.entity');
 
 const { LiquidationModel, liquidationSchema } = require('./payments/liquidations.entity');
+const { LiquidationDetailModel, liquidationDetailSchema } = require('./payments/liquidationDetail.entity'); 
 const { DepositModel, depositSchema } = require('./payments/deposits.entity'); 
 
 const setupModels = (sequelize) => {
@@ -38,13 +39,14 @@ const setupModels = (sequelize) => {
     AttributeProductModel.init(attributeProductSchema, AttributeProductModel.config(sequelize));
     VariantProductModel.init(variantProductSchema, VariantProductModel.config(sequelize));
 
-    SalesModel.init(saleSchema, SalesModel.config(sequelize));
-    SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
-
     ShoppingModel.init(shoppingSchema, ShoppingModel.config(sequelize));
     ShoppingVariantModel.init(shoppingVariantSchema, ShoppingVariantModel.config(sequelize));
 
+    SalesModel.init(saleSchema, SalesModel.config(sequelize));
+    SalesVariantModel.init(saleVariantSchema, SalesVariantModel.config(sequelize));
+
     LiquidationModel.init(liquidationSchema, LiquidationModel.config(sequelize));
+    LiquidationDetailModel.init(liquidationDetailSchema, LiquidationDetailModel.config(sequelize));
     DepositModel.init(depositSchema, DepositModel.config(sequelize));
 
     
@@ -71,6 +73,7 @@ const setupModels = (sequelize) => {
     ShoppingVariantModel.associate(sequelize.models)
 
     LiquidationModel.associate(sequelize.models)
+    LiquidationDetailModel.associate(sequelize.models)
     DepositModel.associate(sequelize.models)
 }
 

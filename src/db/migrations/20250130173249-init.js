@@ -25,6 +25,7 @@ const { SHOPPING_TABLE, shoppingSchema } = require("../../models/transactions/sh
 const { SHOPPING_VARIANT_TABLE, shoppingVariantSchema } = require("../../models/transactions/shoppingVariant.entity");
 
 const { LIQUIDATION_TABLE, liquidationSchema } = require("../../models/payments/liquidations.entity");
+const { LIQUIDATION_DETAIL_TABLE, liquidationDetailSchema } = require("../../models/payments/liquidationDetail.entity");
 const { DEPOSIT_TABLE, depositSchema } = require("../../models/payments/deposits.entity");
 
 /** @type {import('sequelize-cli').Migration} */
@@ -46,13 +47,14 @@ module.exports = {
     await queryInterface.createTable(ATTRIBUTE_PRODUCT_TABLE, attributeProductSchema);
     await queryInterface.createTable(VARIANT_PRODUCT_TABLE, variantProductSchema);
     
-    await queryInterface.createTable(SALE_TABLE, saleSchema);
-    await queryInterface.createTable(SALE_VARIANT_TABLE, saleVariantSchema);
-
     await queryInterface.createTable(SHOPPING_TABLE, shoppingSchema);
     await queryInterface.createTable(SHOPPING_VARIANT_TABLE, shoppingVariantSchema);
 
+    await queryInterface.createTable(SALE_TABLE, saleSchema);
+    await queryInterface.createTable(SALE_VARIANT_TABLE, saleVariantSchema);
+
     await queryInterface.createTable(LIQUIDATION_TABLE, liquidationSchema);
+    await queryInterface.createTable(LIQUIDATION_DETAIL_TABLE, liquidationDetailSchema);
     await queryInterface.createTable(DEPOSIT_TABLE, depositSchema);
   }, 
 
@@ -72,13 +74,14 @@ module.exports = {
     await queryInterface.dropTable(ATTRIBUTE_PRODUCT_TABLE);
     await queryInterface.dropTable(VARIANT_PRODUCT_TABLE);
 
-    await queryInterface.dropTable(SALE_TABLE);
-    await queryInterface.dropTable(SALE_VARIANT_TABLE);
-
     await queryInterface.dropTable(SHOPPING_TABLE);
     await queryInterface.dropTable(SHOPPING_VARIANT_TABLE);
 
+    await queryInterface.dropTable(SALE_TABLE);
+    await queryInterface.dropTable(SALE_VARIANT_TABLE);
+
     await queryInterface.dropTable(LIQUIDATION_TABLE);
+    await queryInterface.dropTable(LIQUIDATION_DETAIL_TABLE);
     await queryInterface.dropTable(DEPOSIT_TABLE);
   },
 };

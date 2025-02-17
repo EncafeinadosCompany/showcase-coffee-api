@@ -12,7 +12,7 @@ class ShoppingVariantRepository {
     async getAll() {
         try {
             const shoppingVariant = await ShoppingVariantModel.findAll({
-                attributes: ["sale_price"],
+                attributes: ["id", "sale_price"],
                 include: [
                     {
                         model: VariantProductModel,
@@ -26,9 +26,10 @@ class ShoppingVariantRepository {
                             }
                         ]
                     },
-                    
+
                 ],
                 group: [
+                    "ShoppingVariantModel.id",
                     "sale_price",
                     "variant.id",
                     "variant.product.id",
@@ -74,6 +75,32 @@ class ShoppingVariantRepository {
         const shoppingVariant = await ShoppingVariantModel.findByPk(id);
         return shoppingVariant;
     }
+
+    async getProviderByShoppingVariant(id, options = {}) {
+        try {
+            const shoppingVariant = await ShoppingVariantModel.findByPk(id, {
+                include: [
+                    {
+                        model: ShoppingModel,
+                        as: 'shopping',
+                        attributes: ['id', 'id_employee'],
+                        include: [
+                            {
+                                model: EmployeeModel,
+                                as: 'employee',
+                                attributes: ['id_provider']
+                            }
+                        ]
+                    }
+                ],
+                ...options
+            });
+            return shoppingVariant ? shoppingVariant.shopping.employee.id_provider : null;
+        } catch (error) {
+            console.error('Error fetching shopping variant by id:', error);
+            throw error;
+        }
+    };
 
     async create(shoppingData) {
         const newShoppingVariant = await ShoppingVariantModel.create(shoppingData);

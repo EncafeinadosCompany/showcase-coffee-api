@@ -1,6 +1,6 @@
 # Showcase Coffee API
 
-A REST API built with Node.js, Express, and PostgreSQL, featuring JWT authentication, cloud image management, and comprehensive documentation.
+The Showcase Coffee API is a robust and scalable solution designed for the comprehensive management of a café. Built with modern technologies such as Node.js, Express, and PostgreSQL, this API provides a complete suite of tools to manage purchases, sales, inventory, and more, streamlining operational processes and enhancing business efficiency.
 
 ## 🚀 Key Features
 
@@ -18,7 +18,7 @@ A REST API built with Node.js, Express, and PostgreSQL, featuring JWT authentica
 
 Before running the project, make sure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (version 14 or higher)
+- [Node.js](https://nodejs.org/) (version 20 or higher)
 - [PostgreSQL](https://www.postgresql.org/) (version 12 or higher)
 - [npm](https://www.npmjs.com/) (included with Node.js)
 
@@ -34,7 +34,7 @@ Before running the project, make sure you have the following installed:
 
 ```
 📂src/
-|   ├── tests/            # Jest tests
+|   ├── __tests__/        # Jest tests
 |   |
 │   ├── config/           # Configurations
 │   │   ├── database.js       # Database configuration
@@ -43,7 +43,7 @@ Before running the project, make sure you have the following installed:
 |   |
 │   ├── db/              
 │   |   ├── migrations/       # Sequelize migrations
-│   |   └── seeders/         # Data seeders
+│   |   └── seeders/          # Data seeders
 |   |
 │   ├── docs/             # Swagger documentation by module
 │   ├── controllers/      # Controllers
@@ -136,13 +136,3 @@ Once the server is running, you can access the API through
 
 
 ## 🧪 Testing
-
-```bash
-# Run all tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-```
-
-## 📝 License
