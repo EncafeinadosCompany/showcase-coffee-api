@@ -42,6 +42,20 @@ class DashboardService {
             throw new Error('Error fetching total liquidation.');
         }
     }
+
+    async getTotalDeposits() {
+        try {
+            const deposits = await this.depositRepository.getDeposits();
+            let total = 0;
+            for (const deposit of deposits) {
+                total += deposit.amount;
+            }
+            return total;
+        } catch (error) {
+            console.error('Error fetching total deposit:', error.message);
+            throw new Error('Error fetching total deposit.');
+        }
+    }
 }
 
 module.exports = DashboardService;
