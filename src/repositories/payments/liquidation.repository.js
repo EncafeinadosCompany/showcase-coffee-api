@@ -23,6 +23,13 @@ class LiquidationRepository {
     return LiquidationModel.findByPk(liquidationId);
   };
 
+  async getLiquidationDetails(liquidationId) {
+    return LiquidationDetailModel.findAll({
+      include: [{ model: SalesVariantModel, as: 'sale', attributes: ['id', 'quantity', 'created_at'] }],
+      where: { id_liquidation: liquidationId }
+    });
+  };
+
   async getLiquidationByProvider(providerId) {
     return LiquidationModel.findOne({ where: { id_provider: providerId } });
   };
@@ -35,10 +42,10 @@ class LiquidationRepository {
     return LiquidationDetailModel.bulkCreate(details);
   }
 
-  async updateLiquidationAmount(liquidationId, amount) {
+  async updateLiquidationAmount(liquidationId, newDebt) {
     return LiquidationModel.update(
-      { current_debt: sequelize.literal(`current_debt + ${amount}`), updated_at: new Date() },
-      { where: { id: liquidationId }}
+      { current_debt: newDebt, updated_at: new Date() },
+      { where: { id: liquidationId } }
     );
   };
 
@@ -55,6 +62,7 @@ class LiquidationRepository {
     }
   };
 
+
   async findProviderSalesPeriod(providerId, startDate, endDate) {
     return SalesVariantModel.findAll({
       attributes: ['id', 'quantity', 'created_at'],
@@ -62,14 +70,16 @@ class LiquidationRepository {
         model: ShoppingVariantModel,
         as: 'shoppingVariant',
         attributes: ['id', 'shopping_price'],
-
+        required: true,
         include: [{
           model: ShoppingModel,
           as: 'shopping',
+          attributes: [],
           required: true,
           include: [{
             model: EmployeeModel,
             as: 'employee',
+            attributes: [],
             required: true,
             where: {
               id_provider: providerId,
@@ -77,9 +87,13 @@ class LiquidationRepository {
             }
           }]
         }]
-
       }],
-      where: { status: true, created_at: { [Op.between]: [startDate, endDate] } },
+      where: {
+        status: true,
+        created_at: {
+          [Op.between]: [startDate, endDate]
+        }
+      },
     });
   };
 

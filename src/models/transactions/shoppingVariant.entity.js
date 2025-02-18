@@ -34,6 +34,11 @@ const shoppingVariantSchema = {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    remaining_quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+    },
     shopping_price: {
         type: DataTypes.FLOAT,
         allowNull: false,
@@ -81,6 +86,11 @@ class ShoppingVariantModel extends Model {
             tableName: SHOPPING_VARIANT_TABLE,
             modelName: 'ShoppingVariantModel',
             timestamps: false,
+            hooks: {
+                beforeCreate: (shoppingVariant) => {
+                    shoppingVariant.remaining_quantity = shoppingVariant.quantity;
+                }
+            }
         };
     }
 

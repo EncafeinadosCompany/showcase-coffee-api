@@ -16,6 +16,11 @@ class LiquidationService {
     return liquidation;
   };
 
+  async getLiquidationDetails(liquidationId) {
+    if (!liquidationId || isNaN(liquidationId)) throw new Error('Invalid liquidation ID');
+    return await this.liquidationRepository.getLiquidationDetails(liquidationId);
+  };
+
   async createLiquidation(idProvider) {
     if (!idProvider) throw new Error('Provider ID is required', 400);
 
@@ -25,12 +30,11 @@ class LiquidationService {
     return await this.liquidationRepository.createLiquidation({ id_provider: idProvider, current_debt: 0 });
   };
 
-  async calculateProviderDebt(providerId, dateRange) {
+  async calculateProviderDebt(providerId, startDate, endDate = new Date()) {
     try {
       const liquidation = await this.liquidationRepository.getLiquidationByProvider(providerId);
       if (!liquidation) throw new Error('Liquidation not found');
 
-      const { startDate, endDate } = this.validateDateRange(dateRange, liquidation);
       const sales = await this.liquidationRepository.findProviderSalesPeriod(providerId, startDate, endDate);
       const { totalDebt, details } = this.processProviderSales(sales);
 
@@ -40,33 +44,35 @@ class LiquidationService {
           id_liquidation: liquidation.id
         })));
 
-        await this.liquidationRepository.updateLiquidationAmount(liquidation.id, totalDebt );
+        const newDebt = liquidation.current_debt + totalDebt;
+
+        console.log('deuda actual ', liquidation.current_debt);
+        console.log('venta nueva ', totalDebt);
+        console.log('nuevo total', newDebt);
+
+        await this.liquidationRepository.updateLiquidationAmount(liquidation.id, newDebt);
+
       }
-      
+
       return { liquidationId: liquidation.id, totalCalculated: totalDebt, period: { startDate, endDate } };
     } catch (error) {
-      
+
       throw error;
     }
   };
 
   private
-
-  validateDateRange(dateRange, liquidation) {
-    const startDate = dateRange?.startDate || liquidation.updated_at;
-    const endDate = dateRange?.endDate || new Date();
-    if (new Date(startDate) >= new Date(endDate)) throw new Error('Invalid date range');
-    return { startDate, endDate };
-  }
-
   processProviderSales(sales) {
     let totalDebt = 0;
     const details = sales.map(sale => {
       if (!sale.shoppingVariant?.shopping_price || !sale.quantity) return null;
-      const amount = sale.quantity * sale.shoppingVariant.shopping_price;
+
+      const amount = sale.shoppingVariant.shopping_price * sale.quantity;
       totalDebt += amount;
+
       return { id_sales_variant: sale.id, amount };
     }).filter(Boolean);
+
     return { totalDebt, details };
   }
 
