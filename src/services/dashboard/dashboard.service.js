@@ -1,10 +1,9 @@
 
 
 class DashboardService {
-    constructor(SalesVariantRepository) {
-        // this.shoppingVariantRepository = new ShoppingVariantRepository();
+    constructor(SalesVariantRepository, ShoppingVariantRepository ) {
+        this.shoppingVariantRepository = new ShoppingVariantRepository();
         this.salesVariantRepository = new SalesVariantRepository();
-        // this.productRepository = ProductRepository;
     }
 
     async productTop(month , year) {
@@ -17,7 +16,14 @@ class DashboardService {
         }
     }
 
-    async earlyDate (){
+    async earlyDate(){
+        try {
+            const response = await this.shoppingVariantRepository.getByClosestRoastingDate();
+            return response;
+        }catch(error){
+            console.error('Error fetching closest roasting date:', error.message);
+            throw error;
+        }
 
     }
 }

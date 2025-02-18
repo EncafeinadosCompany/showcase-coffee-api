@@ -45,11 +45,7 @@ class LiquidationService {
         })));
 
         const newDebt = liquidation.current_debt + totalDebt;
-
-        console.log('deuda actual ', liquidation.current_debt);
-        console.log('venta nueva ', totalDebt);
-        console.log('nuevo total', newDebt);
-
+        
         await this.liquidationRepository.updateLiquidationAmount(liquidation.id, newDebt);
 
       }

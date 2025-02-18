@@ -10,10 +10,6 @@ const productSchema = {
     type: DataTypes.INTEGER,
     primaryKey: true,
   },
-  image: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
   name: {
     type: DataTypes.STRING(50),
     allowNull: false,
