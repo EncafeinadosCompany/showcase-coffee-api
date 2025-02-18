@@ -1,5 +1,3 @@
-const { Op } = require('sequelize');
-
 const { ShoppingVariantModel } = require('../../models/transactions/shoppingVariant.entity');
 const { ProductModel } = require('../../models/products/products.entity');
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
