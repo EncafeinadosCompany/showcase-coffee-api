@@ -17,14 +17,14 @@ beforeAll(async () => {
 
     console.log("🌱 Ejecutando seeds...");
     try {
-      await seedIndex.up(sequelize.getQueryInterface(), sequelize);
+        await seedIndex.up(sequelize.getQueryInterface(), sequelize);
     } catch (error) {
-        console.log(error)
+        console.log("Error completo:", JSON.stringify(error, null, 2));
         console.error("❌ ERROR ejecutando seeds:");
         console.error("🔍 Error message:", error.message);
         console.error("📌 Stack Trace:", error.stack);
         console.error("💡 SQL Query (si aplica):", error.sql || "No SQL query found");
-        process.exit(1);
+        throw error;
     }
 
     console.log("✅ Seeds ejecutados correctamente.");

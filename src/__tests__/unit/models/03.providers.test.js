@@ -1,6 +1,6 @@
-require('../../../setup'); // Asegúrate de que esto configure tu entorno de pruebas
-const { ProviderModel } = require('../../../../models/companies/provider.entity');
-const { BankAccountModel } = require('../../../../models/companies/bankAccounts.entity');
+require('../../setup'); // Asegúrate de que esto configure tu entorno de pruebas
+const { ProviderModel } = require('../../../models/companies/provider.entity');
+const { BankAccountModel } = require('../../../models/companies/bankAccounts.entity');
 
 describe('🧪 ProviderModel - Database Model Tests', () => {
     let providerData;

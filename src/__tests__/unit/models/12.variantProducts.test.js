@@ -1,5 +1,5 @@
-require('../../../setup');
-const { VariantProductModel } = require('../../../../models/products/variantsProducts.entity');
+require('../../setup');
+const { VariantProductModel } = require('../../../models/products/variantsProducts.entity');
 
 describe('🧪 VariantProductModel - Database Model Tests', () => {
     let variantProductData;

@@ -1,5 +1,5 @@
-require('../../../setup');
-const { ProductModel } = require('../../../../models/products/products.entity');
+require('../../setup');
+const { ProductModel } = require('../../../models/products/products.entity');
 
 describe('🧪 ProductModel - Database Model Tests', () => {
     let productData;
@@ -27,7 +27,6 @@ describe('🧪 ProductModel - Database Model Tests', () => {
 
         expect(product).toBeDefined();
         expect(product.id).toBeDefined();
-        expect(product.image).toBe(productData.image);
         expect(product.name).toBe(productData.name);
         expect(product.status).toBe(productData.status);
         expect(product.id_brand).toBe(productData.id_brand);

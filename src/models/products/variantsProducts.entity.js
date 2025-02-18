@@ -9,10 +9,6 @@ const variantProductSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  image: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
   grammage: {
     type: DataTypes.STRING(10),
     allowNull: false,

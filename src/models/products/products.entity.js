@@ -14,15 +14,6 @@ const productSchema = {
     type: DataTypes.STRING(50),
     allowNull: false,
     unique: true,
-    validate: {
-      notEmpty: {
-        msg: "El nombre del producto no puede estar vacío",
-      },
-      len: {
-        args: [1, 50],
-        msg: "El nombre del producto debe tener entre 1 y 50 caracteres",
-      },
-    },
   },
   status: {
     type: DataTypes.BOOLEAN,

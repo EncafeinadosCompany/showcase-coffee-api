@@ -1,5 +1,5 @@
-require('../../../setup');
-const {UserModel} = require('../../../../models/users/users.entity');
+require('../../setup');
+const { UserModel } = require('../../../models/users/users.entity');
 const bcrypt = require('bcrypt');
 
 describe('🧪 UserModel - Database Model Tests', () => {
@@ -16,7 +16,7 @@ describe('🧪 UserModel - Database Model Tests', () => {
     });
 
     afterEach(async () => {
-        await UserModel.destroy({ where: {email: 'john.doe@example.com'} });
+        await UserModel.destroy({ where: { email: 'john.doe@example.com' } });
     });
 
     describe('🔹 Model Definition', () => {
@@ -56,7 +56,7 @@ describe('🧪 UserModel - Database Model Tests', () => {
 
             expect(users).toBeDefined();
             expect(users).toHaveLength(3); // Including the seeded users
-        }); 
+        });
 
         test('should update user details', async () => {
             user = await UserModel.create(userData);

@@ -1,5 +1,5 @@
-require('../../../setup');
-const { BrandModel } = require('../../../../models/products/brands.entity');
+require('../../setup');
+const { BrandModel } = require('../../../models/products/brands.entity');
 
 describe('🧪 BrandModel - Database Model Tests', () => {
     let brandData;

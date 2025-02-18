@@ -1,7 +1,7 @@
-require('../../../setup');
-const { LiquidationModel } = require('../../../../models/payments/liquidations.entity');
-const { ProviderModel } = require('../../../../models/companies/provider.entity');
-const { DepositModel } = require('../../../../models/payments/deposits.entity');
+require('../../setup');
+const { LiquidationModel } = require('../../../models/payments/liquidations.entity');
+const { ProviderModel } = require('../../../models/companies/provider.entity');
+const { DepositModel } = require('../../../models/payments/deposits.entity');
 
 describe('🧪 LiquidationModel - Database Model Tests', () => {
     let liquidationData;
