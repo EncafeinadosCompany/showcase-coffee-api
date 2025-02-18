@@ -2,10 +2,10 @@
 
 class DashboardService {
     constructor(SalesVariantRepository, ShoppingVariantRepository, LiquidationRepository, DepositRepository) {
-        this.salesVariantRepository = new SalesVariantRepository();
+        this.salesVariantRepository = SalesVariantRepository;
         this.liquidationRepository= LiquidationRepository;
         this.depositRepository= DepositRepository;
-        this.shoppingVariantRepository = new ShoppingVariantRepository();
+        this.shoppingVariantRepository = ShoppingVariantRepository;
 
     }    
 
