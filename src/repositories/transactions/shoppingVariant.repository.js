@@ -2,7 +2,8 @@ const { ShoppingVariantModel } = require('../../models/transactions/shoppingVari
 const { ProductModel } = require('../../models/products/products.entity');
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
 
-const { sequelize } = require('../../config/connection');
+const  sequelize  = require('../../config/connection');
+const { Op, fn, col, literal} = require('sequelize');
 const { EmployeeModel } = require('../../models/users/employees.entity');
 const { ShoppingModel } = require('../../models/transactions/shopping.entity');
 
@@ -135,6 +136,50 @@ class ShoppingVariantRepository {
             throw error;
         }
     }
+
+    // async ProducTopData(month, year) {
+    //     try {
+    //         const startDate = new Date(year, month - 1, 1); // Primer día del mes
+    //         const endDate = new Date(year, month, 0, 23, 59, 59); // Último día del mes
+    
+    //         const products = await ShoppingVariantModel.findAll({
+    //             attributes: [
+    //                 [fn("sum", col("quantity")), "total"], // Suma la cantidad total de cada variante
+    //                 "id_variant_products"
+    //             ],
+    //             include: [
+    //                 {
+    //                     model: ShoppingModel, // Relación con la tabla de compras
+    //                     as: 'shopping', // Alias para la relación
+    //                     attributes: [], // No necesitamos datos adicionales
+    //                     where: {
+    //                         created_at: {
+    //                             [Op.between]: [startDate, endDate] // Filtrar por fecha en ShoppingModel
+    //                         }
+    //                     }
+    //                 }
+    //             ],
+    //             group: ["id_variant_products"], // Agrupar por producto
+    //             order: [[literal("total"), "DESC"]], // Ordenar por cantidad vendida
+    //             limit: 5 // Limitar a los 5 más vendidos
+    //         });
+    
+    //         return products;
+    //     } catch (error) {
+    //         console.error("Error fetching top products:", error.message);
+    //         throw error;
+    //     }
+    // }
+
+    // async EarlyDateData (){
+
+    //     try {
+
+
+    //     }catch(error){
+    //         cosole.error('Error fetching date totion', error.message);      
+    //     }
+    // }
 
 }
 
