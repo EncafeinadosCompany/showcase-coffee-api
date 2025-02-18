@@ -70,6 +70,26 @@ class DashboardController{
             res.status(500).json({ message: 'An error occurred while fetching dashboard data.' });
         }
     }
+
+    async getTotalLiquidation(req, res) {
+        try {
+            const totalLiquidation = await this.dashboardService.getTotalLiquidation();
+            res.status(200).json({ totalLiquidation });
+        } catch (error) {
+            console.error('Error fetching total liquidation:', error.message);
+            res.status(500).json({ error: 'Error fetching total liquidation' });
+        }
+    }
+
+    async getTotalDeposits(req, res) {
+        try {
+            const totalDeposits = await this.dashboardService.getTotalDeposits();
+            res.status(200).json({ totalDeposits });
+        } catch (error) {
+            console.error('Error fetching total liquidation:', error.message);
+            res.status(500).json({ error: 'Error fetching total liquidation' });
+        }
+    }
 } 
 
 module.exports = DashboardController;

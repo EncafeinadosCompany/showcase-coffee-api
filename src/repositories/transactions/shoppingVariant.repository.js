@@ -246,7 +246,7 @@ class ShoppingVariantRepository {
             attributes: [
                 "shopping_price",
                 "sale_price",
-                [Sequelize.literal('shopping_price'- 'sale_price'), 'earning']
+                [Sequelize.literal('"sale_price" - "shopping_price"'), "earnings"] // Columna calculada
             ]
         })
 
