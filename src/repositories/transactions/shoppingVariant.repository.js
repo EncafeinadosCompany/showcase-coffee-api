@@ -2,7 +2,7 @@ const { ShoppingVariantModel } = require('../../models/transactions/shoppingVari
 const { ProductModel } = require('../../models/products/products.entity');
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
 
-const { Op, fn, col, literal, Sequelize } = require('sequelize');
+const { Op, fn, col, literal, Sequelize, where } = require('sequelize');
 const { EmployeeModel } = require('../../models/users/employees.entity');
 const { ShoppingModel } = require('../../models/transactions/shopping.entity');
 
@@ -239,6 +239,20 @@ class ShoppingVariantRepository {
         }
     }
 
+    async getEarning (id_variant){
+
+        const earning = await ShoppingVariantModel.findOne({
+            where: { id_variant_products: id_variant },
+            attributes: [
+                "shopping_price",
+                "sale_price",
+                [Sequelize.literal('shopping_price'- 'sale_price'), 'earning']
+            ]
+        })
+
+        return earning
+
+    }
     private
     async getMinRoastingDate() {
         const threeMonthsAgo = new Date();

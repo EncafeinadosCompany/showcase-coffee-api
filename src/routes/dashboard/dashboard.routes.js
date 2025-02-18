@@ -11,6 +11,7 @@ const dashboardController = new DashboardController(dashboardService);
 router 
     .post('/data-top', (req, res) => dashboardController.productTop(req, res))
     .post('/data-tostion', (req, res) => dashboardController.earlyDate(req, res))
+    .post('/data-earning', (req, res) => dashboardController.earnings(req, res))
 
 
 module.exports = router;

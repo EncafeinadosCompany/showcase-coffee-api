@@ -130,6 +130,7 @@ class SaleService {
     };
   }; 
 
+
 }
 
 module.exports = SaleService;

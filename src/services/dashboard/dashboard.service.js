@@ -26,6 +26,19 @@ class DashboardService {
         }
 
     }
+
+    async earnings (month, year) {
+
+        const earnings = await this.shoppingVariantRepository.getEarning(1);
+
+        console.log('ganancias:',earnings);
+
+        return earnings;
+    
+        
+    
+        // return await this.salesVariantRepository.earnings(month, year);
+    }
 }
 
 module.exports = DashboardService;

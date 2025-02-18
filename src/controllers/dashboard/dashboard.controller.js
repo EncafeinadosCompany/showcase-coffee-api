@@ -57,6 +57,19 @@ class DashboardController{
             res.status(500).json({ message: 'An error occurred while fetching dashboard data.' });
         }
     }
+
+    async earnings (req, res) {
+        try {
+            const { month, year } = req.body;
+            const earnings = await this.dashboardService.earnings(month, year);
+
+            res.json({ success: true, data: earnings });
+
+        }catch(error){
+            console.error('Error fetching dashboard data:', error.message);
+            res.status(500).json({ message: 'An error occurred while fetching dashboard data.' });
+        }
+    }
 } 
 
 module.exports = DashboardController;
