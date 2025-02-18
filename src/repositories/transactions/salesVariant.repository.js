@@ -43,24 +43,24 @@ class SaleVariantRepository {
     
             const products = await SalesVariantModel.findAll({
                 attributes: [
-                    [fn("sum", col("quantity")), "total"], // Suma la cantidad total de cada variante
+                    [fn("sum", col("quantity")), "total"],
                     "id_variant_products"
                 ],
                 include: [
                     {
-                        model: SalesModel, // Relación con la tabla de compras
-                        as: 'sale', // Alias para la relación
-                        attributes: [], // No necesitamos datos adicionales
+                        model: SalesModel, 
+                        as: 'sale', 
+                        attributes: [], 
                         where: {
                             created_at: {
-                                [Op.between]: [startDate, endDate] // Filtrar por fecha en ShoppingModel
+                                [Op.between]: [startDate, endDate] 
                             }
                         }
                     }
                 ],
                 group: ["id_variant_products"], // Agrupar por producto
-                order: [[literal("total"), "DESC"]], // Ordenar por cantidad vendida
-                limit: 5 // Limitar a los 5 más vendidos
+                order: [[literal("total"), "DESC"]], 
+                limit: 5 
             });
     
             return products;
