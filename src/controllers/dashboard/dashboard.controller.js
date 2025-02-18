@@ -6,7 +6,6 @@ class DashboardController{
         this.dashboardService = dashboardService;
     }
 
-    // productos mas vendidos
     async productTop(req, res) {
 
         const {month , year } = req.body
@@ -42,8 +41,6 @@ class DashboardController{
         }
     }
 
-    // ventas por mes
-
     async salesMonth(req, res) {
         try{
             const dashboardData = await this.dashboardService.salesMonth();
@@ -60,8 +57,8 @@ class DashboardController{
 
     async earnings (req, res) {
         try {
-            const { month, year } = req.body;
-            const earnings = await this.dashboardService.earnings(month, year);
+            const { month, year, variant } = req.body;
+            const earnings = await this.dashboardService.earnings(month, year, variant);
 
             res.json({ success: true, data: earnings });
 

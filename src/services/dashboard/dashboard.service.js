@@ -3,11 +3,11 @@
 class DashboardService {
     constructor(SalesVariantRepository, ShoppingVariantRepository, LiquidationRepository, DepositRepository) {
         this.salesVariantRepository = SalesVariantRepository;
-        this.liquidationRepository= LiquidationRepository;
-        this.depositRepository= DepositRepository;
+        this.liquidationRepository = LiquidationRepository;
+        this.depositRepository = DepositRepository;
         this.shoppingVariantRepository = ShoppingVariantRepository;
 
-    }    
+    }
 
     async productTop(month, year) {
         try {
@@ -58,18 +58,47 @@ class DashboardService {
     }
 
 
-    async earnings(month, year) {
+    async earnings(month, year, id_variant_products) {
 
-    const earnings = await this.shoppingVariantRepository.getEarning(1);
+        if (id_variant_products) {
+            return await this.getEarningsByProduct(id_variant_products);
+        }
 
-    console.log('ganancias:', earnings);
+        if (month && year) {
+            return await this.getMonthlyEarnings(month, year)
+        }
 
-    return earnings;
+    }
+
+    private
+
+    async getEarningsByProduct(id_variant_products) {
+
+        const earning = await this.salesVariantRepository.getEarningsByProduct(id_variant_products);
+        return earning
+    }
 
 
+    async getMonthlyEarnings(month, year) {
+        try {
 
-    // return await this.salesVariantRepository.earnings(month, year);
-}
+            const sales = await this.salesVariantRepository.getMonthlyEarnings(month, year);
+
+            let totalEarnings = 0;
+
+            sales.forEach(sale => {
+                sale.sales_variant.forEach(variant => {
+                    const { shopping_price, sale_price } = variant.shoppingVariant;
+                    totalEarnings += (sale_price - shopping_price) * variant.quantity;
+                });
+            });
+
+            return totalEarnings;
+        } catch (error) {
+            console.error('Error fetching monthly earnings:', error.message);
+            throw new Error('Error fetching monthly earnings.');
+        }
+    }
 }
 
 module.exports = DashboardService;
