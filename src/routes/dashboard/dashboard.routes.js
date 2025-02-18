@@ -20,8 +20,7 @@ const dashboardController = new DashboardController(dashboardService);
 router 
     .post('/data-top', (req, res) => dashboardController.productTop(req, res))
     .post('/data-tostion', (req, res) => dashboardController.earlyDate(req, res))
-    .get('/total-liquidation', authenticateJWT, (req, res) => dashboardController.getTotalLiquidation(req, res));
-
-
+    .get('/total-liquidation', authenticateJWT, (req, res) => dashboardController.getTotalLiquidation(req, res))
+    .get('/total-deposits', authenticateJWT, (req, res) => dashboardController.getTotalDeposits(req, res));
 
 module.exports = router;
