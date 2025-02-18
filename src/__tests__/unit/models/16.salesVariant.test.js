@@ -1,31 +1,23 @@
-require('../../../setup');
-const { SalesVariantModel } = require('../../../../models/transactions/salesVariant.entity');
-const TestDataManager = require("../../utils/testUtils");
+require('../../setup');
+const { SalesVariantModel } = require('../../../models/transactions/salesVariant.entity');
 
 describe('🧪 SalesVariantModel - Database Model Tests', () => {
     let salesVariantData;
 
     beforeEach(async () => {
-        // Crea datos de prueba válidos para las tablas de referencia
 
-        await TestDataManager.createTestSale();
-        await TestDataManager.createTestVariant();
-        await TestDataManager.createTestShoppingVariant();
-
-        // Sample sales variant data for tests
         salesVariantData = {
             id_sale: 1,
             id_shopping_variant:1,
             id_variant_products:1,
             quantity: 5,
-            subtotal: 100000,
+            subtotal: 50000,
             status: true
         };
     });
 
     afterEach(async () => {
         await SalesVariantModel.destroy({ where: { id_sale: 1 } });
-        await TestDataManager.cleanupTestData();
     });
 
     describe('🔹 Model Definition', () => {

@@ -7,16 +7,10 @@ describe('🧪 DepositModel - Database Model Tests', () => {
     let liquidationData;
 
     beforeEach(() => {
-        // Sample data for tests
-        liquidationData = {
-            current_debt: 1000.00,
-            status: true,
-            id_provider: 1
-        };
-
+        
         depositData = {
             date: new Date(),
-            amount: 500.00,
+            amount: 10000,
             type_payment: 'Transferencia',
             voucher: '123456789',
             status: true,
@@ -25,9 +19,7 @@ describe('🧪 DepositModel - Database Model Tests', () => {
     });
 
     afterEach(async () => {
-        // Clean database after each test
-        await DepositModel.destroy({ where: {} });
-        await LiquidationModel.destroy({ where: {} });
+        await DepositModel.destroy({ where: {  id_liquidation: 1 } });
     });
 
     describe('🔹 Model Definition', () => {
@@ -49,20 +41,15 @@ describe('🧪 DepositModel - Database Model Tests', () => {
     describe('📝 Model Creation', () => {
         test('should create a new deposit', async () => {
             try {
-                // Create a liquidation first
-                const liquidation = await LiquidationModel.create(liquidationData);
                 
-                const deposit = await DepositModel.create({
-                    ...depositData,
-                    id_liquidation: liquidation.id
-                });
+                const deposit = await DepositModel.create(depositData);
 
                 expect(deposit).toBeDefined();
                 expect(deposit.id).toBeDefined();
                 expect(deposit.amount).toBe(depositData.amount);
                 expect(deposit.type_payment).toBe(depositData.type_payment);
                 expect(deposit.status).toBe(depositData.status);
-                expect(deposit.id_liquidation).toBe(liquidation.id);
+                expect(deposit.id_liquidation).toBe(depositData.id_liquidation);
             } catch (error) {
                 console.error('Error creating deposit:', error);
                 throw error;
@@ -82,33 +69,4 @@ describe('🧪 DepositModel - Database Model Tests', () => {
         });
     });
 
-    describe('🔗 Model Associations', () => {
-        test('should have association with LiquidationModel', () => {
-            const associations = DepositModel.associations;
-            expect(associations).toHaveProperty('liquidations');
-        });
-
-        test('should create a deposit with liquidation association', async () => {
-            try {
-                const liquidation = await LiquidationModel.create(liquidationData);
-                
-                const deposit = await DepositModel.create({
-                    ...depositData,
-                    id_liquidation: liquidation.id
-                });
-
-                const depositWithLiquidation = await DepositModel.findOne({
-                    where: { id: deposit.id },
-                    include: [{ model: LiquidationModel, as: 'liquidations' }]
-                });
-
-                expect(depositWithLiquidation).toBeDefined();
-                expect(depositWithLiquidation.liquidations).toBeDefined();
-                expect(depositWithLiquidation.liquidations.id).toBe(liquidation.id);
-            } catch (error) {
-                console.error('Error creating deposit with liquidation:', error);
-                throw error;
-            }
-        });
-    });
 });

@@ -5,11 +5,11 @@ describe('🧪 SalesModel - Database Model Tests', () => {
     let salesData;
 
     beforeEach(() => {
-        // Sample sales data for tests
+
         salesData = {
             date: new Date(),
             type_payment: 'Efectivo',
-            total: 100000,
+            total: 50000,
             status: true
         };
     });

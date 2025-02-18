@@ -7,18 +7,17 @@ describe('🧪 VariantProductModel - Database Model Tests', () => {
     beforeEach(() => {
         // Datos de prueba
         variantProductData = {
-            image: 'https://example.com/image.jpg',
             grammage: '500g',
-            stock: 10,
+            stock: 0,
             id_product: 1,
-            image_url: 'https://example.com/image.jpg',
+            image_url: 'https://example.com2/image.jpg',
             created_at: new Date(),
             updated_at: new Date()
         };
     });
 
     afterEach(async () => {
-        await VariantProductModel.destroy({ where: { image: 'https://example.com/image.jpg' } });
+        await VariantProductModel.destroy({ where: {  grammage: '500g' } });
     });
 
 
@@ -27,7 +26,6 @@ describe('🧪 VariantProductModel - Database Model Tests', () => {
 
         expect(variantProduct).toBeDefined();
         expect(variantProduct.id).toBeDefined();
-        expect(variantProduct.image).toBe(variantProductData.image);
         expect(variantProduct.grammage).toBe(variantProductData.grammage);
         expect(variantProduct.stock).toBe(variantProductData.stock);
         expect(variantProduct.id_product).toBe(variantProductData.id_product);

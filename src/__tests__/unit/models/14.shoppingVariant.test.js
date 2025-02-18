@@ -12,8 +12,10 @@ describe('🧪 ShoppingVariantModel - Database Model Tests', () => {
             quantity: 10,
             remaining_quantity: 10,
             shopping_price: 5000,
-            sale_price: 7500,
-            status: true
+            sale_price: 10000,
+            status: true,
+            created_at: new Date(),
+            updated_at: new Date()
         };
     });
 
@@ -53,6 +55,8 @@ describe('🧪 ShoppingVariantModel - Database Model Tests', () => {
             expect(shoppingVariant.shopping_price).toBe(shoppingVariantData.shopping_price);
             expect(shoppingVariant.sale_price).toBe(shoppingVariantData.sale_price);
             expect(shoppingVariant.status).toBe(shoppingVariantData.status);
+            expect(shoppingVariant.created_at).toEqual(shoppingVariantData.created_at);
+            expect(shoppingVariant.updated_at).toEqual(shoppingVariantData.updated_at);
         });
     });
 });

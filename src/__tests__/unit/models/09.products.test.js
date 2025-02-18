@@ -5,10 +5,9 @@ describe('🧪 ProductModel - Database Model Tests', () => {
     let productData;
 
     beforeEach(() => {
-        // Datos de prueba
+
         productData = {
-            image: 'https://example.com/image.jpg',
-            name: 'Sample Product',
+            name: 'Producto 1',
             status: true,
             id_brand: 1,
             image_url: 'https://example.com/image.jpg',
@@ -18,7 +17,7 @@ describe('🧪 ProductModel - Database Model Tests', () => {
     });
 
     afterEach(async () => {
-        await ProductModel.destroy({ where: { name: 'Sample Product' } });
+        await ProductModel.destroy({ where: { name: 'Producto 1' } });
     });
 
 

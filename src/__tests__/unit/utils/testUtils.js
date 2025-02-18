@@ -14,11 +14,13 @@ class TestDataManager {
 
     // Create a test role
     static async createTestRole() {
-        return RoleModel.create({
-            id: 1,
-            name: 'Test Role'
-        });
-    }
+        return RoleModel.create(
+            [
+                { id: 1, name: 'Administrador' },
+                { id: 2, name: 'Empleado' }
+            ]
+        );
+    };
 
     // Create a test user
     static async createTestUser() {
@@ -28,7 +30,7 @@ class TestDataManager {
             password: 'securepassword123',
             id_role: 1
         });
-    }
+    };
 
     // Create a test brand
     static async createTestBrand() {
@@ -77,6 +79,19 @@ class TestDataManager {
         return AttributeModel.create({
             id: 1,
             description: 'Test Attribute'
+        });
+    }
+
+    // Create a test provider
+    static async createTestProvider() {
+        return ProviderModel.create({
+            id: 1,
+            name: 'Café Aroma',
+            nit: '900200345-1',
+            email: 'aroma@gmail.com',
+            phone: '2345678321',
+            address: 'Calle 4567',
+            status: true,
         });
     }
 

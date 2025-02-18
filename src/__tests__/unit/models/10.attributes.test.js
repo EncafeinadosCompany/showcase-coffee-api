@@ -5,7 +5,7 @@ describe('🧪 AttributeModel - Database Model Tests', () => {
     let attributeData;
 
     beforeEach(() => {
-        // Datos de prueba
+        
         attributeData = {
             description: 'Sample Attribute',
             created_at: new Date(),

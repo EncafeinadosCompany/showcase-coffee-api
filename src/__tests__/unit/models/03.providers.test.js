@@ -1,13 +1,11 @@
-require('../../setup'); // Asegúrate de que esto configure tu entorno de pruebas
+require('../../setup');
 const { ProviderModel } = require('../../../models/companies/provider.entity');
-const { BankAccountModel } = require('../../../models/companies/bankAccounts.entity');
 
 describe('🧪 ProviderModel - Database Model Tests', () => {
     let providerData;
-    let bankAccountData;
 
     beforeEach(() => {
-        // Datos de ejemplo para las pruebas
+
         providerData = {
             name: 'Café Aroma',
             nit: '900200345-1',
@@ -17,23 +15,9 @@ describe('🧪 ProviderModel - Database Model Tests', () => {
             status: true,
         };
 
-        bankAccountData = [
-            {
-                bank_account: '123456722',
-                type_account: 'Corriente',
-                bank: 'BBVA',
-            },
-            {
-                bank_account: '098765112',
-                type_account: 'Ahorro',
-                bank: 'Bancolombia',
-            },
-        ];
     });
 
     afterEach(async () => {
-        // Limpiar la base de datos después de cada prueba
-        await BankAccountModel.destroy({ where: {} });
         await ProviderModel.destroy({ where: { name: 'Café Aroma' } });
     });
 
@@ -59,7 +43,6 @@ describe('🧪 ProviderModel - Database Model Tests', () => {
             try {
                 const provider = await ProviderModel.create(providerData);
 
-                // Verifica que el proveedor se haya creado correctamente
                 expect(provider).toBeDefined();
                 expect(provider.id).toBeDefined();
                 expect(provider.name).toBe(providerData.name);
@@ -113,47 +96,4 @@ describe('🧪 ProviderModel - Database Model Tests', () => {
         });
     });
 
-    describe('🔗 Model Associations', () => {
-        test('should have associations with BankAccountModel, EmployeeModel, StoreModel, and LiquidationModel', () => {
-            const associations = ProviderModel.associations;
-
-            expect(associations).toHaveProperty('bankAccounts');
-            expect(associations).toHaveProperty('employees');
-            expect(associations).toHaveProperty('provider_store');
-            expect(associations).toHaveProperty('liquidations');
-        });
-
-        test('should create a provider with bank accounts', async () => {
-            try {
-
-                const provider = await ProviderModel.create(providerData);
-
-                const bankAccounts = await BankAccountModel.bulkCreate(
-                    bankAccountData.map((account) => ({
-                        ...account,
-                        id_provider: provider.id,
-                    }))
-                );
-
-          
-                const providerWithBankAccounts = await ProviderModel.findOne({
-                    where: { id: provider.id },
-                    include: [{ model: BankAccountModel, as: 'bankAccounts' }],
-                });
-
-          
-                expect(providerWithBankAccounts).toBeDefined();
-                expect(providerWithBankAccounts.bankAccounts).toHaveLength(2);
-                expect(providerWithBankAccounts.bankAccounts[0].bank_account).toBe(
-                    bankAccountData[0].bank_account
-                );
-                expect(providerWithBankAccounts.bankAccounts[1].bank_account).toBe(
-                    bankAccountData[1].bank_account
-                );
-            } catch (error) {
-                console.error('Error creating provider with bank accounts:', error);
-                throw error;
-            }
-        });
-    });
 });

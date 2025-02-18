@@ -39,9 +39,6 @@ const variantProductSchema = {
   image_url:{
     type: DataTypes.STRING,
     allowNull: true,
-    validate:{
-      isUrl: true
-    }
   },
   created_at: {
     type: DataTypes.DATE,

@@ -6,12 +6,12 @@ describe('🧪 UserModel - Database Model Tests', () => {
     let userData;
 
     beforeEach(() => {
-        // Sample user data for tests
+
         userData = {
             name: 'John Doe',
             email: 'john.doe@example.com',
             password: 'securepassword123',
-            id_role: 1, // Default role (in)
+            id_role: 1,
         };
     });
 
