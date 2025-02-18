@@ -8,8 +8,8 @@ describe('🧪 SalesModel - Database Model Tests', () => {
         // Sample sales data for tests
         salesData = {
             date: new Date(),
-            type_payment: 'Credit Card',
-            total: 150.75,
+            type_payment: 'Efectivo',
+            total: 150750,
             status: true
         };
     });
