@@ -43,8 +43,7 @@ class SaleService {
 
       for (const providerId of providerIds) {
         try {
-          console.log(`Proveedor ${providerId}...`);
-
+         
           await this.liquidationService.calculateProviderDebt(providerId, newSale.created_at);
         } catch (err) {
           console.error(`❌ Error actualizando deuda para el proveedor ${providerId}:`, err);
@@ -106,7 +105,6 @@ class SaleService {
 
       totalSubtotal += newSaleDetail.subtotal;
 
-      // Actualizar remaining_quantity
       await this.shoppingVariantRepository.updateRemainingQuantity(
         stock.id,
         stock.remaining_quantity - quantityToDeduct,
@@ -116,7 +114,6 @@ class SaleService {
       remainingQuantity -= quantityToDeduct;
     }
 
-    // Actualizar stock general
     await this.variantRepository.updateStock(
       productVariant.id,
       productVariant.stock - detail.quantity,

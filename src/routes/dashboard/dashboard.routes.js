@@ -10,12 +10,14 @@ const { authenticateJWT } = require('../../middlewares/auth.middleware');
 
 const depositRepository = new DepositRepository();
 const liquidationRepository = new LiquidationRepository();
-const dashboardService = new DashboardService(SalesVariantRepository, liquidationRepository,depositRepository);
+const dashboardService = new DashboardService(SalesVariantRepository, ShoppingVariantRepository,liquidationRepository,depositRepository);
 const dashboardController = new DashboardController(dashboardService); 
 
 router 
     .post('/data-top', (req, res) => dashboardController.productTop(req, res))
+    .post('/data-tostion', (req, res) => dashboardController.earlyDate(req, res))
     .get('/total-liquidation', authenticateJWT, (req, res) => dashboardController.getTotalLiquidation(req, res));
+
 
 
 module.exports = router;

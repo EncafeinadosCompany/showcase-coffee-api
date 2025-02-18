@@ -1,12 +1,13 @@
 
 
 class DashboardService {
-    constructor(SalesVariantRepository, LiquidationRepository, DepositRepository) {
+    constructor(SalesVariantRepository, ShoppingVariantRepository, LiquidationRepository, DepositRepository) {
         this.salesVariantRepository = new SalesVariantRepository();
         this.liquidationRepository= LiquidationRepository;
         this.depositRepository= DepositRepository;
-        
-    }
+        this.shoppingVariantRepository = new ShoppingVariantRepository();
+
+    }    
 
     async productTop(month , year) {
         try {
@@ -16,6 +17,16 @@ class DashboardService {
             console.error('Error fetching top products:', error.message);
             throw new Error('Error fetching top products.');
         }
+    }
+    async earlyDate(){
+        try {
+            const response = await this.shoppingVariantRepository.getByClosestRoastingDate();
+            return response;
+        }catch(error){
+            console.error('Error fetching closest roasting date:', error.message);
+            throw error;
+        }
+
     }
 
     async getTotalLiquidation() {

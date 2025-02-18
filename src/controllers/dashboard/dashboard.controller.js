@@ -23,11 +23,10 @@ class DashboardController{
            
         }catch(error) {
             console.error('Error fetching dashboard data:', error.message);
-            res.status(500).json({ message: 'An error occurred while fetching dashboard data.' });
+            res.status(500).json({ message: 'An error occurred while fetching dashboard data.' })
         }
     }
 
-    // fecha de tostion cercana
     async earlyDate(req, res) {
 
         try{

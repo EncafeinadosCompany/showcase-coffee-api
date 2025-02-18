@@ -5,7 +5,11 @@ class ShoppingRepository {
     constructor() { }
 
     async getAll() {
-        return await ShoppingModel.findAll();
+        return await ShoppingModel.findAll({
+            order:[
+                ['id','DESC']
+            ]
+        });
     };
 
     async getById(id) {
