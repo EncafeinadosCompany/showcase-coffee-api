@@ -2,18 +2,21 @@ const { ShoppingVariantModel } = require('../../models/transactions/shoppingVari
 const { ProductModel } = require('../../models/products/products.entity');
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
 
-const  sequelize  = require('../../config/connection');
-const { Op, fn, col, literal} = require('sequelize');
+const { Op, fn, col, literal, Sequelize } = require('sequelize');
 const { EmployeeModel } = require('../../models/users/employees.entity');
 const { ShoppingModel } = require('../../models/transactions/shopping.entity');
 
 class ShoppingVariantRepository {
     constructor() { }
 
+
     async getAll() {
         try {
+
+            const subQuery = await this.getMinRoastingDate();
+
             const shoppingVariant = await ShoppingVariantModel.findAll({
-                attributes: ["id", "sale_price"],
+                attributes: ["id", "sale_price", "roasting_date", "quantity", "remaining_quantity"],
                 include: [
                     {
                         model: VariantProductModel,
@@ -23,18 +26,25 @@ class ShoppingVariantRepository {
                             {
                                 model: ProductModel,
                                 as: "product",
-                                attributes: ["id", "name"]
+                                attributes: ["id", "name"],
+
                             }
                         ]
-                    },
-
+                    }
                 ],
-                group: [
-                    "ShoppingVariantModel.id",
-                    "sale_price",
-                    "variant.id",
-                    "variant.product.id",
-                    "variant.product.name",
+                where: {
+                    [Op.and]: [
+                        {
+                            roasting_date: { [Op.in]: subQuery.map(sq => sq.min_roasting_date) }, // ✅ Solo la variante con la fecha de tostión más antigua
+                            remaining_quantity: { [Op.gt]: 0 }
+                        }
+
+                    ],
+
+                },
+                order: [
+                    [Sequelize.col('variant.product.id'), "ASC"],
+                    ["roasting_date", "ASC"]
                 ]
             });
 
@@ -78,13 +88,18 @@ class ShoppingVariantRepository {
     };
 
     async getAvailableStock(variantId, transaction) {
+
+        const subQuery = await this.getMinRoastingDate();
+
         return ShoppingVariantModel.findAll({
             where: {
                 id_variant_products: variantId,
                 // Solo incluir registros donde aún hay stock disponible
                 remaining_quantity: {
                     [Op.gt]: 0
-                }
+                },
+                roasting_date: { [Op.in]: subQuery.map(sq => sq.min_roasting_date) }
+
             },
             include: [{
                 model: ShoppingModel,
@@ -170,49 +185,86 @@ class ShoppingVariantRepository {
         }
     }
 
-    // async ProducTopData(month, year) {
-    //     try {
-    //         const startDate = new Date(year, month - 1, 1); // Primer día del mes
-    //         const endDate = new Date(year, month, 0, 23, 59, 59); // Último día del mes
-    
-    //         const products = await ShoppingVariantModel.findAll({
-    //             attributes: [
-    //                 [fn("sum", col("quantity")), "total"], // Suma la cantidad total de cada variante
-    //                 "id_variant_products"
-    //             ],
-    //             include: [
-    //                 {
-    //                     model: ShoppingModel, // Relación con la tabla de compras
-    //                     as: 'shopping', // Alias para la relación
-    //                     attributes: [], // No necesitamos datos adicionales
-    //                     where: {
-    //                         created_at: {
-    //                             [Op.between]: [startDate, endDate] // Filtrar por fecha en ShoppingModel
-    //                         }
-    //                     }
-    //                 }
-    //             ],
-    //             group: ["id_variant_products"], // Agrupar por producto
-    //             order: [[literal("total"), "DESC"]], // Ordenar por cantidad vendida
-    //             limit: 5 // Limitar a los 5 más vendidos
-    //         });
-    
-    //         return products;
-    //     } catch (error) {
-    //         console.error("Error fetching top products:", error.message);
-    //         throw error;
-    //     }
-    // }
+    async getByClosestRoastingDate() {
+        try {
+            const today = new Date();
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(today.getMonth() - 1);
 
-    // async EarlyDateData (){
+            const variants = await ShoppingVariantModel.findAll({
+                attributes: [
+                    "id",
+                    "roasting_date",
+                    "remaining_quantity",
+                    "sale_price"
+                ],
+                include: [
+                    {
+                        model: ShoppingModel,
+                        as: "shopping",
+                        attributes: ['id', 'id_employee'],
+                        include: [
+                            {
+                                model: EmployeeModel,
+                                as: 'employee',
+                                attributes: ['id_provider']
+                            }
+                        ]
+                    },
+                    {
+                        model: VariantProductModel,
+                        as: "variant",
+                        attributes: ["id", "grammage", "stock"],
+                        include: [
+                            {
+                                model: ProductModel,
+                                as: "product",
+                                attributes: ["id", "name"]
+                            }
+                        ]
+                    }
+                ],
+                where: {
+                    roasting_date: {
+                        [Op.between]: [threeMonthsAgo, today]
+                    }
+                },
+                order: [["roasting_date", "ASC"]]
+            });
 
-    //     try {
+            return variants;
+        } catch (error) {
+            console.error("Error fetching variants by roasting date:", error);
+            throw error;
+        }
+    }
+
+    private
+    async getMinRoastingDate() {
+        const threeMonthsAgo = new Date();
+        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 1);
+
+        const query = await ShoppingVariantModel.findAll({
+            attributes: [
+                [Sequelize.fn("MIN", Sequelize.col("roasting_date")), "min_roasting_date"],
+                "id_variant_products"
+            ],
+            where: {
+                roasting_date: {
+                    [Op.between]: [threeMonthsAgo, new Date()]
+                },
+
+                remaining_quantity: { [Op.gt]: 0 }
+
+            },
+            group: ["id_variant_products"],
+            raw: true
+        });
 
 
-    //     }catch(error){
-    //         cosole.error('Error fetching date totion', error.message);      
-    //     }
-    // }
+        return query
+    }
+
 
 }
 

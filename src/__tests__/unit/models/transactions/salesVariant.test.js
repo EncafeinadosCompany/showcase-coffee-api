@@ -1,20 +1,21 @@
 // require('../../../setup');
 // const { SalesVariantModel } = require('../../../../models/transactions/salesVariant.entity');
-// const { SalesModel } = require('../../../../models/transactions/sales.entity'); // Asegúrate de que las tablas de referencia existan
-// const { VariantProductModel } = require('../../../../models/products/variantsProducts.entity'); // Asegúrate de que las tablas de referencia existan
+// const TestDataManager = require("../../utils/testUtils");
 
 // describe('🧪 SalesVariantModel - Database Model Tests', () => {
 //     let salesVariantData;
 
 //     beforeEach(async () => {
 //         // Crea datos de prueba válidos para las tablas de referencia
-//         await SalesModel.create({ id: 1, date: new Date(), type_payment: 'Credit Card', total: 150.75, status: true });
-//         await VariantProductModel.create({ id: 1, name: 'Variant 1', id_product:1, grammage:200, status: true });
+//         await TestDataManager.createTestSale();
+//         await TestDataManager.createTestVariant();
+        
 
 //         // Sample sales variant data for tests
 //         salesVariantData = {
 //             id_sale: 1,
-//             id_variant_products: 2,
+//             id_shopping_variant:1,
+//             id_variant_products:1,
 //             quantity: 5,
 //             subtotal: 100000,
 //             status: true
@@ -23,8 +24,7 @@
 
 //     afterEach(async () => {
 //         await SalesVariantModel.destroy({ where: { id_sale: 1 } });
-//         await SalesModel.destroy({ where: { id: 1 } });
-//         await VariantProductModel.destroy({ where: { id: 1 } });
+//         await TestDataManager.cleanupTestData();
 //     });
 
 //     describe('🔹 Model Definition', () => {
