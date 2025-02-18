@@ -7,6 +7,7 @@ const employeeSeeder = require("./20250210213809-employees");
 const providerSeeder = require("./20250211170326-providers-seed");
 const bankAccountSeeder = require("./20250211171412-bank-accounts-seed");
 const storeSeeder = require("./20250211172147-stores-seed");
+const allianceSeeder = require("./20250211172804-alliances-seed");
 
 const brandSeeder = require("./20250210165220-brands");
 const productSeeder = require("./20250210165111-products");
@@ -24,6 +25,7 @@ module.exports = {
     await providerSeeder.up(queryInterface, Sequelize);
     await bankAccountSeeder.up(queryInterface, Sequelize);
     await storeSeeder.up(queryInterface, Sequelize);
+    await allianceSeeder.up(queryInterface, Sequelize);
 
     await employeeSeeder.up(queryInterface, Sequelize);
 
