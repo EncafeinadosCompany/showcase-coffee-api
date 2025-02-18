@@ -9,7 +9,7 @@ class CustomSequencer extends TestSequencer {
             '04.stores.test.js',
             '05.employees.test.js',
             // '06.bankAccount.test.js',
-            // '07.alliances.test.js',
+            //'07.alliances.test.js',
             '08.brands.test.js',
             '09.products.test.js',
             '10.attributes.test.js',
