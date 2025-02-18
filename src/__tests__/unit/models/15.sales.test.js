@@ -1,5 +1,5 @@
-require('../../../setup');
-const { SalesModel } = require('../../../../models/transactions/sales.entity');
+require('../../setup');
+const { SalesModel } = require('../../../models/transactions/sales.entity');
 
 describe('🧪 SalesModel - Database Model Tests', () => {
     let salesData;
@@ -9,7 +9,7 @@ describe('🧪 SalesModel - Database Model Tests', () => {
         salesData = {
             date: new Date(),
             type_payment: 'Efectivo',
-            total: 150750,
+            total: 100000,
             status: true
         };
     });

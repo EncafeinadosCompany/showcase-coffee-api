@@ -1,5 +1,5 @@
-require('../../../setup');
-const { AttributeModel } = require('../../../../models/products/attribute.entity');
+require('../../setup');
+const { AttributeModel } = require('../../../models/products/attribute.entity');
 
 describe('🧪 AttributeModel - Database Model Tests', () => {
     let attributeData;

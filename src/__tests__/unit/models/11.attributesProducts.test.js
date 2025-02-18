@@ -1,7 +1,7 @@
-    require('../../../setup');
-    const { AttributeProductModel } = require('../../../../models/products/attributesProducts.entity');
-    const {AttributeModel} = require('../../../../models/products/attribute.entity')
-    const {ProductModel} = require('../../../../models/products/products.entity')
+    require('../../setup');
+    const { AttributeProductModel } = require('../../../models/products/attributesProducts.entity');
+    const {AttributeModel} = require('../../../models/products/attribute.entity')
+    const {ProductModel} = require('../../../models/products/products.entity')
 
 
     describe('🧪 AttributeProductModel - Database Model Tests', () => {

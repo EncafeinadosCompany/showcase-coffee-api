@@ -1,6 +1,6 @@
-require('../../../setup');
-const { sequelize } = require('../../../../config/connection');
-const { EmployeeModel } = require('../../../../models/users/employees.entity');
+require('../../setup');
+const { sequelize } = require('../../../config/connection');
+const { EmployeeModel } = require('../../../models/users/employees.entity');
 
 
 describe('🧪 EmployeeModel - Database Model Tests', () => {

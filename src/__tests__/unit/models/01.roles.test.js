@@ -1,5 +1,5 @@
-require('../../../setup');
-const { RoleModel } = require('../../../../models/users/roles.entity');
+require('../../setup');
+const { RoleModel } = require('../../../models/users/roles.entity');
 
 describe('🧪 RoleModel - Database Model Tests', () => {
     let roleData;

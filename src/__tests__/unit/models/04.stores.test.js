@@ -1,5 +1,5 @@
-require('../../../setup'); // Asegúrate de que esto configure tu entorno de pruebas
-const { StoreModel } = require('../../../../models/companies/store.entity');
+require('../../setup'); // Asegúrate de que esto configure tu entorno de pruebas
+const { StoreModel } = require('../../../models/companies/store.entity');
 
 describe('🧪 StoreModel - Database Model Tests', () => {
     let storeData;

@@ -1,11 +1,10 @@
-require('../../../setup');
-const { ShoppingModel } = require('../../../../models/transactions/shopping.entity');
+require('../../setup');
+const { ShoppingModel } = require('../../../models/transactions/shopping.entity');
 
 describe('🧪 ShoppingModel - Database Model Tests', () => {
     let shoppingData;
 
     beforeEach(() => {
-        // Sample shopping data for tests
         shoppingData = {
             id_store: 1,
             id_employee: 1,
