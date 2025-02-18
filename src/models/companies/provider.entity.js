@@ -24,7 +24,6 @@ const providerSchema = {
     },
     phone: {
         type: DataTypes.STRING,
-        allowNull: true,
         allowNull: false,
     },
     address: {
