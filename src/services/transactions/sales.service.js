@@ -32,14 +32,9 @@ class SaleService {
         const saleDetail = await this.createSaleDetail(sale.id, detail, transaction);
         total += Number(saleDetail.subtotal);
 
-        const providerId = await this.shoppingVariantRepository.getProviderByShoppingVariant(
-          detail.id_variant_products,
-          { transaction }
-        );
-
-        if (typeof providerId === 'number' && !isNaN(providerId)) {
+        saleDetail.providerSales.forEach((value, providerId) => {
           providerIds.add(providerId);
-        }
+        });
       }
 
       const newSale = await this.saleRepository.updateTotal(sale.id, { total }, { transaction });
@@ -48,7 +43,9 @@ class SaleService {
 
       for (const providerId of providerIds) {
         try {
-          await this.liquidationService.calculateProviderDebt(providerId);
+          console.log(`Proveedor ${providerId}...`);
+
+          await this.liquidationService.calculateProviderDebt(providerId, newSale.created_at);
         } catch (err) {
           console.error(`❌ Error actualizando deuda para el proveedor ${providerId}:`, err);
         }
@@ -62,36 +59,79 @@ class SaleService {
   };
 
   async createSaleDetail(saleId, detail, transaction) {
-    if (!detail.id_variant_products || !detail.quantity || !detail.id_shopping_variant) {
-      throw new Error('Invalid sales detail data: missing product or shopping variant information');
+    if (!detail.id_variant_products || !detail.quantity) {
+      throw new Error('Invalid sales detail data: missing product information');
     }
 
-    const productVariant = await this.variantRepository.findByIdVariant(detail.id_variant_products, { transaction });
+    const productVariant = await this.variantRepository.findByIdVariant(
+      detail.id_variant_products,
+      { transaction }
+    );
 
     if (!productVariant) throw new Error('Variant product not found');
     if (productVariant.stock < detail.quantity) {
       throw new Error(`Insufficient stock for variant ID ${detail.id_variant_products}`);
     }
 
-    const newSaleDetail = await this.salesVariantRepository.create(
-      {
-        id_sale: saleId,
-        id_shopping_variant: detail.id_shopping_variant,
-        id_variant_products: detail.id_variant_products,
-        quantity: detail.quantity,
-        subtotal: detail.sale_price * detail.quantity
-      },
-      { transaction }
+    const availableStocks = await this.shoppingVariantRepository.getAvailableStock(
+      detail.id_variant_products,
+      transaction
     );
 
+    let remainingQuantity = detail.quantity;
+    let totalSubtotal = 0;
+    const providerSales = new Map();
+
+    for (const stock of availableStocks) {
+      if (remainingQuantity <= 0) break;
+
+      const quantityToDeduct = Math.min(stock.remaining_quantity, remainingQuantity);
+      const providerId = stock.shopping.employee.id_provider;
+
+      const newSaleDetail = await this.salesVariantRepository.create({
+        id_sale: saleId,
+        id_shopping_variant: stock.id,
+        id_variant_products: detail.id_variant_products,
+        quantity: quantityToDeduct,
+        subtotal: detail.sale_price * quantityToDeduct
+      }, { transaction });
+
+      if (!providerSales.has(providerId)) {
+        providerSales.set(providerId, 0);
+      }
+      providerSales.set(
+        providerId,
+        providerSales.get(providerId) + (quantityToDeduct * stock.shopping_price)
+      );
+
+      totalSubtotal += newSaleDetail.subtotal;
+
+      // Actualizar remaining_quantity
+      await this.shoppingVariantRepository.updateRemainingQuantity(
+        stock.id,
+        stock.remaining_quantity - quantityToDeduct,
+        transaction
+      );
+
+      remainingQuantity -= quantityToDeduct;
+    }
+
+    // Actualizar stock general
     await this.variantRepository.updateStock(
       productVariant.id,
       productVariant.stock - detail.quantity,
       { transaction }
     );
 
-    return newSaleDetail;
-  };
+    if (remainingQuantity > 0) {
+      throw new Error(`Stock insuficiente para la variante ${detail.id_variant_products}`);
+    }
+
+    return {
+      subtotal: totalSubtotal,
+      providerSales
+    };
+  }; 
 
 }
 

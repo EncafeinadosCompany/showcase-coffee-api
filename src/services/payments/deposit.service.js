@@ -5,7 +5,6 @@ class DepositService {
       this.sequelize = sequelize
     }
   
- 
   async getAllDeposits() {
     return await this.depositRepository.getDeposits();
   }
@@ -19,9 +18,6 @@ class DepositService {
 
   async createDeposit(deposit) {
     const { amount, voucher, id_liquidation, type_payment } = deposit;
-    if (!amount || !voucher || !id_liquidation  || !type_payment) {
-      throw new Error('Missing required data to create the deposit.');
-    }
 
     const transaction = await this.sequelize.transaction();
     try {
@@ -47,7 +43,7 @@ class DepositService {
       const newDeposit = await this.depositRepository.createDeposit({
         date: Date.now(),
         amount,
-        voucher,
+        voucher: voucher || 'Sin Comprobante',
         type_payment,
         id_liquidation,
       }, { transaction });

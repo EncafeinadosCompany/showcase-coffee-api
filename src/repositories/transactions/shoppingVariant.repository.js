@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 const { ShoppingVariantModel } = require('../../models/transactions/shoppingVariant.entity');
 const { ProductModel } = require('../../models/products/products.entity');
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
@@ -74,7 +76,40 @@ class ShoppingVariantRepository {
     async getById(id) {
         const shoppingVariant = await ShoppingVariantModel.findByPk(id);
         return shoppingVariant;
-    }
+    };
+
+    async getAvailableStock(variantId, transaction) {
+        return ShoppingVariantModel.findAll({
+            where: {
+                id_variant_products: variantId,
+                // Solo incluir registros donde aún hay stock disponible
+                remaining_quantity: {
+                    [Op.gt]: 0
+                }
+            },
+            include: [{
+                model: ShoppingModel,
+                as: 'shopping',
+                include: [{
+                    model: EmployeeModel,
+                    as: 'employee',
+                    attributes: ['id_provider']
+                }]
+            }],
+            order: [['created_at', 'ASC']],
+            transaction
+        });
+    };
+
+    async updateRemainingQuantity(id, newQuantity, transaction) {
+        return ShoppingVariantModel.update(
+            { remaining_quantity: newQuantity },
+            {
+                where: { id },
+                transaction
+            }
+        );
+    };
 
     async getProviderByShoppingVariant(id, options = {}) {
         try {

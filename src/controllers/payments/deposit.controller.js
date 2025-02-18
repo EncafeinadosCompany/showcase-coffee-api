@@ -31,7 +31,7 @@ class DepositController {
   async createDeposit(req, res) {
     try {
       const depositData = req.body;
-      if (!depositData.type_payment || !depositData.amount || !depositData.voucher || !depositData.id_liquidation) {
+      if (!depositData.type_payment || !depositData.amount || !depositData.id_liquidation) {
         
         return res.status(400).json({ message: 'Missing required data to create the deposit.' });
 
