@@ -1,10 +1,11 @@
 
 
 class DashboardService {
-    constructor(SalesVariantRepository) {
-        // this.shoppingVariantRepository = new ShoppingVariantRepository();
+    constructor(SalesVariantRepository, LiquidationRepository, DepositRepository) {
         this.salesVariantRepository = new SalesVariantRepository();
-        // this.productRepository = ProductRepository;
+        this.liquidationRepository= LiquidationRepository;
+        this.depositRepository= DepositRepository;
+        
     }
 
     async productTop(month , year) {
@@ -17,8 +18,18 @@ class DashboardService {
         }
     }
 
-    async earlyDate (){
-
+    async getTotalLiquidation() {
+        try {
+            const liquidations = await this.liquidationRepository.getAllLiquidations();
+            let total = 0;
+            for (const liquidation of liquidations) {
+                total += liquidation.current_debt;
+            }
+            return total;
+        } catch (error) {
+            console.error('Error fetching total liquidation:', error.message);
+            throw new Error('Error fetching total liquidation.');
+        }
     }
 }
 
