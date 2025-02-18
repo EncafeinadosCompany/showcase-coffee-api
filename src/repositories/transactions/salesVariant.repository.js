@@ -69,6 +69,38 @@ class SaleVariantRepository {
             throw error;
         }
     }
+
+
+
+    // async earnings (month, year) {
+    //     try {
+    //         const startDate = new Date(year, month - 1, 1); // Primer día del mes
+    //         const endDate = new Date(year, month, 0, 23, 59, 59); // Último día del mes
+    
+    //         const earnings = await SalesVariantModel.findAll({
+    //             attributes: [
+    //                 [fn("sum", col("subtotal")), "total"]
+    //             ],
+    //             include: [
+    //                 {
+    //                     model:
+    //                 },
+    //                 {
+    //                     model: SalesModel, 
+    //                     as: 'sale', 
+    //                     attributes: [], 
+    //                     where: {
+    //                         created_at: {
+    //                             [Op.between]: [startDate, endDate] 
+    //                         }
+    //                     }
+    //                 }
+    //             ],
+    //         });
+    
+    //         return earnings;
+    //     }
+    // }
 }
 
 module.exports= SaleVariantRepository
