@@ -1,14 +1,15 @@
 require('../../setup');
 const { ShoppingVariantModel } = require('../../../models/transactions/shoppingVariant.entity');
-const { ShoppingModel } = require('../../../models/transactions/shopping.entity');
-const { VariantProductModel } = require('../../../models/products/variantsProducts.entity');
+const { createTestShopping } = require('../utils/testHelpers');
 
 describe('🧪 ShoppingVariantModel - Database Model Tests', () => {
     let shoppingVariantData;
 
-    beforeEach(() => {
+    beforeEach(async () => {
+        const shopping = await createTestShopping();
+
         shoppingVariantData = {
-            id_shopping: 1,
+            id_shopping: shopping.id,
             id_variant_products: 1,
             roasting_date: new Date(),
             quantity: 10,
@@ -16,7 +17,7 @@ describe('🧪 ShoppingVariantModel - Database Model Tests', () => {
             sale_price: 10000,
             status: true
         };
-        
+
     });
 
     // afterEach(async () => {

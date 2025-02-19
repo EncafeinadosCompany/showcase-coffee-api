@@ -1,14 +1,21 @@
 require('../../setup');
 const { LiquidationDetailModel } = require('../../../models/payments/liquidationDetail.entity');
+const { createTestLiquidation, createTestShopping, createTestShoppingVariant,  createTestSale, createTestSaleVariant } = require('../utils/testHelpers');
 
 describe('🧪 LiquidationDetailModel - Database Model Tests', () => {
     let liquidationDetailData;
 
-    beforeEach(() => {
+    beforeEach(async () => {
+
+        const liquidation = await createTestLiquidation();
+        const shopping = await createTestShopping();
+        const shoppingVariant = await createTestShoppingVariant(shopping.id);
+        const sale = await createTestSale();
+        const saleVariant = await createTestSaleVariant(sale.id, shoppingVariant.id);
 
         liquidationDetailData = {
-            id_liquidation: 1,
-            id_sales_variant: 1,
+            id_liquidation: liquidation.id,
+            id_sales_variant: saleVariant.id,
             amount: 50000
         };
     });

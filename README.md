@@ -104,12 +104,12 @@ npm install
 ```
 
 3. **Configure environment variables**
-   - Create a copy of `.env.example` and configure your variables
+   - Create a copy of `.env.development` and configure your variables
 
 4. **Set up the database**:
    - Ensure PostgreSQL is installed and running
    - Create a database named `coffee_db`
-   - Configure credentials in your `.env` file
+   - Configure credentials in your `.env.development` file
 
 5. **Run migrations and seeders**:
 ```bash

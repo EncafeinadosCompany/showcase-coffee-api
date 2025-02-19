@@ -1,13 +1,11 @@
-
-
 class DashboardService {
+
     constructor(SalesVariantRepository, ShoppingVariantRepository, LiquidationRepository, DepositRepository) {
         this.salesVariantRepository = SalesVariantRepository;
         this.liquidationRepository = LiquidationRepository;
         this.depositRepository = DepositRepository;
         this.shoppingVariantRepository = ShoppingVariantRepository;
-
-    }
+    };
 
     async productTop(month, year) {
         try {
@@ -17,7 +15,7 @@ class DashboardService {
             console.error('Error fetching top products:', error.message);
             throw new Error('Error fetching top products.');
         }
-    }
+    };
 
     async earlyDate() {
         try {
@@ -27,8 +25,8 @@ class DashboardService {
             console.error('Error fetching closest roasting date:', error.message);
             throw error;
         }
+    };
 
-    }
     async getTotalLiquidation() {
         try {
             const liquidations = await this.liquidationRepository.getAllLiquidations();
@@ -41,7 +39,7 @@ class DashboardService {
             console.error('Error fetching total liquidation:', error.message);
             throw new Error('Error fetching total liquidation.');
         }
-    }
+    };
 
     async getTotalDeposits() {
         try {
@@ -55,20 +53,14 @@ class DashboardService {
             console.error('Error fetching total deposit:', error.message);
             throw new Error('Error fetching total deposit.');
         }
-    }
-
+    };
 
     async earnings(month, year, id_variant_products) {
 
-        if (id_variant_products) {
-            return await this.getEarningsByProduct(id_variant_products);
-        }
+        if (id_variant_products) return await this.getEarningsByProduct(id_variant_products);
 
-        if (month && year) {
-            return await this.getMonthlyEarnings(month, year)
-        }
-
-    }
+        if (month && year) return await this.getMonthlyEarnings(month, year)
+    };
 
     private
 
@@ -76,8 +68,7 @@ class DashboardService {
 
         const earning = await this.salesVariantRepository.getEarningsByProduct(id_variant_products);
         return earning
-    }
-
+    };
 
     async getMonthlyEarnings(month, year) {
         try {
@@ -98,7 +89,8 @@ class DashboardService {
             console.error('Error fetching monthly earnings:', error.message);
             throw new Error('Error fetching monthly earnings.');
         }
-    }
+    };
+
 }
 
 module.exports = DashboardService;
