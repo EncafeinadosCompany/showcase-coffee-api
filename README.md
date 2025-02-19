@@ -145,20 +145,20 @@ npm start
 Once the server is running, you can access the API through
 `http://localhost:3000` (or your configured port).
 
-## 🔌 Main Endpoints
+## 🔌 Main Endpoints  
 
-The API follows a RESTful structure with the following main resources:
-┌───────────────────────────────────────────────────────────────────────┐
-|        Resource       |                 Description                   |
-|───────────────────────|───────────────────────────────────────────────|
-| `/api/v1/auth`        | Authentication and session management         |
-| `/api/v1/users`       | User, role, and employee management           |
-| `/api/v1/companies`   | Store, supplier, and alliance management      |
-| `/api/v1/products`    | Product, variant, brand, and image management |
-| `/api/v1/transactions`| Purchase and sales tracking                   |
-| `/api/v1/payments`    | Supplier settlements and deposit management   |
-| `/api/v1/dashboard`   | Report generation and analytics               |
-└───────────────────────────────────────────────────────────────────────┘
+The API follows a RESTful structure with the following main resources:  
+
+|      **Resource**      |             **Description**                   |
+|------------------------|-----------------------------------------------|
+| `/api/v1/auth`         | Authentication and session management         |
+| `/api/v1/users`        | User, role, and employee management           |
+| `/api/v1/companies`    | Store, supplier, and alliance management      |
+| `/api/v1/products`     | Product, variant, brand, and image management |
+| `/api/v1/transactions` | Purchase and sales tracking                   |
+| `/api/v1/payments`     | Supplier settlements and deposit management   |
+| `/api/v1/dashboard`    | Report generation and analytics               |
+
 For complete documentation, refer to the Swagger documentation.
 
 ## 📚 API Documentation
