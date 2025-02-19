@@ -2,7 +2,9 @@
 
 The Showcase Coffee API is a robust and scalable solution designed for the comprehensive management of a café. Built with modern technologies such as Node.js, Express, and PostgreSQL, this API provides a complete suite of tools to manage purchases, sales, inventory, and more, streamlining operational processes and enhancing business efficiency.
 
-## 🚀 Key Features
+**Version:** 1.0.0
+
+## ✨ Key Features
 
 - REST API with Express
 - PostgreSQL database with Sequelize ORM
@@ -14,6 +16,14 @@ The Showcase Coffee API is a robust and scalable solution designed for the compr
 - Jest testing
 - Environment variables for development and production
 
+## 🛠️ Technologies Used
+
+- Node.js: Runtime environment used for development
+- JavaScript: Pure JavaScript implementation
+- PostgreSQL: Relational database used in the project
+- Express.js: Node.js framework for handling routes and middleware
+- Sequelize: ORM for database management
+
 ## 📋 Prerequisites
 
 Before running the project, make sure you have the following installed:
@@ -22,15 +32,7 @@ Before running the project, make sure you have the following installed:
 - [PostgreSQL](https://www.postgresql.org/) (version 12 or higher)
 - [npm](https://www.npmjs.com/) (included with Node.js)
 
-## Technologies Used
-
-- Node.js: Runtime environment used for development
-- JavaScript: Pure JavaScript implementation
-- PostgreSQL: Relational database used in the project
-- Express.js: Node.js framework for handling routes and middleware
-- Sequelize: ORM for database management
-
-## Project Structure
+## 🗂️ Project Structure
 
 ```
 📂src/
@@ -64,6 +66,17 @@ Before running the project, make sure you have the following installed:
 ├── package.json          # Dependencies and scripts
 └── README.md             # This file
 ```
+
+## 🏗️ Architecture
+
+This project follows a layered architecture:
+
+1. **Controllers**: Handle HTTP requests and responses
+2. **Services**: Implement business logic
+3. **Repositories**: Manage data access
+4. **Models**:  Define the data structure
+
+We use the Repository pattern to decouple business logic from data access, making testing and maintenance easier.
 
 ## 🔧 Environment Variables
 
@@ -111,17 +124,42 @@ npm install
    - Create a database named `coffee_db`
    - Configure credentials in your `.env.development` file
 
-5. **Run migrations and seeders**:
+5. **Run database migrations** (only required on the first setup or after schema changes)
 ```bash
 npm run migrate
+```
+
+6. **Optional: Run seeders**:
+   If you want to populate the database with initial data (such as default roles, users, stores, suppliers, employees, alliances and products ), run:
+
+```bash
 npm run seed:order
 ```
 
-6. **Start the server**:
+## 🚀 Usage
+
+**Start the server**:
 ```bash
 npm start
 ```
-This will start the API on the default port (usually 3000).
+Once the server is running, you can access the API through
+`http://localhost:3000` (or your configured port).
+
+## 🔌 Main Endpoints
+
+The API follows a RESTful structure with the following main resources:
+┌───────────────────────────────────────────────────────────────────────┐
+|        Resource       |                 Description                   |
+|───────────────────────|───────────────────────────────────────────────|
+| `/api/v1/auth`        | Authentication and session management         |
+| `/api/v1/users`       | User, role, and employee management           |
+| `/api/v1/companies`   | Store, supplier, and alliance management      |
+| `/api/v1/products`    | Product, variant, brand, and image management |
+| `/api/v1/transactions`| Purchase and sales tracking                   |
+| `/api/v1/payments`    | Supplier settlements and deposit management   |
+| `/api/v1/dashboard`   | Report generation and analytics               |
+└───────────────────────────────────────────────────────────────────────┘
+For complete documentation, refer to the Swagger documentation.
 
 ## 📚 API Documentation
 
@@ -129,10 +167,11 @@ The complete API documentation is available at:
 
 Development: `http://localhost:3000/api-docs`
 
-## Usage
-
-Once the server is running, you can access the API through
-`http://localhost:3000/api/v1/` (or your configured port).
-
-
 ## 🧪 Testing
+
+**Start the testing**:
+```bash
+npm run test
+```
+
+## 📝 License

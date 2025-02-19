@@ -39,11 +39,9 @@ const routerApi = (app) => {
         .use('/payments/liquidation', require('./payments/liquidation.routes'))
         .use('/payments/deposit', require('./payments/deposit.routes'))
 
-
         // Dashboard
         .use('/dashboard', require('./dashboard/dashboard.routes'))
 
-        
 }
 
 module.exports = routerApi;
