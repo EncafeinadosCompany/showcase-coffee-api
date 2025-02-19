@@ -1,12 +1,8 @@
 require('../../setup');
 const { LiquidationDetailModel } = require('../../../models/payments/liquidationDetail.entity');
-const { LiquidationModel } = require('../../../models/payments/liquidations.entity');
-const { SalesVariantModel } = require('../../../models/transactions/salesVariant.entity');
 
 describe('🧪 LiquidationDetailModel - Database Model Tests', () => {
     let liquidationDetailData;
-    let liquidationData;
-    let salesVariantData;
 
     beforeEach(() => {
 
@@ -43,7 +39,7 @@ describe('🧪 LiquidationDetailModel - Database Model Tests', () => {
                 expect(liquidationDetail.id).toBeDefined();
                 expect(liquidationDetail.amount).toBe(liquidationDetailData.amount);
                 expect(liquidationDetail.id_liquidation).toBe(liquidationDetailData.id_liquidation);
-                expect(liquidationDetail.id_sales_variant).toBe(salesVariant.liquidationDetailData.id_sales_variant);
+                expect(liquidationDetail.id_sales_variant).toBe(liquidationDetailData.id_sales_variant);
             } catch (error) {
                 console.error('Error creating liquidation detail:', error);
                 throw error;

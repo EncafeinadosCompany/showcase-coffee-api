@@ -7,13 +7,13 @@ module.exports = {
 
     await queryInterface.bulkInsert(ATTRIBUTE_PRODUCT_TABLE, [
 
-      {
-        id_attribute: 1,
-        id_product: 1,
-        value: 'Notas florales con toques de jazmín',
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
+      // {
+      //   id_attribute: 1,
+      //   id_product: 1,
+      //   value: 'Notas florales con toques de jazmín',
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      // },
       {
         id_attribute: 3,
         id_product: 1,

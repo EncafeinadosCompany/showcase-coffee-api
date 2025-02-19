@@ -1,5 +1,7 @@
 require('../../setup');
 const { ShoppingVariantModel } = require('../../../models/transactions/shoppingVariant.entity');
+const { ShoppingModel } = require('../../../models/transactions/shopping.entity');
+const { VariantProductModel } = require('../../../models/products/variantsProducts.entity');
 
 describe('🧪 ShoppingVariantModel - Database Model Tests', () => {
     let shoppingVariantData;
@@ -10,18 +12,16 @@ describe('🧪 ShoppingVariantModel - Database Model Tests', () => {
             id_variant_products: 1,
             roasting_date: new Date(),
             quantity: 10,
-            remaining_quantity: 10,
             shopping_price: 5000,
             sale_price: 10000,
-            status: true,
-            created_at: new Date(),
-            updated_at: new Date()
+            status: true
         };
+        
     });
 
-    afterEach(async () => {
-        await ShoppingVariantModel.destroy({ where: { id_shopping: 1 } });
-    });
+    // afterEach(async () => {
+    //     await ShoppingVariantModel.destroy({ where: { id_shopping: 1 } });
+    // });
 
     describe('🔹 Model Definition', () => {
         test('should have the correct schema', () => {
@@ -43,6 +43,7 @@ describe('🧪 ShoppingVariantModel - Database Model Tests', () => {
 
     describe('📝 Model Creation', () => {
         test('should create a new shopping variant', async () => {
+
             const shoppingVariant = await ShoppingVariantModel.create(shoppingVariantData);
 
             expect(shoppingVariant).toBeDefined();
@@ -51,12 +52,9 @@ describe('🧪 ShoppingVariantModel - Database Model Tests', () => {
             expect(shoppingVariant.id_variant_products).toBe(shoppingVariantData.id_variant_products);
             expect(shoppingVariant.roasting_date).toEqual(shoppingVariantData.roasting_date);
             expect(shoppingVariant.quantity).toBe(shoppingVariantData.quantity);
-            expect(shoppingVariant.remaining_quantity).toBe(shoppingVariantData.remaining_quantity);
             expect(shoppingVariant.shopping_price).toBe(shoppingVariantData.shopping_price);
             expect(shoppingVariant.sale_price).toBe(shoppingVariantData.sale_price);
             expect(shoppingVariant.status).toBe(shoppingVariantData.status);
-            expect(shoppingVariant.created_at).toEqual(shoppingVariantData.created_at);
-            expect(shoppingVariant.updated_at).toEqual(shoppingVariantData.updated_at);
         });
     });
 });

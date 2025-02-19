@@ -6,7 +6,7 @@ describe('🧪 ShoppingModel - Database Model Tests', () => {
 
     beforeEach(() => {
         shoppingData = {
-            id_store: 1,
+            id_store: 2,
             id_employee: 1,
             date_entry: new Date(),
             status: true
@@ -14,9 +14,9 @@ describe('🧪 ShoppingModel - Database Model Tests', () => {
     });
 
     afterEach(async () => {
-        await ShoppingModel.destroy({ where: { id_store: 1 } });
+        await ShoppingModel.destroy({ where: { id_store: 2 }, force: true }); 
     });
-
+    
     describe('🔹 Model Definition', () => {
         test('should have the correct schema', () => {
             const attributes = ShoppingModel.getAttributes();

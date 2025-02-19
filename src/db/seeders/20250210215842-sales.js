@@ -10,7 +10,7 @@ module.exports = {
       {
         date: new Date(),
         type_payment: "Efectivo",
-        total: 85000,
+        total: 50000,
         created_at: new Date(),
         updated_at: new Date(),
       }

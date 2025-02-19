@@ -10,16 +10,9 @@ module.exports = {
       {
         id_sale: 1,
         id_variant_products: 1,
+        id_shopping_variant:1,
         quantity: 2,
-        subtotal: 40000,
-        created_at: new Date(),
-        updated_at: new Date(),
-      },
-      {
-        id_sale: 1,
-        id_variant_products: 2,
-        quantity: 3,
-        subtotal: 45000,
+        subtotal: 50000,
         created_at: new Date(),
         updated_at: new Date(),
       }

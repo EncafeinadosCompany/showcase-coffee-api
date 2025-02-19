@@ -15,6 +15,15 @@ const attributeSeeder = require("./20250210165043-attributes");
 const attributeProductsSeeder = require("./20250210201056-attributes_products");
 const variantsSeeder = require("./20250210165140-variants");
 
+const shoppingSeeder = require("./20250210203928-shopping");
+
+const salesSeeder = require("./20250210215842-sales");
+const saleVariantSeeder = require("./20250211145355-saleVariants");
+
+const liquidationSeeder = require("./20250211150444-liquidations");
+const depositSeeder = require("./20250211150525-deposits");
+
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -35,6 +44,13 @@ module.exports = {
     await variantsSeeder.up(queryInterface, Sequelize);
     await attributeProductsSeeder.up(queryInterface, Sequelize);
     
+    // Comentar para ejcutar datos de ejemplo ----------------
+    await shoppingSeeder.up(queryInterface, Sequelize);
+    await salesSeeder.up(queryInterface, Sequelize);
+    await saleVariantSeeder.up(queryInterface, Sequelize);
+    await liquidationSeeder.up(queryInterface, Sequelize);
+    await depositSeeder.up(queryInterface, Sequelize);
+    // --------------------------------------------------------
   },
 
   async down(queryInterface, Sequelize) {
@@ -54,5 +70,11 @@ module.exports = {
     await variantsSeeder.down(queryInterface, Sequelize);
     await attributeProductsSeeder.down(queryInterface, Sequelize);
     
+    await shoppingSeeder.down(queryInterface, Sequelize);
+    await salesSeeder.down(queryInterface, Sequelize);
+    await saleVariantSeeder.down(queryInterface, Sequelize);
+
+    await liquidationSeeder.down(queryInterface, Sequelize);
+    await depositSeeder.down(queryInterface , Sequelize);
   },
 };

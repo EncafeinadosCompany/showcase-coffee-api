@@ -1,6 +1,5 @@
 require('../../setup');
 const { DepositModel } = require('../../../models/payments/deposits.entity');
-const { LiquidationModel } = require('../../../models/payments/liquidations.entity');
 
 describe('🧪 DepositModel - Database Model Tests', () => {
     let depositData;
