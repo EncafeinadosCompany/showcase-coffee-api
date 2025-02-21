@@ -1,14 +1,18 @@
 require('../../setup');
 const { SalesVariantModel } = require('../../../models/transactions/salesVariant.entity');
+const { createTestSale, createTestShopping, createTestShoppingVariant } = require('../utils/testHelpers');
 
 describe('🧪 SalesVariantModel - Database Model Tests', () => {
     let salesVariantData;
 
     beforeEach(async () => {
+        const sale = await createTestSale();
+        const shopping = await createTestShopping();
+        const shoppingVariant = await createTestShoppingVariant(shopping.id);
 
         salesVariantData = {
-            id_sale: 1,
-            id_shopping_variant:1,
+            id_sale: sale.id,
+            id_shopping_variant:shoppingVariant.id,
             id_variant_products:1,
             quantity: 5,
             subtotal: 50000,
@@ -17,7 +21,7 @@ describe('🧪 SalesVariantModel - Database Model Tests', () => {
     });
 
     afterEach(async () => {
-        await SalesVariantModel.destroy({ where: { id_sale: 1 } });
+        await SalesVariantModel.destroy({ where: {  subtotal: 50000 } });
     });
 
     describe('🔹 Model Definition', () => {

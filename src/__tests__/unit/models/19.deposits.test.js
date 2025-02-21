@@ -1,11 +1,12 @@
 require('../../setup');
 const { DepositModel } = require('../../../models/payments/deposits.entity');
+const { createTestLiquidation, cleanupTestData } = require('../utils/testHelpers');
 
 describe('🧪 DepositModel - Database Model Tests', () => {
     let depositData;
-    let liquidationData;
-
-    beforeEach(() => {
+    
+    beforeEach(async () => {
+     const liquidation = await createTestLiquidation();
         
         depositData = {
             date: new Date(),
@@ -13,12 +14,13 @@ describe('🧪 DepositModel - Database Model Tests', () => {
             type_payment: 'Transferencia',
             voucher: '123456789',
             status: true,
-            id_liquidation: 1
+            id_liquidation: liquidation.id
         };
     });
 
     afterEach(async () => {
         await DepositModel.destroy({ where: {  id_liquidation: 1 } });
+        await cleanupTestData();
     });
 
     describe('🔹 Model Definition', () => {
@@ -58,8 +60,7 @@ describe('🧪 DepositModel - Database Model Tests', () => {
         test('should not create deposit without required fields', async () => {
             try {
                 await DepositModel.create({
-                    date: new Date()
-                    // Missing required fields
+                    date: new Date(),
                 });
                 fail('Should not create deposit without required fields');
             } catch (error) {
