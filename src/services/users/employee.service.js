@@ -21,6 +21,14 @@ class EmployeeService {
         }
     };
 
+    async getEmployeeByProvider(id_provider) {
+        try{
+            return this.employeeRepository.getEmployeeByProvider(id_provider);
+        }catch(error){
+            throw error;
+        }
+    }
+
     async createEmployee(data) {
         try {
             const email = data.email;

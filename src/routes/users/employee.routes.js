@@ -18,5 +18,6 @@ router
     .get('/', authenticateJWT, (req, res) => employeeController.getEmployees(req, res))
     .get('/:id', authenticateJWT, (req, res) => employeeController.getEmployeeById(req, res))
     .post('/', authenticateJWT, (req, res) => employeeController.createEmployee(req, res))
+    .get('/provider/:id_provider', authenticateJWT, (req, res) => employeeController.getUserByProvider(req, res))
 
 module.exports = router;

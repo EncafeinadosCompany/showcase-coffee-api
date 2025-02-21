@@ -12,6 +12,7 @@ const userController = new UserController(userService);
 router
     .get('/', (req, res) => userController.getUsers(req, res))
     .get('/:id',(req, res) => userController.getUserById(req, res))
-    .post('/', userValidation, (req, res) => userController.createUser(req, res));
+    .post('/', userValidation, (req, res) => userController.createUser(req, res))
+
 
 module.exports = router;

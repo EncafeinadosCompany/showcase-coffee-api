@@ -4,7 +4,9 @@ const { AttributeModel } = require('../../models/products/attribute.entity')
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity')
 
 class ProductRepository {
+
   constructor() { }
+  
   async getAll() {
     const products = await ProductModel.findAll({
       attributes: ['id', 'name', 'status', 'image_url'],
@@ -32,7 +34,7 @@ class ProductRepository {
       ],
     });
     return products;
-  }
+  };
 
   async getById(id) {
     const product = await ProductModel.findByPk(id, {
@@ -60,12 +62,12 @@ class ProductRepository {
       ],
     });
     return !product ? null : product;
-  }
+  };
 
   async create(product) {
     const newProduct = await ProductModel.create(product);
     return newProduct;
-  }
+  };
 
   async updateImage(id, image_url) {
     try {
@@ -81,9 +83,7 @@ class ProductRepository {
     } catch (error) {
       throw error;
     }
-  }
-
-
+  };
 
 }
 

@@ -9,6 +9,8 @@ const { AllianceModel, storeProviderSchema } = require('./companies/alliances.en
 
 const { ProductModel, productSchema } = require('./products/products.entity');
 const { BrandModel, brandSchema } = require('./products/brands.entity');
+const {SocialNetworkModel, networkShema} = require('./products/socialNetworks.entity');
+const {SocialBrandModel, socialBrandSchema} = require('./products/social_brands.entity')
 const { AttributeModel, attributeSchema } = require('./products/attribute.entity');
 const { AttributeProductModel, attributeProductSchema} = require('./products/attributesProducts.entity')
 const { VariantProductModel, variantProductSchema } = require('./products/variantsProducts.entity');
@@ -34,6 +36,8 @@ const setupModels = (sequelize) => {
     AllianceModel.init(storeProviderSchema, AllianceModel.config(sequelize));
 
     BrandModel.init(brandSchema, BrandModel.config(sequelize));
+    SocialNetworkModel.init(networkShema, SocialNetworkModel.config(sequelize));
+    SocialBrandModel.init(socialBrandSchema, SocialBrandModel.config(sequelize));
     ProductModel.init(productSchema, ProductModel.config(sequelize));
     AttributeModel.init(attributeSchema, AttributeModel.config(sequelize));
     AttributeProductModel.init(attributeProductSchema, AttributeProductModel.config(sequelize));
@@ -61,6 +65,8 @@ const setupModels = (sequelize) => {
     AllianceModel.associate(sequelize.models)
 
     BrandModel.associate(sequelize.models)
+    SocialNetworkModel.associate(sequelize.models)
+    SocialBrandModel.associate(sequelize.models)
     ProductModel.associate(sequelize.models)
     AttributeModel.associate(sequelize.models)
     AttributeProductModel.associate(sequelize.models)

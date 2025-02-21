@@ -18,6 +18,12 @@ class EmployeesRepository {
         });
     }
 
+    getEmployeeByProvider(id_provider){
+        return EmployeeModel.findAll({
+            where: { id_provider }
+        })
+    }
+
     async createEmployee(employee) {
         const newEmployee = await EmployeeModel.create(employee);
         return newEmployee;
