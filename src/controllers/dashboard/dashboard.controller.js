@@ -1,26 +1,21 @@
-const express = require('express');
+class DashboardController {
 
-class DashboardController{
-
-    constructor (dashboardService) {
+    constructor(dashboardService) {
         this.dashboardService = dashboardService;
     }
 
     async productTop(req, res) {
 
-        const {month , year } = req.body
+        const { month, year } = req.body
         try {
-           
-        // Validar que los valores existen y son números
-        if (!month || !year || isNaN(month) || isNaN(year)) {
-            return res.status(400).json({ error: "Mes y año son requeridos y deben ser números" });
-        }
 
-        const products = await this.dashboardService.productTop(Number(month), Number(year));
+            if (isNaN(month) || isNaN(year)) return res.status(400).json({ error: "Month and year are required" });
 
-        res.json({ success: true, data: products });
-           
-        }catch(error) {
+            const products = await this.dashboardService.productTop(Number(month), Number(year));
+
+            res.json({ success: true, data: products });
+
+        } catch (error) {
             console.error('Error fetching dashboard data:', error.message);
             res.status(500).json({ message: 'An error occurred while fetching dashboard data.' })
         }
@@ -28,41 +23,41 @@ class DashboardController{
 
     async earlyDate(req, res) {
 
-        try{
+        try {
             const dashboardData = await this.dashboardService.earlyDate();
 
-            !dashboardData 
-                ? res.status(404).json({ message: 'Dashboard data not found.' }) 
+            !dashboardData
+                ? res.status(404).json({ message: 'Dashboard data not found.' })
                 : res.status(200).json(dashboardData)
 
-        }catch(error){
+        } catch (error) {
             console.error('Error fetching dashboard data:', error.message);
             res.status(500).json({ message: 'An error occurred while fetching dashboard data.' });
         }
     }
 
     async salesMonth(req, res) {
-        try{
+        try {
             const dashboardData = await this.dashboardService.salesMonth();
 
-            !dashboardData 
-                ? res.status(404).json({ message: 'Dashboard data not found.' }) 
+            !dashboardData
+                ? res.status(404).json({ message: 'Dashboard data not found.' })
                 : res.status(200).json(dashboardData)
 
-        }catch(error){
+        } catch (error) {
             console.error('Error fetching dashboard data:', error.message);
             res.status(500).json({ message: 'An error occurred while fetching dashboard data.' });
         }
     }
 
-    async earnings (req, res) {
+    async earnings(req, res) {
         try {
             const { month, year, variant } = req.body;
             const earnings = await this.dashboardService.earnings(month, year, variant);
 
             res.json({ success: true, data: earnings });
 
-        }catch(error){
+        } catch (error) {
             console.error('Error fetching dashboard data:', error.message);
             res.status(500).json({ message: 'An error occurred while fetching dashboard data.' });
         }
@@ -87,6 +82,6 @@ class DashboardController{
             res.status(500).json({ error: 'Error fetching total liquidation' });
         }
     }
-} 
+}
 
 module.exports = DashboardController;

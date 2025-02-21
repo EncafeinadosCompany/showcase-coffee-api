@@ -1,5 +1,7 @@
 const { SalesVariantModel } = require('../../models/transactions/salesVariant.entity');
 const { ShoppingVariantModel } = require('../../models/transactions/shoppingVariant.entity');
+const { VariantProductModel } = require('../../models/products/variantsProducts.entity');
+const { ProductModel } = require('../../models/products/products.entity');
 const { SalesModel } = require('../../models/transactions/sales.entity');
 const { Op, fn, col, literal, Sequelize } = require('sequelize');
 
@@ -39,8 +41,8 @@ class SaleVariantRepository {
 
     async ProducTopData(month, year) {
         try {
-            const startDate = new Date(year, month - 1, 1); // Primer día del mes
-            const endDate = new Date(year, month, 0, 23, 59, 59); // Último día del mes
+            const startDate = new Date(year, month - 1, 1); 
+            const endDate = new Date(year, month, 0, 23, 59, 59);
 
             const products = await SalesVariantModel.findAll({
                 attributes: [
@@ -48,6 +50,18 @@ class SaleVariantRepository {
                     "id_variant_products"
                 ],
                 include: [
+                    {
+                        model: VariantProductModel,
+                        as: "variantProduct",
+                        attributes: ["grammage"],
+                        include: [
+                            {
+                                model: ProductModel,
+                                as: "product",
+                                attributes: ["name", "image_url"]
+                            }
+                        ]
+                    },
                     {
                         model: SalesModel,
                         as: 'sale',
@@ -59,7 +73,13 @@ class SaleVariantRepository {
                         }
                     }
                 ],
-                group: ["id_variant_products"], // Agrupar por producto
+                group: [
+                    "id_variant_products", 
+                    "variantProduct.id", 
+                    "variantProduct.grammage", 
+                    "variantProduct->product.id", 
+                    "variantProduct->product.name"
+                ],
                 order: [[literal("total"), "DESC"]],
                 limit: 5
             });

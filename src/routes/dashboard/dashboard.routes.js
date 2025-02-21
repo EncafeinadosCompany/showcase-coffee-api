@@ -8,7 +8,6 @@ const LiquidationRepository = require('../../repositories/payments/liquidation.r
 const router = require ('express').Router();
 const { authenticateJWT } = require('../../middlewares/auth.middleware');
 
-
 const depositRepository = new DepositRepository();
 const liquidationRepository = new LiquidationRepository();
 const salesVariantRepository= new SalesVariantRepository();
@@ -18,6 +17,7 @@ const dashboardService = new DashboardService(salesVariantRepository, shoppingVa
 const dashboardController = new DashboardController(dashboardService); 
 
 router 
+
     .post('/data-top', (req, res) => dashboardController.productTop(req, res))
     .post('/data-tostion', (req, res) => dashboardController.earlyDate(req, res))
     .post('/data-earning', (req, res) => dashboardController.earnings(req, res))
