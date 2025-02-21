@@ -70,7 +70,7 @@ class ProductRepository {
     return newProduct;
   }
 
-  async updateImage (id , image_url){
+  async updateImage (id ,image_url){
     try{
 
       const productImage = await ProductModel.findByPk(id);

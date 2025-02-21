@@ -23,6 +23,8 @@ const saleVariantSeeder = require("./20250211145355-saleVariants");
 const liquidationSeeder = require("./20250211150444-liquidations");
 const depositSeeder = require("./20250211150525-deposits");
 
+const socialNetworkSeeder = require("./20250220222742-socialNetworks");
+const socialBrandSeeder = require("./20250220222813-social_brands");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -39,6 +41,8 @@ module.exports = {
     await employeeSeeder.up(queryInterface, Sequelize);
 
     await brandSeeder.up(queryInterface, Sequelize);
+    await socialNetworkSeeder.up(queryInterface, Sequelize);
+    await socialBrandSeeder.up(queryInterface, Sequelize);
     await productSeeder.up(queryInterface, Sequelize);
     await attributeSeeder.up(queryInterface, Sequelize);
     await variantsSeeder.up(queryInterface, Sequelize);

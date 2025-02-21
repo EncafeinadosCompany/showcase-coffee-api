@@ -1,4 +1,4 @@
-const { DataTypes, Model, Sequelize } = require("sequelize");;
+const { DataTypes, Model, Sequelize } = require("sequelize");
 
 const BRAND_TABLE = 'brands'
 
@@ -12,6 +12,17 @@ const brandSchema = {
     type: DataTypes.STRING(100),
     allowNull: false,
     unique: true
+  },
+  image_url:{
+    type: DataTypes.STRING,
+    allowNull: true,
+    validate:{
+      isUrl: true
+    }
+  },
+  razon:{
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   description: {
     type: DataTypes.STRING(150),
@@ -32,9 +43,15 @@ const brandSchema = {
 
 class BrandModel extends Model {
   static associate(models) {
+    
     this.hasMany(models.ProductModel, {
       foreignKey: 'id_brand',
       as: 'products'
+    });
+
+    this.hasMany(models.SocialBrandModel, {
+      foreignKey: 'id_brand',
+      as: 'social_networks'
     });
   }
 

@@ -46,9 +46,9 @@ class ProductService {
           }
     }
 
-    // async updateImage(id, image_url) {
-    //     return await this.productRepository.updateImage(id, image_url);
-    // }
+    async updateImage(id, image_url) {
+        return await this.productRepository.updateImage(id, image_url);
+    }
 }
 
 module.exports = ProductService

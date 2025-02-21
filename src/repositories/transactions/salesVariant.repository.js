@@ -123,6 +123,47 @@ class SaleVariantRepository {
             throw new Error('Error fetching earnings by product.');
         }
     }
+
+    async getYearlyEarnings(year) {
+        try {
+            const sales = await SalesModel.findAll({
+                where: {
+                    [Sequelize.Op.and]: [
+                    Sequelize.where(
+                        Sequelize.fn('DATE_PART', 'year', Sequelize.col('date')),
+                        year
+                    )]
+                },
+                include: {
+                    model: SalesVariantModel,
+                    as: "sales_variant",
+                    include: {
+                        model: ShoppingVariantModel,
+                        as: "shoppingVariant",
+                        attributes: ["shopping_price", "sale_price"],
+                    },
+                },
+            });
+
+            const monthlyEarnings = {};
+
+            sales.forEach(sale => {
+                const month = sale.date.getMonth() + 1;
+                if (!monthlyEarnings[month]) {
+                    monthlyEarnings[month] = 0;
+                }
+                sale.sales_variant.forEach(variant => {
+                    const { shopping_price, sale_price } = variant.shoppingVariant;
+                    monthlyEarnings[month] += (sale_price - shopping_price) * variant.quantity;
+                });
+            });
+
+            return monthlyEarnings;
+        } catch (error) {
+            console.error('Error fetching yearly earnings:', error.message);
+            throw new Error('Error fetching yearly earnings.');
+        }
+    }
     
 
     

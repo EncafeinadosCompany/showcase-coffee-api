@@ -9,11 +9,13 @@ const router = express.Router();
 
 const BrandController  = require('../../controllers/products/brands.controller');
 const BrandRepository = require('../../repositories/products/blands.repository')
+const SocialNetworksRepository = require('../../repositories/products/socialNetworks.repository');
 const BrandService = require('../../services/products/brands.service');
 const { authenticateJWT } = require('../../middlewares/auth.middleware');
 
 const brandRepository = new BrandRepository();
-const brandService = new BrandService(brandRepository);
+const socialNetworksRepository = new SocialNetworksRepository();
+const brandService = new BrandService(brandRepository, socialNetworksRepository);
 const brandController = new BrandController(brandService);
 
     router

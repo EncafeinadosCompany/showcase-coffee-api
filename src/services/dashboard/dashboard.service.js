@@ -68,6 +68,10 @@ class DashboardService {
             return await this.getMonthlyEarnings(month, year)
         }
 
+        if(year){
+            return await this.getYearlyEarnings(year)
+        }
+
     }
 
     private
@@ -97,6 +101,17 @@ class DashboardService {
         } catch (error) {
             console.error('Error fetching monthly earnings:', error.message);
             throw new Error('Error fetching monthly earnings.');
+        }
+    }
+
+    async getYearlyEarnings(year) {
+        try {
+            const sales = await this.salesVariantRepository.getYearlyEarnings(year);
+
+            return sales;
+        } catch (error) {
+            console.error('Error fetching yearly earnings:', error.message);
+            throw new Error('Error fetching yearly earnings.');
         }
     }
 }
