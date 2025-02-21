@@ -20,5 +20,6 @@ router
     .get('/:id', authenticateJWT, (req, res) => depositController.getDepositById(req, res))
     .post('/', authenticateJWT, (req, res) =>  depositController.createDeposit(req, res))
     .get('/by-liquidation/:liquidationId', authenticateJWT, (req, res) => depositController.getDepositsByLiquidation(req, res))
+    .get('/total-by-liquidation/:liquidationId', authenticateJWT, (req, res) => depositController.getTotalDepositsByLiquidation(req, res));
 
 module.exports = router;

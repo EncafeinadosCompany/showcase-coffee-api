@@ -3,7 +3,6 @@
 const {DEPOSIT_TABLE} = require("../../models/payments/deposits.entity")
 const {LIQUIDATION_TABLE} = require("../../models/payments/liquidations.entity")
 
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {

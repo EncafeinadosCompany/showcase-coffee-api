@@ -1,7 +1,7 @@
 const { DepositModel } = require('../../models/payments/deposits.entity');
 
 class DepositRepository {
-  constructor() {}
+  constructor() { }
 
   async getDeposits() {
     try {
@@ -30,6 +30,15 @@ class DepositRepository {
     }
   }
 
+  async getTotalDepositsByLiquidation(liquidationId) {
+    try {
+      return await DepositModel.sum('amount', { where: { id_liquidation: liquidationId } });
+    } catch (error) {
+      console.error(`Error while fetching the total deposits for liquidation ${liquidationId}:`, error);
+      throw new Error('Failed to retrieve the total deposits.');
+    }
+  }
+
   async createDeposit(deposit) {
     try {
       return await DepositModel.create(deposit);
@@ -39,14 +48,6 @@ class DepositRepository {
     }
   }
 
-  async getDepositsByLiquidation(liquidationId) {
-    try {
-      return await DepositModel.findAll({ where: { id_liquidation: liquidationId } });
-    } catch (error) {
-      console.error(`Error while fetching deposits for liquidation ${liquidationId}:`, error);
-      throw new Error('Failed to retrieve deposits.');
-    }
-  }
 }
 
 module.exports = DepositRepository;

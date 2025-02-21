@@ -1,5 +1,5 @@
 class DepositController {
-  
+
   constructor(depositService) {
     this.depositService = depositService;
   }
@@ -28,33 +28,6 @@ class DepositController {
     }
   };
 
-  async createDeposit(req, res) {
-    try {
-      const depositData = req.body;
-      if (!depositData.type_payment || !depositData.amount || !depositData.id_liquidation) {
-        
-        return res.status(400).json({ message: 'Missing required data to create the deposit.' });
-
-      }
-      const newDeposit = await this.depositService.createDeposit(depositData);
-      res.status(201).json(newDeposit);
-    } catch (error) {
-  
-      if (error.message === 'The deposit ID is invalid.' || 
-          error.message === 'The liquidation ID is invalid.' ||
-          error.message === 'The associated liquidation was not found.') {
-        res.status(404).json({ message: error.message });
-      } else if (error.message === 'The current debit is less than the amount.' ||
-                 error.message === 'The deposit amount exceeds the current debt.' ||
-                 error.message === 'Missing required data to create the deposit.') {
-        res.status(400).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: 'An error occurred while creating the deposit. Please check the input data.' });
-      }
-    }
-  }
-
-
   async getDepositsByLiquidation(req, res) {
     try {
       const { liquidationId } = req.params;
@@ -63,6 +36,42 @@ class DepositController {
     } catch (error) {
       console.error(`Error fetching deposits for liquidation ${req.params.liquidationId}:`, error.message);
       res.status(500).json({ message: 'An error occurred while fetching deposits for the liquidation.' });
+    }
+  };
+
+  async getTotalDepositsByLiquidation(req, res) {
+    try {
+      const { liquidationId } = req.params;
+      const totalDeposits = await this.depositService.getTotalDepositsByLiquidation(liquidationId);
+      res.status(200).json({ totalDeposits });
+    } catch (error) {
+      console.error(`Error fetching the total deposits for liquidation ${req.params.liquidationId}:`, error.message);
+      res.status(500).json({ message: 'An error occurred while fetching the total deposits for the liquidation.' });
+    }
+  };
+
+  async createDeposit(req, res) {
+    try {
+      const depositData = req.body;
+      if (!depositData.type_payment || !depositData.amount || !depositData.id_liquidation) {
+        return res.status(400).json({ message: 'Missing required data to create the deposit.' });
+      }
+
+      const newDeposit = await this.depositService.createDeposit(depositData);
+      res.status(201).json(newDeposit);
+    } catch (error) {
+
+      if (error.message === 'The deposit ID is invalid.' ||
+        error.message === 'The liquidation ID is invalid.' ||
+        error.message === 'The associated liquidation was not found.') {
+        res.status(404).json({ message: error.message });
+      } else if (error.message === 'The current debit is less than the amount.' ||
+        error.message === 'The deposit amount exceeds the current debt.' ||
+        error.message === 'Missing required data to create the deposit.') {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: 'An error occurred while creating the deposit. Please check the input data.' });
+      }
     }
   };
 
