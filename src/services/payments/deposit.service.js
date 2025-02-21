@@ -1,10 +1,10 @@
 class DepositService {
-    constructor(depositRepository, liquidationRepository, sequelize) {
-      this.depositRepository = depositRepository;
-      this.liquidationRepository = liquidationRepository;
-      this.sequelize = sequelize
-    }
-  
+  constructor(depositRepository, liquidationRepository, sequelize) {
+    this.depositRepository = depositRepository;
+    this.liquidationRepository = liquidationRepository;
+    this.sequelize = sequelize
+  }
+
   async getAllDeposits() {
     return await this.depositRepository.getDeposits();
   }
@@ -14,7 +14,21 @@ class DepositService {
       throw new Error('The deposit ID is invalid.');
     }
     return await this.depositRepository.getDepositById(id);
-  }
+  };
+
+  async getDepositsByLiquidation(liquidationId) {
+    if (!liquidationId || isNaN(liquidationId)) {
+      throw new Error('The liquidation ID is invalid.');
+    }
+    return await this.depositRepository.getDepositsByLiquidation(liquidationId);
+  };
+
+  async getTotalDepositsByLiquidation(liquidationId) {
+    if (!liquidationId || isNaN(liquidationId)) {
+      throw new Error('The liquidation ID is invalid.');
+    }
+    return await this.depositRepository.getTotalDepositsByLiquidation(liquidationId);
+  };
 
   async createDeposit(deposit) {
     const { amount, voucher, id_liquidation, type_payment } = deposit;
@@ -47,28 +61,21 @@ class DepositService {
         type_payment,
         id_liquidation,
       }, { transaction });
-      
+
       await this.liquidationRepository.updateLiquidation(liquidation.id, {
         current_debt: liquidation.current_debt,
         status: liquidation.status,
       }, { transaction });
 
-    
+
       await transaction.commit();
       return newDeposit;
     } catch (error) {
       await transaction.rollback();
       throw error;
     }
-  }
+  };
 
-
-  async getDepositsByLiquidation(liquidationId) {
-    if (!liquidationId || isNaN(liquidationId)) {
-      throw new Error('The liquidation ID is invalid.');
-    }
-    return await this.depositRepository.getDepositsByLiquidation(liquidationId);
-  }
 }
 
 module.exports = DepositService;
