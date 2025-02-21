@@ -17,10 +17,7 @@ const networkShema = {
 
 class SocialNetworkModel extends Model {
     static associate(models) {
-        this.hasMany(models.ProductModel, {
-            foreignKey: 'id_social_network',
-            as: 'products'
-        });
+       
 
         this.hasMany(models.SocialBrandModel, {
             foreignKey: 'id_social_network',
