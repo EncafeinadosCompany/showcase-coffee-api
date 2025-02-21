@@ -26,6 +26,16 @@ module.exports = {
         email:'empleadoproveedor@gmail.com',
         type:'provider',
         id_provider:1
+      },
+      {
+        id_user: 2,
+        identification:"100003",
+        name:'Samuel',
+        last_name:'Arteaga',
+        phone:'1234567',
+        email:'empleadoproveedor2@gmail.com',
+        type:'provider',
+        id_provider:2
       }
 
     ]);
