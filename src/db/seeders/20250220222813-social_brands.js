@@ -6,40 +6,29 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     
       await queryInterface.bulkInsert(SOCIAL_BRAND_TABLE, [{
-        id: 1,
         id_brand: 1,
         id_social_network: 1,
         description: 'NO APLICA',
         url: 'https://www.facebook.com/Starbucks/',
       },
       {
-        id: 2,
         id_brand: 1,
         id_social_network: 2,
         description: 'somosstarbucks',
         url: 'NO APLICA'
       },
       {
-        id: 3,
         id_brand: 2,
         id_social_network: 1,
         description: 'NO APLICA',
         url: 'https://www.facebook.com/Starbucks/'
       },
       {
-        id: 4,
         id_brand: 2,
         id_social_network: 2,
         description: 'somosstarbucks',
         url: 'NO APLICA'
       },
-      {
-        id: 5,
-        id_brand: 3,
-        id_social_network: 1,
-        description: 'NO APLICA',
-        url: 'https://www.facebook.com/Starbucks/'
-      }
   ], {});
     
   },
