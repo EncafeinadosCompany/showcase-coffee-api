@@ -16,11 +16,8 @@ const brandSchema = {
   image_url:{
     type: DataTypes.STRING,
     allowNull: true,
-    validate:{
-      isUrl: true
-    }
   },
-  razon:{
+  purpose:{
     type: DataTypes.STRING,
     allowNull: true,
   },
