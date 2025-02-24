@@ -2,8 +2,8 @@ const { sequelize } = require('../../config/connection');
 const { cloudinary } = require('../../config/cloudinary'); // No uses `upload`
 
 class ProductService {
-    
-    constructor (ProductRepository, AttributeProductsRepository, AttributeRepository) {
+
+    constructor(ProductRepository, AttributeProductsRepository, AttributeRepository) {
         this.productRepository = ProductRepository;
         this.attributeProductsRepository = AttributeProductsRepository;
         this.attributeRepository = AttributeRepository;
@@ -18,13 +18,9 @@ class ProductService {
     }
 
     async create(product, attributes) {
-        console.log(product, attributes
-            
-        )
         const transaction = await sequelize.transaction();
 
         try {
-            
             const data = {
                 name: product.name,
                 id_brand: product.id_brand,
@@ -51,7 +47,7 @@ class ProductService {
             throw new Error('SERVICE: ' + error.message);
         }
     }
-    
+
     async updateImage(id, image_url) {
         return await this.productRepository.updateImage(id, image_url);
     }
