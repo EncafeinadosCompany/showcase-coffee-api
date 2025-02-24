@@ -12,6 +12,12 @@ class VariantService {
   }
 
   async create(variantData) {
+
+    const existingVariant = await this.variantRepository.existingVariant(variantData.grammage, variantData.id_product);
+    if (existingVariant) {
+      throw new Error('A variant with the same weight is already available for this product.');
+    }
+
     return await this.variantRepository.create(variantData);
   }
 
