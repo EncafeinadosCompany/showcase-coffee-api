@@ -1,7 +1,6 @@
 class ProductController {
 
     constructor(ProductService) {
-
         this.productService = ProductService;
     }
 

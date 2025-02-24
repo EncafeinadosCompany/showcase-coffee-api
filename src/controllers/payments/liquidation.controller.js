@@ -49,7 +49,7 @@ class LiquidationController {
       res.status(400).json({ message: 'An error occurred while creating the liquidation. Please check the input data.' });
     }
   };
-  
+
 }
 
 module.exports = LiquidationController;

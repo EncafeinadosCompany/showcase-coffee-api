@@ -1,4 +1,5 @@
 class VariantController {
+
   constructor(VariantService) {
     this.variantService = VariantService;
   }

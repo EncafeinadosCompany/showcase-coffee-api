@@ -1,5 +1,3 @@
-const { Sequelize } = require("sequelize");
-
 const roleSeeder = require("./20250206153819-roles-seed");
 const userSeeder = require("./20250210213752-users");
 const employeeSeeder = require("./20250210213809-employees");

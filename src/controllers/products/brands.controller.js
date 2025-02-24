@@ -3,6 +3,7 @@ class BrandController {
     constructor(BrandService) {
         this.brandService = BrandService;
     }
+
     async getAll(req, res) {
         try {
             const brands = await this.brandService.getAll()

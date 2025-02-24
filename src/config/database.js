@@ -1,6 +1,5 @@
 const dotenv = require('dotenv'); 
 const path = require('path');
-const { Sequelize } = require('sequelize');
 
 const env = process.env.NODE_ENV || 'development';
 dotenv.config({ path: path.resolve(process.cwd(), `.env.${env}`) });
@@ -14,7 +13,7 @@ const baseConfig = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT || 'postgres',
-    logging: false,
+    logging: true,
     define: {
         timestamps: true,
         underscored: true,

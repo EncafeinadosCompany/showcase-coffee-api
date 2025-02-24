@@ -27,11 +27,12 @@ const { SHOPPING_VARIANT_TABLE, shoppingVariantSchema } = require("../../models/
 const { LIQUIDATION_TABLE, liquidationSchema } = require("../../models/payments/liquidations.entity");
 const { LIQUIDATION_DETAIL_TABLE, liquidationDetailSchema } = require("../../models/payments/liquidationDetail.entity");
 const { DEPOSIT_TABLE, depositSchema } = require("../../models/payments/deposits.entity");
-const { SOCIAL_NETWORK_TABLE , networkShema} = require("../../models/products/socialNetworks.entity");
+const { SOCIAL_NETWORK_TABLE, networkShema } = require("../../models/products/socialNetworks.entity");
 const { SOCIAL_BRAND_TABLE, socialBrandSchema } = require("../../models/products/social_brands.entity");
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  
+
   async up(queryInterface) {
     await queryInterface.createTable(ROLE_TABLE, roleSchema);
     await queryInterface.createTable(USER_TABLE, userSchema);
@@ -49,7 +50,7 @@ module.exports = {
     await queryInterface.createTable(ATTRIBUTE_TABLE, attributeSchema);
     await queryInterface.createTable(ATTRIBUTE_PRODUCT_TABLE, attributeProductSchema);
     await queryInterface.createTable(VARIANT_PRODUCT_TABLE, variantProductSchema);
-    
+
     await queryInterface.createTable(SHOPPING_TABLE, shoppingSchema);
     await queryInterface.createTable(SHOPPING_VARIANT_TABLE, shoppingVariantSchema);
 
@@ -59,7 +60,7 @@ module.exports = {
     await queryInterface.createTable(LIQUIDATION_TABLE, liquidationSchema);
     await queryInterface.createTable(LIQUIDATION_DETAIL_TABLE, liquidationDetailSchema);
     await queryInterface.createTable(DEPOSIT_TABLE, depositSchema);
-  }, 
+  },
 
   async down(queryInterface) {
     await queryInterface.dropTable(ROLE_TABLE);
