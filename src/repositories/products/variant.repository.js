@@ -2,7 +2,7 @@ const { ProductModel } = require("../../models/products/products.entity");
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity')
 
 class VariantRepository {
-  constructor() {}
+  constructor() { }
 
   async getAll() {
     const variants = await VariantProductModel.findAll({
@@ -41,7 +41,7 @@ class VariantRepository {
     try {
       const productVariant = await VariantProductModel.findByPk(id, options);
       if (!productVariant) throw new Error('Producto variante no encontrado.');
-  
+
       productVariant.stock = newStock;
       await productVariant.save(options);
       return productVariant;
@@ -56,19 +56,28 @@ class VariantRepository {
   }
 
 
-  async updateImage (id , image_url){
-    try{
+  async existingVariant(grammage, id_product) {
+    const variant = await VariantProductModel.findOne({
+      where: { grammage, id_product }
+
+    })
+    return variant
+  }
+
+
+  async updateImage(id, image_url) {
+    try {
 
       const variantImage = await VariantProductModel.findByPk(id);
 
-      if(!variantImage) throw new Error("variant undefined")
+      if (!variantImage) throw new Error("variant undefined")
 
-      await variantImage.update({image_url});
+      await variantImage.update({ image_url });
 
       return image_url
-        
-    }catch(error){
-        throw error;
+
+    } catch (error) {
+      throw error;
     }
   }
 }

@@ -32,7 +32,11 @@ class VariantController {
   async create(req, res) {
     try {
       const variantData = req.body;
-      const newVariant = await this.variantService.create(variantData);
+      const data = {
+        grammage : variantData.grammage,
+        id_product : variantData.id_product,
+      }
+      const newVariant = await this.variantService.create(data);
       res.status(201).json(newVariant);
     } catch (error) {
       console.error("Error creating new variant:", error);
