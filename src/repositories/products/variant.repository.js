@@ -55,7 +55,6 @@ class VariantRepository {
     return variant;
   }
 
-
   async existingVariant(grammage, id_product) {
     const variant = await VariantProductModel.findOne({
       where: { grammage, id_product }
@@ -63,7 +62,6 @@ class VariantRepository {
     })
     return variant
   }
-
 
   async updateImage(id, image_url) {
     try {

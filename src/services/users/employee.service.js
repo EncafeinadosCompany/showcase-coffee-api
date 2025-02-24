@@ -44,9 +44,9 @@ class EmployeeService {
 
             const employee = await this.employeeRepository.createEmployee(employeeFinal);
 
-            this.userService.sendEmail(email, password).catch(error => {
-                console.error('Error sending email:', error);
-            });
+            // this.userService.sendEmail(email, password).catch(error => {
+            //     console.error('Error sending email:', error);
+            // });
 
             return employee;
         } catch (error) {

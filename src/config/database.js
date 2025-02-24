@@ -13,7 +13,7 @@ const baseConfig = {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT || 'postgres',
-    logging: true,
+    logging: false,
     define: {
         timestamps: true,
         underscored: true,
