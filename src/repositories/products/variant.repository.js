@@ -32,10 +32,21 @@ class VariantRepository {
     return !variant ? null : variant;
   }
 
-  async create(variantData) {
-    const newVariant = await VariantProductModel.create(variantData);
-    return newVariant;
+ 
+
+  async create(grammage, id_product) {
+    try {
+      const variant = await VariantProductModel.create({grammage, id_product});
+      return variant;
+  
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Variant creation failed: ${error.message}`);
+    }
   }
+
+
+
 
   async updateStock(id, newStock, options = {}) {
     try {
@@ -56,12 +67,20 @@ class VariantRepository {
   }
 
   async existingVariant(grammage, id_product) {
-    const variant = await VariantProductModel.findOne({
-      where: { grammage, id_product }
+    try {
+      const variant = await VariantProductModel.findOne({
+        where: { 
+          grammage: grammage, 
+          id_product: id_product }
+      });
 
-    })
-    return variant
-  }
+      return (!variant) ? null : variant;
+
+       
+    }catch(err) {
+    console.log(err);
+    throw new Error(`variant creation failed: ${err.message}`)
+  }}
 
   async updateImage(id, image_url) {
     try {

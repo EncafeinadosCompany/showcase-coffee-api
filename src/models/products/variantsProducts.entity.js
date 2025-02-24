@@ -7,7 +7,7 @@ const variantProductSchema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
   grammage: {
     type: DataTypes.STRING(10),
@@ -77,13 +77,7 @@ class VariantProductModel extends Model {
       sequelize,
       tableName: VARIANT_PRODUCT_TABLE,
       modelName: "VariantProductModel",
-      timestamps: false,
-      indexes:[
-        {
-          unique: true,
-          fields: ["grammage", "id_product"]
-        }
-      ]
+      timestamps: false
     };
   }
 }
