@@ -63,6 +63,10 @@ class BrandRepository {
     async create (brand){
         return await BrandModel.create(brand) 
     }
+
+    async countBrands() {
+      return await BrandModel.count();
+  }
 }
 
 module.exports = BrandRepository;

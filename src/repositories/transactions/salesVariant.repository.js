@@ -185,6 +185,80 @@ class SaleVariantRepository {
         }
     }
     
+    async getSalesByMonthAndYear(month, year) {
+        const startDate = new Date(year, month - 1, 1); 
+        const endDate = new Date(year, month, 0); 
+
+        const sales = await SalesVariantModel.findAll({
+            where: {
+                created_at: {
+                    [Op.between]: [startDate, endDate], 
+                },
+            },
+            include: [
+                {
+                    model: ShoppingVariantModel,
+                    as: 'shoppingVariant',
+                    attributes: ['shopping_price', 'sale_price'],
+                },
+            ],
+        });
+
+        return sales;
+    }
+
+    async getSalesByYear(year) {
+        const startDate = new Date(year, 0, 1); 
+        const endDate = new Date(year, 11, 31); 
+
+        const sales = await SalesVariantModel.findAll({
+            where: {
+                created_at: {
+                    [Op.between]: [startDate, endDate], 
+                },
+            },
+            include: [
+                {
+                    model: ShoppingVariantModel,
+                    as: 'shoppingVariant',
+                    attributes: ['shopping_price', 'sale_price'],
+                },
+            ],
+        });
+
+        return sales;
+    }
+
+    async getSalesCountByMonth(month, year) {
+        const startDate = new Date(year, month - 1, 1); // Primer día del mes
+        const endDate = new Date(year, month, 0); // Último día del mes
+
+        const salesCount = await SalesVariantModel.count({
+            where: {
+                created_at: {
+                    [Op.between]: [startDate, endDate], // Filtra por el rango de fechas
+                },
+            },
+        });
+
+        return salesCount;
+    }
+
+    // Método para obtener la cantidad de ventas del año
+    async getSalesCountByYear(year) {
+        const startDate = new Date(year, 0, 1); // Primer día del año
+        const endDate = new Date(year, 11, 31); // Último día del año
+
+        const salesCount = await SalesVariantModel.count({
+            where: {
+                created_at: {
+                    [Op.between]: [startDate, endDate], // Filtra por el rango de fechas
+                },
+            },
+        });
+
+        return salesCount;
+    }
 
 
 }

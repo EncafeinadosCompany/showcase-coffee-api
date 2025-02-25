@@ -82,6 +82,81 @@ class DashboardController {
             res.status(500).json({ error: 'Error fetching total liquidation' });
         }
     }
+
+    async getTotalBrands(req, res) {
+        try {
+            const totalBrands = await this.dashboardService.getTotalBrands();
+            res.status(200).json({ totalBrands });
+        } catch (error) {
+            console.error('Error fetching total brands:', error.message);
+            res.status(500).json({ error: 'Error fetching total brands' });
+        }
+    }
+
+    async getTotalSalesByMonth(req, res) {
+        try {
+            const { month, year } = req.body;
+
+            if (isNaN(month) || isNaN(year)) {
+                return res.status(400).json({ error: "Month and year are required." });
+            }
+
+            const totalSales = await this.dashboardService.getTotalSalesByMonth(Number(month), Number(year));
+            res.status(200).json({ totalSales });
+        } catch (error) {
+            console.error('Error fetching total sales by month:', error.message);
+            res.status(500).json({ error: 'Error fetching total sales by month.' });
+        }
+    }
+
+    async getTotalSalesByYear(req, res) {
+        try {
+            const { year } = req.body;
+
+            if (isNaN(year)) {
+                return res.status(400).json({ error: "Year is required." });
+            }
+
+            const totalSales = await this.dashboardService.getTotalSalesByYear(Number(year));
+            res.status(200).json({ totalSales });
+        } catch (error) {
+            console.error('Error fetching total sales by year:', error.message);
+            res.status(500).json({ error: 'Error fetching total sales by year.' });
+        }
+    }
+
+    async getSalesCountByMonth(req, res) {
+        try {
+            const { month, year } = req.body;
+
+            if (isNaN(month) || isNaN(year)) {
+                return res.status(400).json({ error: "Month and year are required." });
+            }
+
+            const salesCount = await this.dashboardService.getSalesCountByMonth(Number(month), Number(year));
+            res.status(200).json({ salesCount });
+        } catch (error) {
+            console.error('Error fetching sales count by month:', error.message);
+            res.status(500).json({ error: 'Error fetching sales count by month.' });
+        }
+    }
+
+    // Método para obtener la cantidad de ventas del año
+    async getSalesCountByYear(req, res) {
+        try {
+            const { year } = req.body;
+
+            if (isNaN(year)) {
+                return res.status(400).json({ error: "Year is required." });
+            }
+
+            const salesCount = await this.dashboardService.getSalesCountByYear(Number(year));
+            res.status(200).json({ salesCount });
+        } catch (error) {
+            console.error('Error fetching sales count by year:', error.message);
+            res.status(500).json({ error: 'Error fetching sales count by year.' });
+        }
+    }
 }
 
 module.exports = DashboardController;

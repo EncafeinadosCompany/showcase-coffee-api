@@ -1,10 +1,12 @@
 class DashboardService {
 
-    constructor(SalesVariantRepository, ShoppingVariantRepository, LiquidationRepository, DepositRepository) {
+    constructor(SalesVariantRepository, ShoppingVariantRepository, LiquidationRepository, DepositRepository, BrandsRepository) {
         this.salesVariantRepository = SalesVariantRepository;
         this.liquidationRepository = LiquidationRepository;
         this.depositRepository = DepositRepository;
         this.shoppingVariantRepository = ShoppingVariantRepository;
+        this.brandsRepository = BrandsRepository;
+
     };
 
     async productTop(month, year) {
@@ -108,6 +110,72 @@ class DashboardService {
             throw new Error('Error fetching yearly earnings.');
         }
     }
+
+    async getTotalBrands() {
+        try {
+            const totalBrands = await this.brandsRepository.countBrands();
+            return totalBrands;
+        } catch (error) {
+            console.error('Error fetching total brands:', error.message);
+            throw new Error('Error fetching total brands.');
+        }
+    }
+
+    async getTotalSalesByMonth(month, year) {
+        try {
+            const sales = await this.salesVariantRepository.getSalesByMonthAndYear(month, year);
+
+            let totalSales = 0;
+            sales.forEach((sale) => {
+                const { sale_price } = sale.shoppingVariant;
+                totalSales += sale_price * sale.quantity;
+            });
+
+            return totalSales;
+        } catch (error) {
+            console.error('Error fetching total sales by month:', error.message);
+            throw new Error('Error fetching total sales by month.');
+        }
+    }
+
+    // Método para obtener el total de ventas del año
+    async getTotalSalesByYear(year) {
+        try {
+            const sales = await this.salesVariantRepository.getSalesByYear(year);
+
+            let totalSales = 0;
+            sales.forEach((sale) => {
+                const { sale_price } = sale.shoppingVariant;
+                totalSales += sale_price * sale.quantity;
+            });
+
+            return totalSales;
+        } catch (error) {
+            console.error('Error fetching total sales by year:', error.message);
+            throw new Error('Error fetching total sales by year.');
+        }
+    }
+    async getSalesCountByMonth(month, year) {
+        try {
+            const salesCount = await this.salesVariantRepository.getSalesCountByMonth(month, year);
+            return salesCount;
+        } catch (error) {
+            console.error('Error fetching sales count by month:', error.message);
+            throw new Error('Error fetching sales count by month.');
+        }
+    }
+
+    // Método para obtener la cantidad de ventas del año
+    async getSalesCountByYear(year) {
+        try {
+            const salesCount = await this.salesVariantRepository.getSalesCountByYear(year);
+            return salesCount;
+        } catch (error) {
+            console.error('Error fetching sales count by year:', error.message);
+            throw new Error('Error fetching sales count by year.');
+        }
+    }
+
 }
 
 module.exports = DashboardService;
