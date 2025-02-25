@@ -12,7 +12,27 @@ class VariantService {
   }
 
   async create(variantData) {
-    return await this.variantRepository.create(variantData);
+    if (!variantData.grammage || !variantData.id_product) {
+      throw new Error("grammage and id_product are required.");
+    }
+ 
+    try {
+
+      const existingVariant = await this.variantRepository.existingVariant(variantData.grammage, variantData.id_product);
+  
+      if (existingVariant) throw new Error('SERVICE: A variant with the same grammage already exists for this product.')
+  
+      const variant = await this.variantRepository.create(variantData.grammage , variantData.id_product);
+
+      if(!variant) throw new Error('SERVICE: Variant creation failed');
+
+      return  variant;
+
+    }catch(err) {
+      console.log(err);
+      throw new Error(`variant creation failed: ${err.message}`)
+    }
+   
   }
 
   async updateImage(id, image_url) {

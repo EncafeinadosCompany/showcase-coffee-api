@@ -1,6 +1,5 @@
-const express = require('express');
-
 class AttributeController {
+
     constructor(AttributeService) {
         this.attributeService = AttributeService;
     }

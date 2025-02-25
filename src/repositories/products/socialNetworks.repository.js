@@ -10,7 +10,6 @@ class SocialNetworksRepository {
     }
 
     async getNetworkById(id){
-        console.log('id',id)
         return await SocialNetworkModel.findByPk(id);
     }
 

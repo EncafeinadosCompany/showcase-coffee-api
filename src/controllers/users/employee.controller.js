@@ -45,14 +45,13 @@ class EmployeeController {
     }
   };
 
-  async getUserByProvider(req, res){
+  async getUserByProvider(req, res) {
     try {
       const { id_provider } = req.params;
-      console.log(id_provider)
       const employees = await this.employeeService.getEmployeeByProvider(id_provider);
 
       return res.status(201).json(employees);
-    }catch(error){
+    } catch (error) {
       console.error('Error getting employee:', error);
       return res.status(500).json({ message: 'Internal server error' });
     }

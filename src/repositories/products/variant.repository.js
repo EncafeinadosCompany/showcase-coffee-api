@@ -2,7 +2,7 @@ const { ProductModel } = require("../../models/products/products.entity");
 const { VariantProductModel } = require('../../models/products/variantsProducts.entity')
 
 class VariantRepository {
-  constructor() {}
+  constructor() { }
 
   async getAll() {
     const variants = await VariantProductModel.findAll({
@@ -32,16 +32,27 @@ class VariantRepository {
     return !variant ? null : variant;
   }
 
-  async create(variantData) {
-    const newVariant = await VariantProductModel.create(variantData);
-    return newVariant;
+ 
+
+  async create(grammage, id_product) {
+    try {
+      const variant = await VariantProductModel.create({grammage, id_product});
+      return variant;
+  
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Variant creation failed: ${error.message}`);
+    }
   }
+
+
+
 
   async updateStock(id, newStock, options = {}) {
     try {
       const productVariant = await VariantProductModel.findByPk(id, options);
       if (!productVariant) throw new Error('Producto variante no encontrado.');
-  
+
       productVariant.stock = newStock;
       await productVariant.save(options);
       return productVariant;
@@ -55,20 +66,35 @@ class VariantRepository {
     return variant;
   }
 
+  async existingVariant(grammage, id_product) {
+    try {
+      const variant = await VariantProductModel.findOne({
+        where: { 
+          grammage: grammage, 
+          id_product: id_product }
+      });
 
-  async updateImage (id , image_url){
-    try{
+      return (!variant) ? null : variant;
+
+       
+    }catch(err) {
+    console.log(err);
+    throw new Error(`variant creation failed: ${err.message}`)
+  }}
+
+  async updateImage(id, image_url) {
+    try {
 
       const variantImage = await VariantProductModel.findByPk(id);
 
-      if(!variantImage) throw new Error("variant undefined")
+      if (!variantImage) throw new Error("variant undefined")
 
-      await variantImage.update({image_url});
+      await variantImage.update({ image_url });
 
       return image_url
-        
-    }catch(error){
-        throw error;
+
+    } catch (error) {
+      throw error;
     }
   }
 }

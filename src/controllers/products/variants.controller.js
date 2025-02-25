@@ -1,4 +1,5 @@
 class VariantController {
+
   constructor(VariantService) {
     this.variantService = VariantService;
   }
@@ -32,8 +33,16 @@ class VariantController {
   async create(req, res) {
     try {
       const variantData = req.body;
-      const newVariant = await this.variantService.create(variantData);
-      res.status(201).json(newVariant);
+      const data = { grammage : variantData.grammage, id_product : variantData.id_product}
+      
+      const newVariant = await this.variantService.create(data);
+
+      if (!newVariant) {
+        return res.status(404).json({ message: 'CONTROLLER: Variant creation failed' });
+      }
+
+      return res.status(201).json(newVariant);
+
     } catch (error) {
       console.error("Error creating new variant:", error);
       res.status(500).json({ message: error.message });

@@ -74,7 +74,7 @@ class ProviderController {
       res.status(500).json({ error: `Error fetching provider: ${error.message}` });
     }
   };
-  
+
 }
 
 module.exports = { ProviderController };
