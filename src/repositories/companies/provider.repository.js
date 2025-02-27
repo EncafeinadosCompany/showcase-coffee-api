@@ -55,5 +55,49 @@ class ProviderRepository {
           ],
         });
       }
+
+      async updateProvider(id, providerData) {
+        const transaction = await ProviderModel.sequelize.transaction();
+        try {
+            const [updatedRows] = await ProviderModel.update(providerData, {
+                where: { id },
+                transaction,
+            });
+
+            if (updatedRows === 0) {
+                throw new Error("Provider not found");
+            }
+
+            await transaction.commit();
+            return updatedRows;
+        } catch (error) {
+            await transaction.rollback();
+            throw error;
+        }
+    }
+
+    // Nuevo método para actualizar cuentas bancarias
+    async updateBankAccounts(providerId, bankAccounts) {
+        const transaction = await BankAccountModel.sequelize.transaction();
+        try {
+            // Eliminar cuentas bancarias existentes
+            await BankAccountModel.destroy({
+                where: { id_provider: providerId },
+                transaction,
+            });
+
+           
+            const createdBankAccounts = await BankAccountModel.bulkCreate(
+                bankAccounts.map((account) => ({ ...account, id_provider: providerId })),
+                { transaction }
+            );
+
+            await transaction.commit();
+            return createdBankAccounts;
+        } catch (error) {
+            await transaction.rollback();
+            throw error;
+        }
+    }
 }
 module.exports = { ProviderRepository };
