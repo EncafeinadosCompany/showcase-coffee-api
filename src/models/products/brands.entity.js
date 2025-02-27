@@ -18,11 +18,11 @@ const brandSchema = {
     allowNull: true,
   },
   purpose:{
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(500),
     allowNull: true,
   },
   description: {
-    type: DataTypes.STRING(150),
+    type: DataTypes.STRING(500),
     allowNull: true
   },
   created_at: {

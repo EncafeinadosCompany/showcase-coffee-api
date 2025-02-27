@@ -7,7 +7,6 @@ const employeeValidation = [
     idValidation('id_user'),
 
     body('identification')
-        .notEmpty().withMessage('Identification is required')
         .matches(/^[0-9]{5,10}$/).withMessage('Identification must be a number with 5 to 10 digits'),
 
     nameValidation('name'),

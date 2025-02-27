@@ -11,7 +11,7 @@ const attributeProductSchema = {
     primaryKey: true
   },
   value: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(300),
     allowNull: false
   },
   id_attribute: {
