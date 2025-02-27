@@ -13,6 +13,7 @@ const providerController = new ProviderController(providerService);
 router
     .post('/',authenticateJWT, (req, res) => providerController.createProvider(req, res))
     .get('/',authenticateJWT, (req, res) => providerController.getAllProviders(req, res))
-    .get('/:id',authenticateJWT, (req, res) => providerController.getProviderById(req, res));
+    .get('/:id',authenticateJWT, (req, res) => providerController.getProviderById(req, res))
+    .put('/:id', authenticateJWT, (req, res) => providerController.updateProvider(req, res));
 
 module.exports =  router ;

@@ -75,6 +75,39 @@ class ProviderController {
     }
   };
 
+  async updateProvider(req, res) {
+    try {
+      const { id } = req.params;
+      const providerData = req.body;
+
+      const existingProvider = await this.providerService.getProviderById(id);
+      if (!existingProvider) {
+        return res.status(404).json({ message: "Provider not found" });
+      }
+      if (providerData.nit && providerData.nit !== existingProvider.nit) {
+        const existingProviderByNit = await this.providerService.getProviderByNit(providerData.nit);
+        if (existingProviderByNit) {
+          return res.status(400).json({ error: "Provider with this NIT already exists." });
+        }
+      }
+
+      if (providerData.email && providerData.email !== existingProvider.email) {
+        const existingProviderByEmail = await this.providerService.getProviderByEmail(providerData.email);
+        if (existingProviderByEmail) {
+          return res.status(400).json({ error: "Provider with this email already exists." });
+        }
+      }
+      const updatedProvider = await this.providerService.updateProvider(id, providerData);
+      res.status(200).json({ 
+        message: "Provider updated successfully",
+        provider: updatedProvider 
+      });
+    } catch (error) {
+      console.error('Error updating provider:', error);
+      res.status(500).json({ error: error.message });
+    }
+}
+
 }
 
 module.exports = { ProviderController };

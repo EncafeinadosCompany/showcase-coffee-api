@@ -40,6 +40,27 @@ class ProviderService {
     async getProviderByEmail(email) {
       return await this.providerRepository.getProviderByEmail(email);
     }
+
+    async updateProvider(id, providerData) {
+      const { bankAccounts, ...provider } = providerData;
+
+      const transaction = await ProviderModel.sequelize.transaction();
+      try {
+         
+          const updatedProvider = await this.providerRepository.updateProvider(id, provider, { transaction });
+
+       
+          if (bankAccounts && bankAccounts.length > 0) {
+              await this.providerRepository.updateBankAccounts(id, bankAccounts, { transaction });
+          }
+
+          await transaction.commit();
+          return updatedProvider;
+      } catch (error) {
+          await transaction.rollback();
+          throw error;
+      }
+  }
 }
 
 module.exports = { ProviderService };
