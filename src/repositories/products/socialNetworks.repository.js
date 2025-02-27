@@ -43,6 +43,12 @@ class SocialNetworksRepository {
         }
     }
 
+    async deleteAllByBrandId(id_brand) {
+        await SocialBrandModel.destroy({where: { id_brand }});
+        console.log(`✅ Deleted all social networks for brand with ID: ${id_brand}`);
+
+    }
+
     async update(id_social_network, data) {
         try {
             const [updatedRows] = await  SocialBrandModel.update(data, {

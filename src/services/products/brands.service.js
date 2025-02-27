@@ -39,12 +39,15 @@ class BrandService {
         try {
             await this.brandRepository.update(id, data);
     
-            if (Array.isArray(data.social_networks) && data.social_networks.length > 0) {
-                      
-                const existingNetworks = await this.socialNetworksRepository.getByBrandId(id);
-                const existingIds = new Set(existingNetworks.map(n => n.id_social_network));
+            const existingNetworks = await this.socialNetworksRepository.getByBrandId(id);
+            const existingIds = new Set(existingNetworks.map(n => n.id_social_network));
     
-               
+            if (!data.social_networks || data.social_networks.length === 0) {
+                if (existingIds.size > 0) {
+                    await this.socialNetworksRepository.deleteAllByBrandId(id);
+                }
+            } else {
+
                 const newIds = new Set(data.social_networks.map(n => n.id_social_network));
                 const idsToDelete = [...existingIds].filter(id => !newIds.has(id));
     
