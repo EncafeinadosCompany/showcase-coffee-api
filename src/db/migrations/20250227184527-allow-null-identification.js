@@ -1,5 +1,6 @@
 'use strict';
-import {EMPLOYEE_TABLE} from "../../models/users/employees.entity"
+
+const {EMPLOYEE_TABLE} = require("../../models/users/employees.entity");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
