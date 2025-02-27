@@ -54,6 +54,21 @@ class BrandController {
             res.status(500).json({ error: error.message })
         }
     }
+
+    async update (req,res){
+        const {id} = req.params
+        const data = req.body
+        try {
+            const brands = await this.brandService.updateBrand( id, data);
+            
+            (!brands)
+                ? res.status(404).json({message: `Brand with id ${id} not found`}) 
+                : res.status(200).json(brands);
+        }catch (error){
+            console.log('Error updating brand:', error);
+            res.status(500).json({error: error.message})
+        }
+    }
 }
 
 module.exports = BrandController;

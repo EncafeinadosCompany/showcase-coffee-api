@@ -64,6 +64,12 @@ class ProductRepository {
     return !product ? null : product;
   };
 
+  // async findProduct (id){
+  //   const product = await ProductModel.findByPk(id);
+  //   return !product ? null : product;
+  
+  // }
+
   async create(product) {
     const newProduct = await ProductModel.create(product);
     return newProduct;
@@ -79,6 +85,21 @@ class ProductRepository {
       await productImage.update({ image_url });
 
       return image_url
+
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  async update(id, product) {
+    try {
+      const productUpdate = await ProductModel.findByPk(id);
+
+      if (!productUpdate) throw new Error("product undefined")
+
+      await productUpdate.update(product);
+
+      return productUpdate;
 
     } catch (error) {
       throw error;

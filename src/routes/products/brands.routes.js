@@ -22,7 +22,7 @@ const brandController = new BrandController(brandService);
         .get('/', authenticateJWT, (req, res) => brandController.getAll(req, res))
         .get('/socialNetworks', authenticateJWT, (req, res) => brandController.getAllSocialNetworks(req, res))
         .get('/:id', authenticateJWT, (req, res) => brandController.getById(req, res))
-        .post('/', authenticateJWT, brandValidation, (req , res) => brandController.create(req, res));
-
+        .post('/', authenticateJWT, brandValidation, (req , res) => brandController.create(req, res))
+        .put('/:id', brandValidation, (req , res) => brandController.update(req, res));
         
 module.exports = router;

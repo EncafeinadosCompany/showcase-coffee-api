@@ -51,6 +51,27 @@ class ProductService {
     async updateImage(id, image_url) {
         return await this.productRepository.updateImage(id, image_url);
     }
+
+    async updateProduct (id , product) {
+
+        try{
+            const newProduct = await this.productRepository.update(id, product);
+           
+
+            if(product.attributes && product.attributes.length > 0){
+                
+                const filterAttributes = await this.attributeProductsRepository.filterDrop(id);
+                console.table(filterAttributes.dataValues)
+                return filterAttributes;
+
+            }
+
+
+            return newProduct;
+        }catch(error){
+            throw new Error('SERVICE: ' + error.message);
+        }
+    }
 }
 
 module.exports = ProductService;

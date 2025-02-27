@@ -21,6 +21,7 @@ const productController = new ProductController(productService);
 router
     .get('/', authenticateJWT, (req, res) => productController.getAll(req, res))
     .get('/:id', authenticateJWT, (req, res) => productController.getById(req, res))
-    .post('/', authenticateJWT, productValidation, (req, res) => productController.create(req, res));
+    .post('/', authenticateJWT, productValidation, (req, res) => productController.create(req, res))
+    .put('/:id', productValidation, (req, res) => productController.updateProduct(req, res));
 
 module.exports = router;

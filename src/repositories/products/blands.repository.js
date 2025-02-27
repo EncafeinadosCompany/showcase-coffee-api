@@ -64,6 +64,23 @@ class BrandRepository {
         return await BrandModel.create(brand) 
     }
 
+    
+
+
+    async update(id, brand) {
+      const brandUpdate = await BrandModel.findByPk(id);
+      
+      if (!brandUpdate) throw new Error("Brand not found");
+  
+      const [updatedRows] = await BrandModel.update(brand, { where: { id } });
+  
+      if (updatedRows === 0) {
+          throw new Error(`No se pudo actualizar la marca con ID ${id}`);
+      }
+  
+      return await BrandModel.findByPk(id); 
+  }
+
     async countBrands() {
       return await BrandModel.count();
   }

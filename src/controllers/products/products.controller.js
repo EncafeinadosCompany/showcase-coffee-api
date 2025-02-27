@@ -50,6 +50,23 @@ class ProductController {
             res.status(500).json({ error: error.message })
         }
     }
+
+    async updateProduct (req, res) {
+        const  {id}  = req.params;
+        const product = req.body;
+
+        if (!id) {
+            return res.status(400).json({ message: "Missing product ID in request" });
+        }
+
+        try {
+            const updatedProduct = await this.productService.updateProduct(id, product);
+            res.status(200).json(updatedProduct);
+        } catch (error) {
+            console.error(`Error updating product with id ${id}:`, error);
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 module.exports = ProductController;

@@ -16,6 +16,13 @@ class SocialNetworksRepository {
     async createSocialNetworks(network){
         return await SocialBrandModel.create(network);
     }
+
+
+    async delete (id){
+        await SocialBrandModel.destroy({where: {id_brand: id}})
+        return true     
+    }
+
 }
 
 module.exports = SocialNetworksRepository 

@@ -29,7 +29,6 @@ class AttributeService {
         const transaction = await sequelize.transaction();
 
         try{
-
             const newAttribute = await this.attributeRepository.create(attributeData , {transaction});
 
             await transaction.commit();
