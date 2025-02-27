@@ -14,6 +14,7 @@ class BrandService {
         return await this.brandRepository.getById(id);
     }
 
+
     async getAllSocialNetworks() {
         return await this.socialNetworksRepository.getAllNetworks();
     }
@@ -34,55 +35,50 @@ class BrandService {
         return brand;
     };
 
-    async updateBrand(id ,data) {
-
-        try {      
-            if (!id) {
-                throw new Error("ID de marca no proporcionado");
-            }
-
-         await this.brandRepository.update(id, data);
-
-        if(Array.isArray(data.social_networks) && data.social_networks.length > 0){
-
-            console.log('DATA', data.social_networks)
-
-           
-            // firts delete all networks
-            await this.socialNetworksRepository.delete(id);
-            // then create the new ones
-
-            await Promise.all(
-                data.social_networks.map((network) =>
-                    this.socialNetworksRepository.createSocialNetworks({
-                        id_brand: id,
-                        id_social_network: network.id_social_network,
-                        description: network.description,
-                        url: network.url
+    async updateBrand(id, data) {
+        try {
+            await this.brandRepository.update(id, data);
+    
+            if (Array.isArray(data.social_networks) && data.social_networks.length > 0) {
+                      
+                const existingNetworks = await this.socialNetworksRepository.getByBrandId(id);
+                const existingIds = new Set(existingNetworks.map(n => n.id_social_network));
+    
+               
+                const newIds = new Set(data.social_networks.map(n => n.id_social_network));
+                const idsToDelete = [...existingIds].filter(id => !newIds.has(id));
+    
+                if (idsToDelete.length > 0) {
+                    await this.socialNetworksRepository.deleteByIds(id, idsToDelete);
+                }
+    
+                await Promise.all(
+                    data.social_networks.map(async (network) => {
+                        if (existingIds.has(network.id_social_network)) {
+                            await this.socialNetworksRepository.update(network.id_social_network, {
+                                description: network.description,
+                                url: network.url
+                            });
+                        } else {
+                            await this.socialNetworksRepository.createSocialNetworks({
+                                id_brand: id,
+                                id_social_network: network.id_social_network,
+                                description: network.description,
+                                url: network.url || ""
+                            });
+                        }
                     })
-                )
-            );
-
-        }
-        return await this.brandRepository.getById(id);
-        }catch(error){
-            console.log ('SERVICE', error.message)
+                );
+            }
+    
+            return await this.brandRepository.getById(id);
+    
+        } catch (error) {
+            console.error('🚨 ERROR EN updateBrand:', error.message);
             throw new Error('SERVICE: ' + error.message);
         }
-
-
-        // if(data.social_networks){
-        //     data.social_networks.map(async (network) => {
-        //         await this.socialNetworksRepository.update({
-        //             id_brand: brand.id,
-        //             id_social_network: network.id_social_network,
-        //             description: network.description,
-        //             url: network.url
-        //         });
-        //     });
-        // }
-        
     }
+    
 
 }
 

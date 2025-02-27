@@ -59,6 +59,11 @@ class BrandController {
         const {id} = req.params
         const data = req.body
         try {
+
+            if (!id) {
+                return res.status(400).json({ message: "Missing brand ID in request" });
+            }
+
             const brands = await this.brandService.updateBrand( id, data);
             
             (!brands)
