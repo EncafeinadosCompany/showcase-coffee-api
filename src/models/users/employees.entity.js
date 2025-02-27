@@ -14,7 +14,7 @@ const employeeSchema = {
   identification: {
     type: DataTypes.STRING,
     unique: true,
-    allowNull: false,
+    allowNull: true,
   },
   name: {
     type: DataTypes.STRING,
