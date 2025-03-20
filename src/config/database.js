@@ -7,6 +7,8 @@ dotenv.config({ path: path.resolve(process.cwd(), `.env.${env}`) });
 
 const isSSL = process.env.DB_SSL_MODE === "true";
 
+console.log(`🚀 Environment ${env} DB ${process.env.DATABASE_URL}`);
+
 const baseConfig = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
