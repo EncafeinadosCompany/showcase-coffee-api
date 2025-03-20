@@ -35,21 +35,15 @@ const baseConfig = {
 module.exports = {
   development: baseConfig,
   production: {
-    dialect: process.env.DB_DIALECT || "postgres",
-    logging: false,
     use_env_variable: "DATABASE_URL",
-    define: {
-      timestamps: true,
-      underscored: true,
+    dialect: "postgres",
+    logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
     },
-    dialectOptions: isSSL
-      ? {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false,
-          },
-        }
-      : {},
   },
   test: {
     dialect: "sqlite",
