@@ -6,9 +6,22 @@ const { USER_TABLE } = require("../../models/users/users.entity");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    console.log("🚀 Checking if users table is empty...");
+
+    const [results, metadata] = await queryInterface.sequelize.query(
+      `SELECT COUNT(*) AS count FROM ${USER_TABLE};`
+    );
+
+    if (results[0].count > 0) {
+      console.log("⚠️ Users table is not empty. Skipping seed.");
+      return;
+    }
+
+    console.log("✅ Users table is empty. Seeding data...");
+
     const saltRounds = 10;
 
-    const users = [
+    await queryInterface.bulkInsert(USER_TABLE, [
       {
         id_role: 1,
         email: "admintienda@gmail.com",
@@ -19,13 +32,7 @@ module.exports = {
         email: "empleadoproveedor@gmail.com",
         password: await bcrypt.hash("Empleado123.", saltRounds),
       },
-    ];
-
-    for (const user of users) {
-      await User.upsert(user);
-    }
-
-    console.log("✅ Users seeded");
+    ]);
   },
 
   async down(queryInterface, Sequelize) {
