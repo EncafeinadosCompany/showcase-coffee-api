@@ -16,7 +16,7 @@
     "seed": "npx sequelize-cli db:seed:all",
     "seed:undo": "npx sequelize-cli db:seed:undo",
     "seed:undo:all": "npx sequelize-cli db:seed:undo:all",
-    "seed:order": "npx sequelize-cli db:seed --seed src/database/seeders/20250210-seed-index.js",
+    "seed:order": "env DATABASE_URL=$DATABASE_URL npx sequelize-cli db:seed --seed src/database/seeders/20250210-seed-index.js",
     "test": "cross-env NODE_ENV=test jest --runInBand"
   },
   "keywords": [],
