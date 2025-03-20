@@ -37,7 +37,7 @@ module.exports = {
   production: {
     dialect: process.env.DB_DIALECT || "postgres",
     logging: false,
-    url: process.env.DATABASE_URL,
+    use_env_variable: "DATABASE_URL",
     define: {
       timestamps: true,
       underscored: true,
