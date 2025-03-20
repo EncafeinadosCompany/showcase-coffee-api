@@ -35,7 +35,7 @@ const baseConfig = {
 module.exports = {
   development: baseConfig,
   production: {
-    url: process.env.DATABASE_URL,
+    use_env_variable: "DATABASE_URL",
     dialect: "postgres",
     logging: false,
     dialectOptions: {
