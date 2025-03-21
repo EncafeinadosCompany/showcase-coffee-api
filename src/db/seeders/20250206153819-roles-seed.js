@@ -20,9 +20,11 @@ module.exports = {
 
     await queryInterface.bulkInsert(ROLE_TABLE, [
       {
+        id: 1,
         name: "Administrador de Cafetería",
       },
       {
+        id: 2,
         name: "Empleado de Proveedor",
       },
     ]);
