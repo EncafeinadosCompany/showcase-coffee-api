@@ -6,8 +6,11 @@ const { STORE_TABLE } = require('../../models/companies/store.entity');
 module.exports = {
   async up(queryInterface, Sequelize) {
 
+    await queryInterface.bulkDelete(STORE_TABLE, null, {});
+
     await queryInterface.bulkInsert(STORE_TABLE, [
       {
+        id: 1,
         name: 'Tienda Central',
         email: 'central@tienda.com',
         phone: '1234567890',
@@ -18,6 +21,7 @@ module.exports = {
         updated_at: new Date(),
       },
       {
+        id: 2,
         name: 'Tienda Norte',
         email: 'norte@tienda.com',
         phone: '0987654321',
