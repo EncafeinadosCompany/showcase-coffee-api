@@ -6,7 +6,14 @@ const { STORE_TABLE } = require('../../models/companies/store.entity');
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    await queryInterface.bulkDelete(STORE_TABLE, null, {});
+    const [stores, metadata] = await queryInterface.sequelize.query(
+      `SELECT * FROM ${STORE_TABLE} WHERE id = 1`
+    );
+    if (stores.length > 0) {
+      console.log('⚠️ Stores table is not empty. Skipping seed.');
+      return;
+    }
+    console.log('✅ Stores table is empty. Seeding data...');
 
     await queryInterface.bulkInsert(STORE_TABLE, [
       {
