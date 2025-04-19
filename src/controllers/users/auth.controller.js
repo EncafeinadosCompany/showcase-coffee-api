@@ -13,6 +13,8 @@ class AuthController {
             const result = await this.authService.login(email, password);
             return res.status(200).json(result);
         } catch (error) {
+            console.error(error);
+
             if (error.statusCode) {
                 return res.status(error.statusCode).json({ message: error.message });
             }

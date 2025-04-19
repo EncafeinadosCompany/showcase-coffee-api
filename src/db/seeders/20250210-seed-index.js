@@ -20,21 +20,18 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await roleSeeder.up(queryInterface, Sequelize);
     await userSeeder.up(queryInterface, Sequelize);
-
-    if (process.env.NODE_ENV !== "production") {
-      await providerSeeder.up(queryInterface, Sequelize);
-      await bankAccountSeeder.up(queryInterface, Sequelize);
-      await storeSeeder.up(queryInterface, Sequelize);
-      await allianceSeeder.up(queryInterface, Sequelize);
-      await employeeSeeder.up(queryInterface, Sequelize);
-      await brandSeeder.up(queryInterface, Sequelize);
-      await socialNetworkSeeder.up(queryInterface, Sequelize);
-      await socialBrandSeeder.up(queryInterface, Sequelize);
-      await productSeeder.up(queryInterface, Sequelize);
-      await attributeSeeder.up(queryInterface, Sequelize);
-      await variantsSeeder.up(queryInterface, Sequelize);
-      await attributeProductsSeeder.up(queryInterface, Sequelize);
-    }
+    await socialNetworkSeeder.up(queryInterface, Sequelize);
+    await attributeProductsSeeder.up(queryInterface, Sequelize);
+    await providerSeeder.up(queryInterface, Sequelize);
+    await bankAccountSeeder.up(queryInterface, Sequelize);
+    await storeSeeder.up(queryInterface, Sequelize);
+    await allianceSeeder.up(queryInterface, Sequelize);
+    await employeeSeeder.up(queryInterface, Sequelize);
+    await brandSeeder.up(queryInterface, Sequelize);
+    await socialBrandSeeder.up(queryInterface, Sequelize);
+    await productSeeder.up(queryInterface, Sequelize);
+    await attributeSeeder.up(queryInterface, Sequelize);
+    await variantsSeeder.up(queryInterface, Sequelize);
   },
 
   async down(queryInterface, Sequelize) {

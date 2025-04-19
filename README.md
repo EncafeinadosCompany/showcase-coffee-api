@@ -91,7 +91,7 @@ DB_NAME=coffee_db
 DB_DIALECT=postgres
 DB_SSL_MODE=false
 
-JWT_SECRET=your_secret_key
+SECRET_KEY=your_secret_key
 
 EMAIL_USER=
 EMAIL_PASS=

@@ -7,7 +7,18 @@ dotenv.config({ path: path.resolve(process.cwd(), `.env.${env}`) });
 
 const isSSL = process.env.DB_SSL_MODE === "true";
 
-console.log(`🚀 Environment ${env} DB ${process.env.DATABASE_URL}`);
+console.log(`Connection data for ${env} environment:`);
+console.log(`DB_USER: ${process.env.DB_USER}`);
+
+if (env === "production" && !process.env.DATABASE_URL) {
+  console.error("DATABASE_URL is not set in production environment");
+  process.exit(1);
+}
+
+if (env === "development" && !process.env.DB_USER) {
+  console.error("DB_USER is not set in development environment");
+  process.exit(1);
+} 
 
 const baseConfig = {
   username: process.env.DB_USER,

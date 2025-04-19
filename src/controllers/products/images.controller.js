@@ -10,11 +10,12 @@ class ImagesController {
             const image_url = req.file.path;
 
             return res.status(200).json({
-                message: "¡Image successfully uploaded!",
+                message: "Image successfully uploaded!",
                 image_url
             });
 
         } catch (error) {
+            console.error(error);
             res.status(500).json({ message: error.message });
         }
     }
