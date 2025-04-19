@@ -4,6 +4,8 @@ const {SOCIAL_NETWORK_TABLE} = require('../../models/products/socialNetworks.ent
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
+
+      await queryInterface.bulkDelete(SOCIAL_NETWORK_TABLE, null, {});
   
       await queryInterface.bulkInsert( SOCIAL_NETWORK_TABLE, [
         {    
