@@ -6,6 +6,16 @@ const { EMPLOYEE_TABLE } = require('../../models/users/employees.entity');
 module.exports = {
   async up(queryInterface, Sequelize) {
 
+    const [employees, metadata] = await queryInterface.sequelize.query(
+      'SELECT * FROM employees'
+    );
+    if (employees.length > 0) {
+      console.log('Employees already exist, skipping seeding.');
+      return;
+    }
+
+    console.log('Seeding employees...');
+    
     await queryInterface.bulkInsert( EMPLOYEE_TABLE, [
       {
         id_user: 1,
