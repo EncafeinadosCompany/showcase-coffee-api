@@ -5,7 +5,14 @@ const { PROVIDER_TABLE } = require('../../models/companies/provider.entity');
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    await queryInterface.bulkDelete(PROVIDER_TABLE, null, {});
+    const [providers, metadata] = await queryInterface.sequelize.query(
+      `SELECT * FROM ${PROVIDER_TABLE}`
+    );
+    if (providers.length > 0) {
+      console.log('⚠️ Providers table is not empty. Skipping seed.');
+      return;
+    }
+    console.log('✅ Providers table is empty. Seeding data...');
 
     await queryInterface.bulkInsert(PROVIDER_TABLE, [
       {
