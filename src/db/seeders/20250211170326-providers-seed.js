@@ -9,6 +9,7 @@ module.exports = {
 
     await queryInterface.bulkInsert(PROVIDER_TABLE, [
       {
+        id: 1,
         name: 'Café Aroma',
         nit: '900200345-1',
         email: 'aroma@gmail.com',
@@ -19,6 +20,7 @@ module.exports = {
         updated_at: new Date(),
       },
       {
+        id: 2,
         name: 'Café Delicia',
         nit: '901300456-4',
         email: 'delicia@gmail.com',
