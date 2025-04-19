@@ -31,6 +31,7 @@ module.exports = {
       },
   ], {});
     
+    console.log('Social brands seeded successfully!');
   },
 
   async down (queryInterface, Sequelize) {

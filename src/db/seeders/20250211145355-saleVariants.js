@@ -18,6 +18,8 @@ module.exports = {
       }
 
     ]);
+
+    console.log('Sale variants seeded successfully!');
   },
 
   async down (queryInterface, Sequelize) {

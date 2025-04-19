@@ -32,6 +32,8 @@ module.exports = {
       }
 
     ]);
+
+    console.log('Bank accounts seeded successfully!');
   },
 
   async down(queryInterface, Sequelize) {

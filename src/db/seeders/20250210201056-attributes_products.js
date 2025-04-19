@@ -54,6 +54,7 @@ module.exports = {
 
     ]);
 
+    console.log('Attributes Products seeded successfully!');
   },
 
   async down(queryInterface) {

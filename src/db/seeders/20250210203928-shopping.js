@@ -58,6 +58,8 @@ module.exports = {
     }));
 
     await queryInterface.bulkInsert(SHOPPING_VARIANT_TABLE, shoppingVariantData);
+
+    console.log('Shopping seeded successfully!');
   },
 
   async down(queryInterface, Sequelize) {

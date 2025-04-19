@@ -16,6 +16,8 @@ module.exports = {
         updated_at: new Date()
       },
     ], {});
+
+    console.log('Deposits seeded successfully!');
   },
 
   async down(queryInterface, Sequelize) {

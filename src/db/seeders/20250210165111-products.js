@@ -25,6 +25,8 @@ module.exports = {
         updated_at: new Date(),
       },
     ]);
+
+    console.log("Products seeded successfully!");
   },
 
   async down(queryInterface) {

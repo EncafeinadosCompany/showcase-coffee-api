@@ -33,6 +33,8 @@ module.exports = {
         password: await bcrypt.hash("Empleado123.", saltRounds),
       },
     ]);
+
+    console.log("✅ Users seeded successfully!");
   },
 
   async down(queryInterface, Sequelize) {

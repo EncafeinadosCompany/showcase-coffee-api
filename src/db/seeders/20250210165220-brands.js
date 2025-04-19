@@ -21,6 +21,7 @@ module.exports = {
       },
     ])
     
+    console.log('Brands seeded successfully!')
   },
 
   async down (queryInterface, Sequelize) {

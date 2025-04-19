@@ -32,6 +32,8 @@ module.exports = {
       }
       
     ]);
+
+    console.log('Providers seeded successfully!');
   },
 
   async down(queryInterface, Sequelize) {

@@ -15,6 +15,8 @@ module.exports = {
         updated_at: new Date(),
       }
     ]);
+
+    console.log('Sales seeded successfully!');
   },
 
   async down (queryInterface, Sequelize) {

@@ -36,9 +36,9 @@ module.exports = {
         created_at: new Date(),
         updated_at: new Date(),
       }
-
     ]);
-  
+    
+    console.log("Variants seeded successfully!");
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete( VARIANT_PRODUCT_TABLE, null, {});

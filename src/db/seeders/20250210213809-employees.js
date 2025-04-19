@@ -39,6 +39,8 @@ module.exports = {
       }
 
     ]);
+
+    console.log('Employees seeded successfully!');
   },
 
   async down(queryInterface, Sequelize) {

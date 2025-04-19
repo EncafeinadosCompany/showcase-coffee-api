@@ -13,6 +13,8 @@ module.exports = {
       }
 
     ], {});
+
+    console.log('Liquidations seeded successfully!');
   },
 
   async down(queryInterface, Sequelize) {

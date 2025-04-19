@@ -37,6 +37,7 @@ module.exports = {
        
         ], {});
     
+      console.log('Social networks seeded successfully!');
   },
 
   async down (queryInterface, Sequelize) {
