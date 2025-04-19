@@ -4,8 +4,10 @@ const { PROVIDER_TABLE } = require('../../models/companies/provider.entity');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+
+    await queryInterface.bulkDelete(PROVIDER_TABLE, null, {});
+
     await queryInterface.bulkInsert(PROVIDER_TABLE, [
-      
       {
         name: 'Café Aroma',
         nit: '900200345-1',
