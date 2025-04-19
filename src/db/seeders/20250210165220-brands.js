@@ -6,8 +6,14 @@ const {BRAND_TABLE} = require ('../../models/products/brands.entity')
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-    await queryInterface.bulkDelete(BRAND_TABLE, null, {})
-
+    const [brands] = await queryInterface.sequelize.query(
+      `SELECT * FROM ${BRAND_TABLE}`
+    )
+    if (brands.length > 0) {
+      console.log('Brands already exist, skipping seed...')
+      return
+    }
+    console.log('Seeding brands...')
  
     await queryInterface.bulkInsert( BRAND_TABLE, [
       {

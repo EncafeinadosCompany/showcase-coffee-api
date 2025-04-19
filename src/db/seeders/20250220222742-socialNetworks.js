@@ -5,7 +5,14 @@ const {SOCIAL_NETWORK_TABLE} = require('../../models/products/socialNetworks.ent
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-      await queryInterface.bulkDelete(SOCIAL_NETWORK_TABLE, null, {});
+      const [socialNetworks, metadata] = await queryInterface.sequelize.query(
+        `SELECT * FROM ${SOCIAL_NETWORK_TABLE}`
+      );
+      if (socialNetworks.length > 0) {
+        console.log('Social networks already exist, skipping seeding.');
+        return;
+      }
+      console.log('Seeding social networks...');
   
       await queryInterface.bulkInsert( SOCIAL_NETWORK_TABLE, [
         {    

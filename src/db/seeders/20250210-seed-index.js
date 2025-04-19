@@ -30,7 +30,7 @@ module.exports = {
     await socialNetworkSeeder.up(queryInterface, Sequelize);
     await socialBrandSeeder.up(queryInterface, Sequelize);
     await productSeeder.up(queryInterface, Sequelize);
-    await attributeSeeder.up(queryInterface, Sequelize);
+    await attributeSeeder.up(queryInterface, Sequelize); //prod
     await variantsSeeder.up(queryInterface, Sequelize);
     await attributeProductsSeeder.up(queryInterface, Sequelize);
   

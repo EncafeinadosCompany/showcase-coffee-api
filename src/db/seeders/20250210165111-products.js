@@ -3,6 +3,16 @@ const { PRODUCT_TABLE } = require("../../models/products/products.entity");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface) {
+
+    const [products, metadata] = await queryInterface.sequelize.query(
+      `SELECT * FROM ${PRODUCT_TABLE}`
+    );
+    if (products.length > 0) {
+      console.log("Products already exist, skipping seeding.");
+      return;
+    }
+    console.log("Seeding products...");
+    
     await queryInterface.bulkInsert(PRODUCT_TABLE, [
       {
         name: "Café Juan Valdez Clásico",
