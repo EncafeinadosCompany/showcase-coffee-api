@@ -4,6 +4,8 @@ const { BANK_ACCOUNT_TABLE } = require("../../models/companies/bankAccounts.enti
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+
+    await queryInterface.bulkDelete(BANK_ACCOUNT_TABLE, null, {});
     
     await queryInterface.bulkInsert(BANK_ACCOUNT_TABLE, [
       {
